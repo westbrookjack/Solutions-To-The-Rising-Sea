@@ -1,0 +1,420 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{left=1.2in, right=1.2in, top=1.2in, bottom=1.2in}%change the margins here
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit,calc,}
+\usepackage[english]{babel}
+\usepackage{amsthm} %lets us use \begin{proof}
+\usepackage{amssymb} %gives us the character \varnothing
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[shortlabels]{enumitem}
+\usepackage{biblatex}
+%\addbibresource{references.bib}  % The filename of your .bib file
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage[all]{xy}
+\usepackage{mathrsfs}
+\usepackage{multirow}
+\usepackage{dsfont}
+\usepackage{adjustbox}
+\usepackage{titlesec}
+
+% Custom chapter format 
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Chapter \thesection}{1em}{}
+
+% Custom section format
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {Section \thesection.\arabic{subsection}}{1em}{}
+
+% Custom subsection format
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {Exercise \thesubsubsection}{0em}{}
+
+% Make subsections numbered with respect to sections
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% Make subsubsections numbered with respect to subsections
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\rddots}{\reflectbox{$\ddots$}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ctd}{\Rightarrow \Leftarrow}
+\newcommand{\actson}{\circlearrowright}
+\newcommand\mapsfrom{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\let\Section\S %Here I redefine the normal \S command to be the circle
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\HP}{\mathbb{HP}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\fA}{\mathscr{A}}
+\newcommand{\fB}{\mathscr{B}}
+\newcommand{\fC}{\mathscr{C}}
+\newcommand{\fD}{\mathscr{D}}
+\newcommand{\fE}{\mathscr{E}}
+\newcommand{\fF}{\mathscr{F}}
+\newcommand{\fG}{\mathscr{G}}
+\newcommand{\fH}{\mathscr{H}}
+\newcommand{\fI}{\mathscr{I}}
+\newcommand{\fJ}{\mathscr{J}}
+\newcommand{\fO}{\mathscr{O}}
+\newcommand{\fS}{\mathscr{S}}
+\newcommand{\fT}{\mathscr{T}}
+\newcommand{\frkA}{\mathfrak{A}}
+\newcommand{\frkS}{\mathfrak{S}}
+\newcommand{\frkm}{\mathfrak{m}}
+\newcommand{\frkn}{\mathfrak{n}}
+\newcommand{\frkp}{\mathfrak{p}}
+\newcommand{\frkq}{\mathfrak{q}}
+\newcommand{\frkl}{\mathfrak{l}}
+\newcommand{\frkN}{\mathfrak{N}}
+\newcommand{\altid}{\mathds{1}}
+\newcommand{\nsubset}{\not \subset}
+\newcommand\interior[1]{{#1}^{\circ}}
+\newcommand{\Hh}{\mathbb{H}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Ab}{\mathbf{Ab}} %Abelian Groups
+\newcommand{\Grp}{\mathbf{Grp}} %Groups
+\newcommand{\Ring}{\mathbf{Ring}} %Rings
+\newcommand{\CRing}{\mathbf{CRing}} %Commutative Rings
+\newcommand{\Rng}{\mathbf{Rng}} %Rings without identity
+\newcommand{\Set}{\mathbf{Set}} %Sets
+\newcommand{\pSet}{\mathbf{Set}_{\bullet}} %Pointed Spaces
+\newcommand{\Top}{\mathbf{Top}} %Topological Spaces
+\newcommand{\pTop}{\mathbf{Top}_{\bullet}} %Pointed Topological Spaces
+\newcommand{\Op}{\mathbf{Op}} %Open Subsets
+\newcommand{\Vect}{\mathbf{Vect}} %Vector Spaces
+\newcommand{\Man}{\mathbf{Man}} %Manifolds
+\newcommand{\Mod}{\mathbf{Mod}} %Modules
+\newcommand{\Mon}{\mathbf{Mon}} %Monoids
+\newcommand{\Cat}{\mathbf{Cat}} %Small Categories
+\newcommand{\Ssubset}{\mathbf{Subset}} %Subsets
+\newcommand{\Com}{\mathbf{Com}} %Complexes
+\DeclareMathOperator{\Haus}{\mathbf{Haus}} %Hausdorff Spaces
+\DeclareMathOperator{\Comp}{\mathbf{Comp}} %Compact Spaces
+\DeclareMathOperator{\Poset}{\mathbf{Poset}} %Partially Ordered Sets
+\DeclareMathOperator{\Graph}{\mathbf{Graph}} %Graphs (Not Graph Theory)
+\DeclareMathOperator{\Sch}{\mathbf{Sch}} %Schemes
+\DeclareMathOperator{\AffSch}{\mathbf{AffSch}} %Affine Schemes
+\DeclareMathOperator{\Grph}{\mathbf{Grph}} %Graphs in Graph Theory and Graph Homomorphisms
+\DeclareMathOperator{\Rel}{\mathbf{Rel}} %Sets and Relations
+\DeclareMathOperator{\CW}{\mathbf{CW}} %CW Complexes and Cellular Maps
+\DeclareMathOperator{\PreSh}{\mathbf{PreSh}} %Presheaves
+\DeclareMathOperator{\Sh}{\mathbf{Sh}} %Sheaves
+\DeclareMathOperator{\catD}{\mathbf{D}} %Derived Category
+\DeclareMathOperator{\TopGrp}{\mathbf{TopGrp}} %Topological Groups
+\DeclareMathOperator{\Meas}{\mathbf{Meas}} %Measurable Spaces and measurable functions
+\DeclareMathOperator{\Cob}{\mathbf{Cob}} %Cobordisms
+\DeclareMathOperator{\LieAlg}{\mathbf{LieAlg}} %Lie Algebras
+\DeclareMathOperator{\Ban}{\mathbf{Ban}} %Banach Spaces and Bounded Linear Operators
+\DeclareMathOperator{\Hilb}{\mathbf{Hilb}} %Hilbert Spaces and Bounded Linear Operators
+\DeclareMathOperator{\AlgC}{\mathbf{Alg_C}} %C-Algebras where C isn't necessarily commutative
+\DeclareMathOperator{\Rep}{\mathbf{Rep}} %Representations
+\DeclareMathOperator{\res}{\mathrm{res}}
+\DeclareMathOperator{\pre}{\mathrm{pre}}
+\DeclareMathOperator{\ad}{\mathrm{ad}}
+\DeclareMathOperator{\Ind}{\mathrm{Ind}}
+\DeclareMathOperator{\Res}{\mathrm{Res}}
+\DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\PGL}{\mathrm{PGL}}
+\DeclareMathOperator{\Aff}{\mathrm{Aff}}
+\DeclareMathOperator{\GL}{\mathrm{GL}}
+\DeclareMathOperator{\SL}{\mathrm{SL}}
+\DeclareMathOperator{\PSL}{\mathrm{PSL}}
+\DeclareMathOperator{\U}{\mathrm{U}}
+\DeclareMathOperator{\Oo}{\mathrm{O}}
+\DeclareMathOperator{\SO}{\mathrm{SO}}
+\DeclareMathOperator{\SU}{\mathrm{SU}}
+\DeclareMathOperator{\Sp}{\mathrm{Sp}}
+\DeclareMathOperator{\Gal}{\mathrm{Gal}}
+\DeclareMathOperator{\frkgl}{\mathfrak{gl}}
+\DeclareMathOperator{\frksl}{\mathfrak{sl}}
+\DeclareMathOperator{\frkso}{\mathfrak{so}}
+\DeclareMathOperator{\frksp}{\mathfrak{sp}}
+\DeclareMathOperator{\frku}{\mathfrak{u}}
+\DeclareMathOperator{\frkg}{\mathfrak{g}}
+\DeclareMathOperator{\frkh}{\mathfrak{h}}
+\DeclareMathOperator{\Stab}{\mathrm{Stab}}
+\DeclareMathOperator{\im}{\mathrm{im}}
+\DeclareMathOperator{\coim}{\mathrm{coim}}
+\DeclareMathOperator{\cok}{\mathrm{cok}}
+\DeclareMathOperator{\colim}{\mathrm{colim}}
+\DeclareMathOperator{\spn}{\mathrm{span}}
+\DeclareMathOperator{\Sym}{\mathrm{Sym}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
+\DeclareMathOperator{\Mor}{\mathrm{Mor}}
+\DeclareMathOperator{\Nat}{\mathrm{Nat}}
+\DeclareMathOperator{\Tr}{\mathrm{Tr}}
+\DeclareMathOperator{\Bd}{\mathrm{Bd}}
+\DeclareMathOperator{\Ann}{\mathrm{Ann}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\DeclareMathOperator{\Homeo}{\mathrm{Homeo}}
+\DeclareMathOperator{\Char}{\mathrm{char}}
+\DeclareMathOperator{\nullity}{\mathrm{nullity}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\Frac}{\mathrm{Frac}}
+\DeclareMathOperator{\supp}{\mathrm{supp}}
+\DeclareMathOperator{\rank}{\mathrm{rank}}
+\DeclareMathOperator{\diag}{\mathrm{diag}}
+\DeclareMathOperator{\sign}{\mathrm{sign}}
+\DeclareMathOperator{\glue}{\mathrm{glue}}
+\DeclareMathOperator{\kerpre}{\ker_{\text{pre}}}
+\DeclareMathOperator{\cokpre}{\cok_{\text{pre}}}
+\DeclareMathOperator{\impre}{\im_{\text{pre}}}
+\DeclareMathOperator{\coimpre}{\coim_{\text{pre}}}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\Spec}{\mathrm{Spec}}
+\DeclareMathOperator{\Ext}{\mathrm{Ext}}
+\DeclareMathOperator{\Tor}{\mathrm{Tor}}
+\DeclareMathOperator{\lcm}{\mathrm{lcm}}
+\newcommand{\sqdot}{\, \raisebox{0.5ex}{\scalebox{0.2}{$\blacksquare$}} \,}
+\makeatletter
+\newcommand\xtwoheadrightarrow[2][]{%
+  \ext@arrow 0579{\twoheadrightarrowfill@}{#1}{#2}}
+\newcommand\twoheadrightarrowfill@{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow}
+\makeatother
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{definition} % This style typically uses upright font, suitable for definitions, examples, etc.
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newtheorem*{lemma*}{Lemma}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage{lipsum}                     % Dummytext
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%
+\title{Solutions to ``The Rising Sea"}
+\author{Jack Westbrook}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+%Section and subsection automatically number unless you put the asterisk next to them.
+\section{}
+\subsection{}
+\subsubsection{A}\label{4.1.A}
+\begin{proof}
+    By Exercise \todo{uncomment} %\ref{3.5.E}E,
+    we have that $D(f)\subset D(g)$ if and only if $f\in \sqrt{(g)}$ if and only if $g$ is a unit in $A_f$. Then for the map $A_f \to \fO(D(f))$, we let $S$ be the set of elements of $A$ that are units in $A_f$, which is also the same as the set of all elements $g$ such that $D(f)\subset D(g)$ by the exercise. Then by definition, we have $\fO(D(f))=S^{-1}A$, so we wish to show $A_f \cong S^{-1}A$. We have a natural candidate, $\frac{a}{f^n}\mapsto \frac{a}{f^n}$. This map is injective because $\frac{a}{f^n}$ is $0$ in $S^{-1}A$ if and only if there is some unit $g\in A_f$ that annihilates $a$. Then either $A_f = 0$ (or equivalently $f$ is nilpotent, so $D(f)=\emptyset)$ in which case $\fO(\emptyset)=0$, so we have an isomorphism, or necessarily $a=0$ in $A_f$. This shows injectivity.
+
+    For surjectivity, fix $\frac{a}{g}$ with $g^{-1}\in A_f$. Then ${ag^{-1}} = \frac{a}{g}$ in $S^{-1}A$, so $ag^{-1}\mapsto \frac{a}{g}$ as needed.
+\end{proof}
+\subsubsection{B}\label{4.1.B}
+\begin{proof}
+    Suppose $\Spec A_f \cong D(f)=\bigcup_i D(f_i)$, or equivalently by Exercise \todo{uncomment} %\ref{3.5.B}B,
+    there is a finite subset $f_1, \dots, f_n$ of these $f_i$'s that generate $A_f$, or equivalently $\bigcup_{i=1}^n D(f_i)=\Spec A_f\cong  D(f)$. Suppose we are given $\frac{s}{f^n}\in A_f=\fO(D(f))$ that vanishes upon restriction to each $A_{f_i}=\fO(D(f_i))$. To show $\frac{s}{f^n}=0$, we notice that there is some large $m\in \N$ with $f_i^m s =0$ for each $i=1, \dots, n$. In addition, $f_1^m, \dots, f_n^m$ generate $A_f$ since $\Spec A_f = \bigcup_{i=1}^n D(f_i) = \bigcup_{i=1}^n D(f_i^m)$, so we apply Exercise \todo{uncomment} %\ref{3.5.B}B, 
+    again. Thus there exists $r_1, \dots, r_n \in A_f$ with $\sum_{i=1}^n r_i f_i^m =1$. But then
+    \[
+    s= \left( \sum_{i=1}^n r_i f_i^m\right) s=\sum_{i=1}^n r_i (f_i^m s)=0.
+    \]
+\end{proof}
+\subsubsection{C}\label{4.1.C}
+\begin{proof}
+    Suppose $\bigcup_i D(f_i) = D(f)\cong \Spec A_f$, and suppose further that we are given elements in each $A_{f_i}$ that agree on the overlaps $A_{f_i f_j}$. Assume first that the index set is finite, say $\{1, \dots, n\}$. Then we have elements $\frac{a_i}{g_i}\in A_{f_i}$ where $g_i=f_i^{l_i}$, agreeing on overlaps $A_{f_if_j}$, and we may consider each $\frac{a_i}{g_i}$ as an element of $A_{g_i}$. The assumption that $\frac{a_i}{g_i}$ and $\frac{a_j}{g_j}$ agree on $A_{g_ig_j}$ means that for some $m_{ij}\in \N$, $$(g_ig_j)^{m_{ij}}(g_j a_i - g_i a_j)=0$$ in $A$. By letting $m$ be the maximum of the $m_{ij}$'s (allowed because the index set is assumed to be finite), we have
+    \[
+    (g_i g_j)^m (g_j a_i - g_i a_j)=0
+    \]
+    for each $i,j$. We now let $b_i = a_i g_i^m$ and $h_i = g_i ^{m+1}$ (so $D(h_i)=D(g_i)$). Then on each $D(h_i)$, we have a function $\frac{b_i}{h_i}$, and the overlap condition now is that $h_j b_i = h_i b_j$. Because $\bigcup_i D(h_i)=\bigcup_i D(f_i)=\Spec A_f$, by Exercise \todo{uncomment} %\ref{3.5.B}B,
+    there are some $r_i$'s in $A_f$ such that $1=\sum_{i=1}^n r_i h_i$. Now the overlap condition $h_jb_i=h_i b_j$ gives that if we define $r=\sum_{i=1}^n r_i b_i$, then
+    \[
+    rh_j = \sum_{i=1}^n r_i b_i h_j = \sum_{i=1}^n r_i h_i b_j = b_j,
+    \]
+    so indeed $r$ restricts to $\frac{b_j}{h_j}$ for each $j=1, \dots, n$.
+
+    For the case where the index set is infinite, we are able to choose a finite generating set $f_1, \dots, f_n$ for $A_f$ by quasi-compactness of $\Spec A_f$, and again let $r=\sum_{i=1}^n r_i b_i$ as before. Then for any index $z$ not in $\{1, \dots, n\}$, we claim that $r$ restricts to $\frac{a_z}{f_z^{l_z}}$ in $A_{f_z}$. Then because $\{1, \dots, n , z\}$ is again finite, we do the same process and obtain an $r'\in A_f$ which restricts to $\frac{a_i}{f_i^{l_i}}$ for each $i=1, \dots, n, z$. By identity (proven in Exercise \ref{4.1.B}B), we see $r=r'$, and the claim follows.
+\end{proof}
+\subsubsection{D}\label{4.1.D}
+\begin{proof}
+    Suppose $D(f)=\bigcup_{i\in I} D(f_i)$, so there exists a finite $\{1, \dots, n\}\subset I$ such that $f_1, \dots, f_n$ generate $A_f$ (by quasi-compactness and again Exercise \todo{uncomment} %\ref{3.5.B}B
+    ).
+
+    For identity, suppose we are given $\frac{s}{f^n}\in M_f = \widetilde M(D(f))$ such that $\frac{s}{f^n}\vert_{D(f_i)}=0$ for each $i\in \{1, \dots, n\}$. To show $\frac{s}{f^n}=0$, we notice that we have a large $m\in \N$ with $f_i^m s =0$ for each such $i$. Now because $\Spec A_f = \bigcup_{i=1}^n D(f_i) = \bigcup_{i=1}^n D(f_i^m)$, we see that also $f_1^m, \dots, f_n^m$ generate $A_f$, so there exists some $r_i$'s in $A_f$ with $\sum_{i=1}^n r_i f_i^m =1$. Then
+    \[
+    s=(\sum_{i=1}^n r_i f_i^m)s = \sum_{i=1}^n r_i(f_i^m s) = 0.
+    \]
+
+    For gluability, suppose we are given elements in each $M_{f_i}$ that agree on $M_{f_i f_j}$. First, we suppose that $I=\{1, \dots, n\}$ is finite, and so we have elements $\frac{m_i}{g_i}\in M_{f_i}$ where $g_i=f_i^{l_i}$, agreeing on overlaps $M_{f_if_j}$. We now consider $\frac{m_i}{g_i}$ as an element of $M_{g_i}$. Then $\frac{m_i}{g_i}$ and $\frac{m_j}{g_j}$ agree on $M_{g_ig_j}$ means that for some $m_{ij}\in \N$,
+    \[
+    (g_ig_j)^{m_{ij}}(g_jm_i-g_im_j)=0
+    \]
+    in $M$. Letting $m$ be the maximum of these $m_{ij}$'s (allowed because $I$ is finite), we have
+    \[
+    (g_i g_j)^m (g_j m_i-g_i m_j)=0.
+    \]
+    Letting $b_i=g_i^m m_i$ and $h_i=g_i^{m+1}$, we notice $D(h_i)=D(g_i)$. Then on each $D(h_i)$, we have a section $\frac{b_i}{h_i}$, and the overlap condition is now $h_j b_i = h_i b_j$. Now $\bigcup_i D(h_i) = A_f$ implies that there are some $r_i$'s in $A_f$ with
+    \[
+    1=\sum_{i=1}^n r_i h_i.
+    \]
+    Defining $r=\sum_{i=1}^n r_i b_i$, we notice
+    \[
+    rh_j=\sum_{i=1}^n r_i h_j b_i = \sum_{i=1}^n r_i h_i b_j= b_j
+    \]
+    by the overlap condition, so $r$ restricts to $\frac{b_j}{h_j}$ for each $j\in I$.
+
+    For the case where $I$ is infinite, we again let $(f_1, \dots, f_n)$ generate $A_f$ with $\{1, \dots, n\} \subset I$ by quasi-compactness, and define $r=\sum_{i=1}^n r_i b_i$ as before. Then for any index $z\in I\setminus \{1, \dots, n\}$, we want to show that $r\vert_{D(f_z)}=\frac{m_z}{f_z^{l_z}}$. Because $\{1, \dots, n, z\}$ is also finite, we obtain some $r'$ which has the desired property. By identity, we get that $r=r'$, which gives the result.
+
+    Now that $\widetilde M$ is a sheaf on the distinguished base of $\Spec A$, we want to show that it is also a $\fO_{\Spec A}$-module. It suffices to show this on the distinguished base, for the sheaves on $\Spec A$ are defined in the natural way by the action on compatible germs. We can see this because Exercise \ref{4.1.E}E gives that $\widetilde M_\frkp \cong M_\frkp$. Therefore
+    \begin{align*}
+        \widetilde M (U) = \{(m_\frkp \in M_\frkp) \mid \forall \frkp \in U, \exists f \in A \text{ with } \frkp \in D(f)\subset U \text{ and } \exists s \in M_f \text{ such that } s_\frkq = f_\frkq \forall \frkq \in D(f)\},
+    \end{align*}
+    i.e. just the compatible germs. Then $(f_\frkp)_{\frkp \in U} \cdot (m_\frkp)_{\frkp \in U} = (f_\frkp m_\frkp)_{\frkp \in U}$ is the action, and indeed the below diagram commutes
+    \begin{center}
+        \begin{tikzcd}
+            (f_\frkp)_{\frkp \in U} \times (m_\frkp)_{\frkp \in U} \ar[mapsto]{r} \ar[mapsto]{d}& (f_\frkp m_\frkp)_{\frkp \in U}\ar[mapsto]{d}\\
+            (f_\frkp)_{\frkp \in V} \times (m_\frkp)_{\frkp \in V} \ar[mapsto]{r}& (f_\frkp m_\frkp)_{\frkp \in V}
+        \end{tikzcd}
+    \end{center}
+    as needed. That the action is $\fO(U)$-linear is easy to see.
+\end{proof}
+
+\subsubsection{E}\label{4.1.E}
+\begin{proof}
+    To show $\widetilde M_\frkp \cong M_\frkp$, we will show $M_\frkp$ satisfies the universal property of $\widetilde M_\frkp$. Notice that $\widetilde M_\frkp = \colim_{U \ni \frkp} \widetilde M(U) = \colim_{D(f) \ni \frkp} = \colim_{f\notin \frkp} M_f = M_\frkp$. The last equality comes from the fact that 
+    \begin{center}
+        \begin{tikzcd}
+            &M_\frkp \\
+            M_f \ar{ur} \ar{rr} && M_g \ar{ul}
+        \end{tikzcd}
+    \end{center}
+    commutes, and if 
+    \begin{center}
+        \begin{tikzcd}
+             &N \\
+            M_f \ar{ur}{\phi_f} \ar{rr} && M_g \ar{ul}[swap]{\phi_g}
+        \end{tikzcd}
+    \end{center}
+    commutes, i.e. $N$ satisfies the same commutative diagram that defines $\colim_{f\notin \frkp} M_f$, then we define $\varphi: M_\frkp \to N$ by $\frac{m}{a}\mapsto \phi_a(\frac{m}{a})$. Indeed, this is required by the condition that the below diagram must commute 
+    \begin{center}
+        \begin{tikzcd}
+            N\\
+            &M_\frkp \ar{ul}[swap]{\varphi}\\
+            M_f \ar{uu}{\phi_f} \ar{ur}
+        \end{tikzcd}
+    \end{center}
+    which proves uniqueness. To show this map is a module morphism, we check explicitly 
+    \begin{align*}
+        &\varphi(\frac{m_1}{f}-\frac{m_2}{g}) = \varphi(\frac{gm_1-fm_2}{fg}) = \phi_{fg}(\frac{gm_1-fm_2}{fg}) = \phi_{fg}(\frac{gm_1}{fg})-\phi_{fg}(\frac{fm_2}{fg})\\
+        &=\phi_f(\frac{m_1}{f})-\phi_g(\frac{m_2}{g}) = \varphi(\frac{m_1}{f})-\varphi(\frac{m_2}{g})
+    \end{align*}
+    and also that
+    \[
+    \varphi(a \frac{m}{f})=\phi_f(\frac{am}{f})=a\phi_f(\frac{m}{f})=a\varphi(\frac{m}{f}).
+    \]
+\end{proof}
+\subsubsection{F}\label{4.1.F}
+\begin{proof}
+    \noindent(a) Let $m\in M$ be an arbitrary nonzero element. We want to show that there is some $\frkp \in \Spec A$ such that $m\ne 0$ in $M_\frkp$, i.e. for all $x\notin \frkp$, $xm \ne 0$. Notice that $\Ann(m)$ is a proper ideal (since $1\cdot m=m \ne 0)$, so there is some maximal $\frkm \in \Spec A$ with $\Ann(m)\subset \frkm$, i.e. $\emptyset = \frkm^c \cap \Ann(m)$. This gives the result, for then there is at least one component of $\prod_{\frkp \in \Spec A} M_\frkp$ with the image of $m$ not zero, so the kernel is trivial.
+
+    \noindent (b) Exercise \todo{uncomment}%\ref{2.4.A}A
+    says for a sheaf $\fF$, $\fF(U) \hookrightarrow \prod_{p \in U} \fF_p$. Then by Exercise \ref{4.1.E}E, we have $\widetilde M_\frkp \cong M_\frkp$, so 
+    \[
+    \widetilde M(\Spec A) = M \hookrightarrow \prod_{\frkp \in \Spec A} \widetilde M_\frkp = \prod_{\frkp \in \Spec A} M_\frkp.
+    \]
+\end{proof}
+\begin{lemma}\label{lem:equivalences preserve fullness}
+        If $\fA$ is a full subcategory of $\fB$ and $\fB$ is equivalent to $\fC$ (i.e. there exists a fully faithful and essentially surjective functor $F:\fB\to \fC$), then $F(\fA)$ is a full subcategory of $\fC$, equivalent to $A$.
+    \end{lemma}
+    \begin{proof}
+       It's clear that $F(\fA) \simeq A$ since $F$ is assumed to be fully faithful so its restrictions retain that property, and is surjective by construction. We use the fact that an equivalence of categories is the same as the existence of a fully faithful and essentially surjective functor (a surjective functor is essentially surjective). Then if $\phi: F(X)\to F(Y)$ is a morphism in $\fC$ and where $X,Y\in \fB$, we get a unique morphism $\varphi:X\to Y$ in $\fB$ such that $F(\varphi)=\phi$. Because $\fA$ is a full subcategory of $\fB$, $\phi$ is also a morphism of $\fA$. Thus $F(\phi):F(X)\to F(Y)$ is equal to $\phi$, and shows $\phi$ is a morphism in $F(\fA)$.
+    \end{proof}
+\subsubsection{G}
+\begin{proof}
+    By Remark 2.5.3, \todo{eventually change to Exercise 6.2.C} the category of sheaves on a base is equivalent to the category of sheaves on the whole space. Therefore it suffices by Lemma \ref{lem:equivalences preserve fullness} to work over the category of sheaves on the distinguished base. On one hand, if we're given a map $\varphi:M\to N$, for any $f\in A$, we get a map $\widetilde \varphi (D(f)):M_f \to N_f$ given by the localization functor so the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            M \ar{r}{\varphi} \ar{d} & N \ar{d}\\
+            M_f \ar{r}{\widetilde \varphi(D(f))}& N_f
+        \end{tikzcd}
+    \end{center}
+    Moreover, if $D(f)\subset D(g)$ (i.e. $g \in A_f^\times$ by Exercise \todo{uncomment}%\ref{3.5.E}E
+    ), the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            M_g \ar{r}{\widetilde \varphi (D(g)} \ar{d} & N_g \ar{d}\\
+            M_f \ar{r}{\widetilde \varphi(D(f))}& N_f.
+        \end{tikzcd}
+    \end{center}
+    To see this commutativity explicitly, $\widetilde \varphi(D(f))(\frac{m}{f^n})=\frac{\varphi(m)}{f^n}$, and by $g\in A_f^\times$ we have that $\frac{1}{g}=\frac{a}{f^n}$ for some $n\in \Z_+$ and $a\in A$, so that under the vertical maps anything of the form $\frac{m}{g^k}$ is sent to $\frac{a^km}{f^{nk}}$. Now commutativity is easy by $A$-linearity of $\varphi$ and by our constructions. Therefore we get a map $\Hom(M,N)\to \Hom (\widetilde M, \widetilde N)$ given by $\varphi \mapsto \widetilde \varphi$. Since $M(\Spec A)=M(D(1))=M_1=M$, any map $\psi:\widetilde M\to \widetilde N$ already encodes the data of a map $\psi(\Spec A):M\to N$, which gives a map $\Hom(\tilde M, \tilde N) \to \Hom(M,N).$ We will now show these maps are inverses to each other. For any $\psi:\tilde M \to \tilde N$, we want to show $\widetilde{\psi(\Spec A)} = \psi$. We check
+    \[
+    \widetilde{\psi(\Spec A)}(D(f))(\frac{m}{f^n})=\frac{\psi(\Spec A)(m)}{f^n} = \frac{\psi(D(f))(m)}{f^n} = \psi(D(f))(\frac{m}{f^n})
+    \]
+    where the last equality is by $A_f$-linearity of $\psi(D(f))$ and the middle equality is because $\psi$ is a map of sheaves, and thus commutes with the restriction from $\Spec A$ to $D(f)$.
+
+    On the other hand, if $\varphi:M\to N$ is a morphism, we want to show $\widetilde{\varphi}(\Spec A) = \varphi$. This is easy to see by our construction of $\widetilde{\varphi}$ and that $\Spec A = D(1)$.
+\end{proof}
+\subsection{}
+There are no exercises in this section.
+\subsection{}
+\subsubsection{A}\label{4.3.A}
+\begin{proof}
+    Let $\fC$ be the category whose objects are of the form $(\Spec A, \calO_A)$ where $\fB_A$ here denotes the distinguished base on $\Spec A$ and $\calO_A=\fO_{\Spec A}\vert_{\fB_A}$, hence $\calO_A$ is a sheaf on $\fB_A$. The morphisms are pairs $(\pi, \pi^\#)$ where $\pi:\Spec A \to \Spec B$ is continuous, the preimage of a distinguished open subset of $\Spec B$ is a distinguished open subset of $\Spec A$, and $\pi^\#: \calO_B \to \pi_* \calO_A$ is a morphism of sheaves of rings over $\fB_B$ that induces maps of local rings on the stalks (note that $\pi_*$ makes sense because of the requirement that $\pi$ pulls back $\fB_B$ to $\fB_A$).
+    
+    Recall that if $X,Y$ are schemes, then a morphism $X\to Y$ is a pair $(\alpha, \alpha^\#)$ where $\alpha:X\to Y$ is continuous and $\alpha^\#:\fO_Y \to \alpha_* \fO_X$ is a map of sheaves of rings. In addition, if $(\beta, \beta^\#)$ is a morphism of schemes $Y\to Z$, then $(\beta, \beta^\#)\circ (\alpha, \alpha^\#)=(\beta \circ \alpha, \beta_* \alpha^\# \circ \beta^\#)$ by definition.
+
+    First, we will show that $\fC$ is equivalent to the category of affine schemes $\AffSch.$ For any ring $A$, Theorem 2.5.1 tells us $\fO_{\Spec A}$ is the unique sheaf whose restriction to the base $\fB_A$ is $\calO_A.$ In other words, given $(\Spec A, \calO_A)$, we can use Theorem 2.5.1 to obtain a sheaf $\fF_A$ on $\Spec A$, and $\fF_A$ is uniquely isomorphic to $\fO_{\Spec A}.$ Thus we can define $F(\Spec A, \calO_A)=(\Spec A, \fF_A)$. In addition, if $(\pi, \pi^{\#}):(\Spec A, \calO_A)\to (\Spec B, \calO_B)$ is a morphism in $\fC$, we let $F(\pi, \pi^\#)=(\pi, \widetilde{\pi})$ where $\widetilde{\pi}(U)(f_p)_{p\in U}=(\pi^\#_q(f_{\pi(q)}))_{q\in \pi^{-1}(U)}$, where $\pi_q^\#$ is the unique map induced below:
+    \begin{center}
+        \begin{tikzcd}
+            && \calO_{A, q}&&\\
+           \calO_A(\pi^{-1}(D(f))) \ar{urr}& & \calO_{B, \pi(q)} \ar[dashed]{u}[description]{\exists!}& &\calO_A(\pi^{-1}(D(g))) \ar{ull}\\
+            &\calO_B(D(f)) \ar{rr} \ar{ur} \ar[swap]{ul} {\pi^\#(D(f))}&& \calO_B(D(g)) \ar{ul} \ar{ur}{\pi^{\#}(D(g))}&
+        \end{tikzcd}
+    \end{center}
+    
+    Let's check that the image is a set of compatible germs. We need to show that for any $q\in \pi^{-1}(U)$, there exists some $g\in A$ such that $q\in D(g)\subset \pi^{-1}(U)$ and there exists some $r\in \calO_A(D(g))$ with $r_p=\pi_q^\# (f_{\pi(p)})$ for every $p\in D(g).$ Fix $q\in \pi^{-1}(U).$ By hypothesis, there exists some $f\in B$ such that $\pi(q)\in D(f) \subset U$ and some $s\in \calO_B(D(f))$ such that for every $q'\in D(f)$, $s_{q'}=f_{q'}.$ Let $g\in A$ be such that $D(g)=\pi^{-1}(D(f))$. Let $r=\pi^{\#}(D(f))(s)$, so $r\in \calO_A(D(g)).$ We notice that $q\in \pi^{-1}(D(f))=D(g)$, and also $D(g)=\pi^{-1}(D(f))\subset \pi^{-1}(U).$ Now for any $p\in D(g)$, we have $\pi(p)\in D(f)$, so $s_{\pi(p)}=f_{\pi(p)}$. Notice that, by commutativity of the above diagram, $\pi^\#_p(s_{\pi(p)})=(\pi^\#(D(f))(s))_p=r_p$, which completes our claim.
+
+    Now we need to show that $F$ is functorial. Suppose $(\alpha, \alpha^\#)$ is a morphism in $\fC$ from $(\Spec A, \calO_A)$ to $(\Spec B, \calO_B)$ and $(\beta, \beta^\#)$ is a morphism from $(\Spec B, \calO_B)$ to $(\Spec C, \calO_C).$ We want to show that, for an open $U\subset \Spec C$ and for every $p\in (\beta \circ \alpha)^{-1}(U)$, it's the case that
+    \[
+    (\beta_* \alpha^\# \circ \beta^\#)_p = \alpha^\#_p \circ \beta^\#_{\alpha(p)}.
+    \]
+    By uniqueness of the arrow defining the map on the left, it suffices to show the outermost paths in the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            && \calO_{A, q}&&\\
+            
+           \calO_A((\beta \circ \alpha)^{-1}(D(f))) \ar{urr} \ar{rr}& & \calO_{B, \alpha(q)} \ar{u}[description]{\alpha_p^\#}& &\calO_A((\beta \circ \alpha)^{-1}(D(g))) \ar{ull} \ar{ll}\\
+           
+           \calO_B(\beta^{-1}(D(f))) \ar{u}{\beta_* \alpha^\#(D(f))} \ar{rr} && \calO_{C, \beta \circ \alpha(p)} \ar{u}[description]{\beta_* \alpha^\#_{\alpha(p)}} && \calO_B(\beta^{-1}(D(g))) \ar{u}{\beta_* \alpha^\#(D(g))}\ar{ll}\\
+           
+            &\calO_B(D(f)) \ar{rr} \ar{ur} \ar[swap]{ul} {\beta^\#(D(f))}&& \calO_B(D(g)) \ar{ul} \ar{ur}{\beta^{\#}(D(g))}&
+        \end{tikzcd}
+    \end{center}
+    But this is true because the inside of the diagram commutes by definition. In addition, it's clear that the identity morphism in $\fC$ is sent to the identity morphism in $\AffSch$ by uniqueness of the arrow defining $\pi_q^\#$. This proves $F$ is a functor.
+
+    On the other hand, given an affine scheme $(\Spec A, \fO_{\Spec A})$, we can let $G:\AffSch\to \fC$ be the forgetful functor, since the category of affine schemes has more data encoded in each object and morphism. To be thorough, the only thing we need to check is that a morphism in the category of affine schemes does indeed pull back distinguished open subsets to distinguished open subsets.
+\end{proof}
+\end{document}

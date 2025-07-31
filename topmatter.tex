@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{left=1.2in, right=1.2in, top=1.2in, bottom=1.2in}%change the margins here
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit,calc,}
+\usepackage[english]{babel}
+\usepackage{amsthm} %lets us use \begin{proof}
+\usepackage{amssymb} %gives us the character \varnothing
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage[shortlabels]{enumitem}
+\usepackage{biblatex}
+\addbibresource{references.bib}  % The filename of your .bib file
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage[all]{xy}
+\usepackage{mathrsfs}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{titlesec}
+
+% Custom chapter format
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Chapter \thesection}{1em}{}
+
+% Custom section format
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {Section \thesection.\arabic{subsection}}{1em}{}
+
+% Custom subsection format
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {Exercise \thesubsubsection}{0em}{}
+
+% Make subsections numbered with respect to sections
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% Make subsubsections numbered with respect to subsections
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\rddots}{\reflectbox{$\ddots$}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ctd}{\Rightarrow \Leftarrow}
+\newcommand{\Ss}{\mathbb{S}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\fI}{\mathscr{I}}
+\newcommand{\fJ}{\mathscr{J}}
+\newcommand{\fA}{\mathscr{A}}
+\newcommand{\fB}{\mathscr{B}}
+\newcommand{\fC}{\mathscr{C}}
+\newcommand{\fD}{\mathscr{D}}
+\newcommand{\fE}{\mathscr{E}}
+\newcommand{\fO}{\mathscr{O}}
+\newcommand{\fF}{\mathscr{F}}
+\newcommand{\fG}{\mathscr{G}}
+\newcommand{\fH}{\mathscr{H}}
+\newcommand{\fT}{\mathscr{T}}
+\newcommand{\fS}{\mathscr{S}}
+\newcommand{\frakm}{\mathfrak{m}}
+\newcommand{\frakn}{\mathfrak{n}}
+\newcommand{\frakp}{\mathfrak{p}}
+\newcommand{\nsubset}{\not \subset}
+\newcommand\interior[1]{{#1}^{\circ}}
+\newcommand{\Hh}{\mathbb{H}}
+\newcommand{\D}{\mathbb{D}}
+\DeclareMathOperator{\pre}{pre}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\glue}{glue}
+\DeclareMathOperator{\kerpre}{\ker_{\text{pre}}}
+\DeclareMathOperator{\cokpre}{\cok_{\text{pre}}}
+\DeclareMathOperator{\impre}{\im_{\text{pre}}}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ev}{ev}
+\newcommand{\altid}{\mathds{1}}
+\newcommand{\Ab}{\mathbf{Ab}} %Abelian Groups
+\newcommand{\Grp}{\mathbf{Grp}} %Groups
+\newcommand{\Ring}{\mathbf{Ring}} %Rings
+\newcommand{\CRing}{\mathbf{CRing}} %Commutative Rings
+\newcommand{\Rng}{\mathbf{Rng}} %Rings without identity
+\newcommand{\Set}{\mathbf{Set}} %Sets
+\newcommand{\pSet}{\mathbf{Set}_{\bullet}} %Pointed Spaces
+\newcommand{\Top}{\mathbf{Top}} %Topological Spaces
+\newcommand{\pTop}{\mathbf{Top}_{\bullet}} %Pointed Topological Spaces
+\newcommand{\Op}{\mathbf{Op}} %Open Subsets
+\newcommand{\Vect}{\mathbf{Vect}} %Vector Spaces
+\newcommand{\Man}{\mathbf{Man}} %Manifolds
+\newcommand{\Mod}{\mathbf{Mod}} %Modules
+\newcommand{\Mon}{\mathbf{Mon}} %Monoids
+\newcommand{\Cat}{\mathbf{Cat}} %Small Categories
+\newcommand{\Ssubset}{\mathbf{Subset}} %Subsets
+\newcommand{\Com}{\mathbf{Com}} %Complexes
+\DeclareMathOperator{\Haus}{\mathbf{Haus}} %Hausdorff Spaces
+\DeclareMathOperator{\Comp}{\mathbf{Comp}} %Compact Spaces
+\DeclareMathOperator{\Poset}{\mathbf{Poset}} %Partially Ordered Sets
+\DeclareMathOperator{\Graph}{\mathbf{Graph}} %Graphs (Not Graph Theory)
+\DeclareMathOperator{\Sch}{\mathbf{Sch}} %Schemes
+\DeclareMathOperator{\AffSch}{\mathbf{AffSch}} %Affine Schemes
+\DeclareMathOperator{\Grph}{\mathbf{Grph}} %Graphs in Graph Theory and Graph Homomorphisms
+\DeclareMathOperator{\Rel}{\mathbf{Rel}} %Sets and Relations
+\DeclareMathOperator{\CW}{\mathbf{CW}} %CW Complexes and Cellular Maps
+\DeclareMathOperator{\PreSh}{\mathbf{PreSh}} %Presheaves
+\DeclareMathOperator{\Sh}{\mathbf{Sh}} %Sheaves
+\DeclareMathOperator{\catD}{\mathbf{D}} %Derived Category
+\DeclareMathOperator{\TopGrp}{\mathbf{TopGrp}} %Topological Groups
+\DeclareMathOperator{\Meas}{\mathbf{Meas}} %Measurable Spaces and measurable functions
+\DeclareMathOperator{\Cob}{\mathbf{Cob}} %Cobordisms
+\DeclareMathOperator{\LieAlg}{\mathbf{LieAlg}} %Lie Algebras
+\DeclareMathOperator{\Ban}{\mathbf{Ban}} %Banach Spaces and Bounded Linear Operators
+\DeclareMathOperator{\Hilb}{\mathbf{Hilb}} %Hilbert Spaces and Bounded Linear Operators
+\DeclareMathOperator{\AlgC}{\mathbf{Alg_C}} %C-Algebras where C isn't necessarily commutative
+\DeclareMathOperator{\Rep}{\mathbf{Rep}} %Representations
+\makeatletter
+\newcommand\xtwoheadrightarrow[2][]{%
+  \ext@arrow 0579{\twoheadrightarrowfill@}{#1}{#2}}
+\newcommand\twoheadrightarrowfill@{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow}
+\makeatother
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newtheorem*{lemma*}{Lemma}
+\usepackage{lipsum}                     % Dummytext
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%
+\title{Solutions to ``The Rising Sea"}
+\author{Jack Westbrook}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+\section{}
+%Section and subsection automatically number unless you put the asterisk next to them.
+The exercises in this document are taken from the February 21, 2024 draft of Ravi Vakil's ``The Rising Sea".
+You can access the draft \href{https://math.stanford.edu/~vakil/216blog/FOAGfeb2124public.pdf}{here}.
+
+
+
+\subsection{}
+
+\subsubsection{A}
+By \cite{FIT}, \cite{Lee_Manifolds}, \cite{sarason2007complex}, \cite{tensorRexact} we're happy.
+\printbibliography
+
+\end{document}

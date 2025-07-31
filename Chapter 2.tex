@@ -1,0 +1,2097 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{left=1.2in, right=1.2in, top=1.2in, bottom=1.2in}%change the margins here
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit,calc,}
+\usepackage[english]{babel}
+\usepackage{amsthm} %lets us use \begin{proof}
+\usepackage{amssymb} %gives us the character \varnothing
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage[shortlabels]{enumitem}
+\usepackage{biblatex}
+\addbibresource{references.bib}  % The filename of your .bib file
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage[all]{xy}
+\usepackage{mathrsfs}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{titlesec}
+
+% Custom chapter format
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Chapter \thesection}{1em}{}
+
+% Custom section format
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {Section \thesection.\arabic{subsection}}{1em}{}
+
+% Custom subsection format
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {Exercise \thesubsubsection}{0em}{}
+
+% Make subsections numbered with respect to sections
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% Make subsubsections numbered with respect to subsections
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\rddots}{\reflectbox{$\ddots$}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ctd}{\Rightarrow \Leftarrow}
+\newcommand{\Ss}{\mathbb{S}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\fI}{\mathscr{I}}
+\newcommand{\fJ}{\mathscr{J}}
+\newcommand{\fA}{\mathscr{A}}
+\newcommand{\fB}{\mathscr{B}}
+\newcommand{\fC}{\mathscr{C}}
+\newcommand{\fD}{\mathscr{D}}
+\newcommand{\fE}{\mathscr{E}}
+\newcommand{\fO}{\mathscr{O}}
+\newcommand{\fF}{\mathscr{F}}
+\newcommand{\fG}{\mathscr{G}}
+\newcommand{\fH}{\mathscr{H}}
+\newcommand{\fT}{\mathscr{T}}
+\newcommand{\fS}{\mathscr{S}}
+\newcommand{\frakm}{\mathfrak{m}}
+\newcommand{\frakn}{\mathfrak{n}}
+\newcommand{\frakp}{\mathfrak{p}}
+\newcommand{\nsubset}{\not \subset}
+\newcommand\interior[1]{{#1}^{\circ}}
+\newcommand{\Hh}{\mathbb{H}}
+\newcommand{\D}{\mathbb{D}}
+\DeclareMathOperator{\pre}{pre}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\glue}{glue}
+\DeclareMathOperator{\kerpre}{\ker_{\text{pre}}}
+\DeclareMathOperator{\cokpre}{\cok_{\text{pre}}}
+\DeclareMathOperator{\impre}{\im_{\text{pre}}}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\op}{op}
+\newcommand{\altid}{\mathds{1}}
+\newcommand{\Ab}{\mathbf{Ab}} %Abelian Groups
+\newcommand{\Grp}{\mathbf{Grp}} %Groups
+\newcommand{\Ring}{\mathbf{Ring}} %Rings
+\newcommand{\CRing}{\mathbf{CRing}} %Commutative Rings
+\newcommand{\Rng}{\mathbf{Rng}} %Rings without identity
+\newcommand{\Set}{\mathbf{Set}} %Sets
+\newcommand{\pSet}{\mathbf{Set}_{\bullet}} %Pointed Spaces
+\newcommand{\Top}{\mathbf{Top}} %Topological Spaces
+\newcommand{\pTop}{\mathbf{Top}_{\bullet}} %Pointed Topological Spaces
+\newcommand{\Op}{\mathbf{Op}} %Open Subsets
+\newcommand{\Vect}{\mathbf{Vect}} %Vector Spaces
+\newcommand{\Man}{\mathbf{Man}} %Manifolds
+\newcommand{\Mod}{\mathbf{Mod}} %Modules
+\newcommand{\Mon}{\mathbf{Mon}} %Monoids
+\newcommand{\Cat}{\mathbf{Cat}} %Small Categories
+\newcommand{\Ssubset}{\mathbf{Subset}} %Subsets
+\newcommand{\Com}{\mathbf{Com}} %Complexes
+\DeclareMathOperator{\Haus}{\mathbf{Haus}} %Hausdorff Spaces
+\DeclareMathOperator{\Comp}{\mathbf{Comp}} %Compact Spaces
+\DeclareMathOperator{\Poset}{\mathbf{Poset}} %Partially Ordered Sets
+\DeclareMathOperator{\Graph}{\mathbf{Graph}} %Graphs (Not Graph Theory)
+\DeclareMathOperator{\Sch}{\mathbf{Sch}} %Schemes
+\DeclareMathOperator{\AffSch}{\mathbf{AffSch}} %Affine Schemes
+\DeclareMathOperator{\Grph}{\mathbf{Grph}} %Graphs in Graph Theory and Graph Homomorphisms
+\DeclareMathOperator{\Rel}{\mathbf{Rel}} %Sets and Relations
+\DeclareMathOperator{\CW}{\mathbf{CW}} %CW Complexes and Cellular Maps
+\DeclareMathOperator{\PreSh}{\mathbf{PreSh}} %Presheaves
+\DeclareMathOperator{\Sh}{\mathbf{Sh}} %Sheaves
+\DeclareMathOperator{\catD}{\mathbf{D}} %Derived Category
+\DeclareMathOperator{\TopGrp}{\mathbf{TopGrp}} %Topological Groups
+\DeclareMathOperator{\Meas}{\mathbf{Meas}} %Measurable Spaces and measurable functions
+\DeclareMathOperator{\Cob}{\mathbf{Cob}} %Cobordisms
+\DeclareMathOperator{\LieAlg}{\mathbf{LieAlg}} %Lie Algebras
+\DeclareMathOperator{\Ban}{\mathbf{Ban}} %Banach Spaces and Bounded Linear Operators
+\DeclareMathOperator{\Hilb}{\mathbf{Hilb}} %Hilbert Spaces and Bounded Linear Operators
+\DeclareMathOperator{\AlgC}{\mathbf{Alg_C}} %C-Algebras where C isn't necessarily commutative
+\DeclareMathOperator{\Rep}{\mathbf{Rep}} %Representations
+\makeatletter
+\newcommand\xtwoheadrightarrow[2][]{%
+  \ext@arrow 0579{\twoheadrightarrowfill@}{#1}{#2}}
+\newcommand\twoheadrightarrowfill@{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow}
+\makeatother
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{setting}{Setting}
+\usepackage{lipsum}                     % Dummytext
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%
+\title{Solutions to ``The Rising Sea"}
+\author{Jack Westbrook}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+%Section and subsection automatically number unless you put the asterisk next to them.
+\section{}
+\subsection{}
+\subsubsection{A}\label{2.1.A}
+\begin{proof}
+    Fix any $(f,U)\in \fO_p\setminus \mathfrak{m}_p$. Then $f(p)\ne 0$ because $(f,U)\notin \mathfrak{m}_p$. Therefore $\frac{1}{f}\in \fO(V)$ for a sufficiently small neighborhood $V\subset U$ of $p$ such that $f$ is non vanishing on $W$, and $\frac{1}{f}$ must be smooth because $f$ is and doesn't vanish on $V$ by continuity of $f$. We easily obtain that
+    \begin{align*}
+        \frac{1}{f}(p)=\frac{1}{f(p)} \ne 0
+    \end{align*}
+    Therefore $(\frac{1}{f},V)\in \fO_p\setminus \mathfrak{m}_p$ as well. By definition of the equivalence relation, we get that $(f,U)=(f,V)$. Therefore we observe that
+    \begin{align*}
+        (f,V)(\frac{1}{f},V)=(\frac{f}{f},V)=(1,V)
+    \end{align*}
+    is the multiplicative identity on $\fO_p$. Because multiplication here is commutative --since it is on $\R^n$ -- we get that indeed $(f,U)$ has an inverse. This shows that if we have some other ideal $\mathfrak{n}\subset \fO_p$, it cannot be maximal because it is either contained in $\mathfrak{m}_p$, or it is the entire ring $\fO_p$.
+\end{proof}
+\subsubsection{B}\label{2.1.B}
+\begin{proof}
+    Here, we recall what the definition of the differential $d:C^\infty (M)\to T_p^*M$ given by
+    \begin{align*}
+        df(v)=v(f)
+    \end{align*}
+    where $f\in C^\infty (M)$ and $v\in T_p M$, i.e. a linear map $C^\infty(M)\to \R$ that satisfies the product rule. Now we will show that $d$ is constant on $\mathfrak{m}^2$. We recall that $d$ is linear; therefore
+    \begin{align*}
+        d(\sum_i f_ig_i)(v)=\sum_i d(f_ig_i)(v)=\sum_i v(f_ig_i)=\sum_i f_i(p) v(g)+g(p)v(f)=\sum_i 0+0=0
+    \end{align*}
+    using the fact that $f_i,g_i\in \frakm_p$ implies the vanish at $p$. Then we get the following unique map $\tilde d:\frakm_p/\frakm_p^2\to T^*_pM$:
+    \begin{center}
+        \begin{tikzcd}
+            \frakm_p \ar{r}{d} \ar[two heads]{d}& T_p^*M\\
+            \frakm_p/\frakm_p^2 \ar[dashed]{ur}[description]{\exists!}
+        \end{tikzcd}
+    \end{center}
+    This map is a homomorphism because $d$ is linear. Now suppose $df=0$ for some $f\in C^\infty(M)$. Then by definition,
+    \[
+    v(f)=0
+    \]
+    for all $v\in T_pM$, which implies that indeed $f=0$ because if we take the derivation $v=\frac{\partial}{\partial x^i}$ for each $i$ and 
+    \[
+    \frac{\partial f}{\partial x^i}=0
+    \]
+    then $f$ is constant, but since $f+\frakm_p^2(p)=0$ it must be that $f=0$, proving $\tilde d$ has a trivial kernel. By \cite{Lee_Manifolds} Page 281, the $dx^i$ form a basis for $T_p^*M$. Thus if we fix any $\sum_i c_i dx^i\in T_p^*M$, we let $f=\sum_i c_i x^i$, which is certainly in $\frakm_p/\frakm_p^2$. Then
+    \begin{align*}
+        \tilde d(f+\frakm_p^2)=\sum_i\frac{\partial f}{\partial x^i} dx^i=\sum_i c_i dx^i
+    \end{align*}
+    proves $\tilde d$ is surjective as well, and hence an isomorphism.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.2.A}
+\begin{proof}
+    We want for each open set $U\subset X$, a set $\fF(U)$. This is given when $\fF:\Op(X)\to \Set$ is a contravariant functor.\\
+    We want that for each inclusion $U\hookrightarrow V$ of open sets, a restriction map $\res_{V,U}:\fF(V)\to \fF(U)$. This is equivalent to $\fF(U\hookrightarrow V)$ because $\fF$ is contravariant, and the only maps on $\Op(X)$ are the inclusions. We require that if
+    \begin{center}
+        \begin{tikzcd}
+            W&&V \ar[hook']{ll}\\
+            &U \ar[hook']{ur} \ar[hook]{ul}
+        \end{tikzcd}
+    \end{center}
+    commutes in $\Op(X)$, that also the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(W) \ar{rr}{\res_{W,V}} \ar{dr}[swap]{\res_{W,U}}&& \fF(V) \ar{dl}{\res_{V,U}}\\
+            & \fF(U)
+        \end{tikzcd}
+    \end{center}
+    But this is exactly one of the requirement of $\fF$ being a contravariant functor.\\
+    Finally, we require $\res_{U,U}=\altid$, which again, is one of the requirements of $\fF$ being a functor. Also notice that $U\hookrightarrow V\hookrightarrow W$ is the arrow $U\hookrightarrow W$ because every morphism in $\Op(X)$ is a monomorphism, and there is an initial object in the category $\emptyset$. There are no other requirements that $\fF$ is a contravariant functor, so the two definitions coincide.
+\end{proof}
+\subsubsection{B}\label{2.2.B}
+\begin{proof}
+Clearly the assignment of any open set in $\C$ to any set of functions of a given type defined on that subset together with the natural restriction of functions satisfies the definitions because $(f\vert_V)\vert_U=f\vert_U$ as well as $f\vert_U=f$ when $f:U\to \C$. Thus we will show that in both cases, the definitions violate the Gluability axiom as well as satisfy restriction being well defined.
+    \begin{enumerate}[(a)]
+        \item If $f:U\to \C$ is bounded, then by definition for every $x\in U$ $|f(x)|<N$ for some constant $N\in \R$. Then if $V\subset U$ and $y\in V$, then
+        \begin{align*}
+            |f\vert_V(y)|=|f(y)|<N
+        \end{align*}
+        so indeed $f\vert_V$ is bounded. Now we show that the bounded functions violate the Gluability axiom. For $n=1,2,\dots$ define $U_n=\D(0,n)$, the open disc of radius $n$ about the origin and define $f_n:U_n\to \C$ as $f_n=\altid$. Then for arbitrary $n$ and $z\in U_n$, we observe
+        \begin{align*}
+            |f_n(x)|=|x|<n
+        \end{align*}
+        by definition of $x\in U_n$. Then indeed every $f_n$ is bounded on $U_n$. Now we observe that $\bigcup_{n=1}^\infty U_n=\C$. If there were a global function $f:\C\to \C$ such that $f\vert_{U_n}=f_n$ for every $n$, then it must be that $f=\altid$. But $\altid$ is unbounded on $\C$, which means the Gluability axiom fails.
+        \item Restricting holomorphic functions is holomorphic, so again restriction is well defined. Now we define the following open sets $U_1\coloneqq \{re^{i\theta}\in \Z:\theta \in (-\pi,\pi)\}$ and $U_2\coloneqq \{re^{i\theta}\in \C:\theta \in (0,2\pi)\}$, as well as the identity maps on each of them, which are clearly holomorphic. We let $h_1(re^{i\theta})=\sqrt{r}e^{i\theta/2}$ and $h_2(re^{i\theta})=\sqrt{r}e^{i\theta/2}$ as well. We observe primarily that $h_1,h_2$ are holomorphic on $U_1$ and $U_2$ respectively, and also that
+        \begin{align*}
+            h_1^2=\altid_{U_1}\\
+            h_2^2=\altid_{U_2}
+        \end{align*}
+        Then $\altid_{U_1}$ is a holomorphic function with holomorphic square root on $U_1$ and $\altid_{U_2}$ is a holomorphic function with holomorphic square root on $U_2$. In addition, 
+        \begin{align*}
+            \altid_{U_1}\vert_{U_1\cap U_2}=\altid_{U_1\cap U_2}=\altid_{U_2}\vert_{U_1\cap U_2}
+        \end{align*} However, since $U_1\cup U_2=\C$, the global function $f:\C\to \C$ must be $\altid_{\C}$. However, there is no global square root function of $\altid_{\C}$, so the Gluability axiom fails here as well.
+    \end{enumerate}
+\end{proof}
+\subsubsection{C}\label{2.2.C}
+\begin{proof}
+    We claim that a presheaf $F$ is a sheaf if and only if $F(\bigcup_{i\in \fI}U_i)=\lim_{i,j\in \fI} F(U_i),F(U_i\cap U_j)$ for every collection of open sets $\{U_i\}_{i\in \fI}$. To be slightly more precise, the system of $F(U_i),F(U_i\cap U_j)$ is where all of the $F(U_i)$'s are not connected by any arrows, and each $F(U_i\cap U_j)$ has the restriction arrows going into it from $F(U_i)$ and $F(U_j)$. Note that this implicitly encodes the restriction arrows going from $F(U_i)$ to $F(U_j)$ because then $F(U_i\cap U_j)=F(U_j)$, and indeed $\res_{U_i,U_i}=\id_{U_i}$.\\
+    For the forward direction, suppose $F$ is a sheaf. Letting $U\coloneqq \bigcup_{i\in \fI} U_i$, then for every $i,j\in \fI$, the following diagram commutes by $F$ being a presheaf:
+   \begin{center}
+       \begin{tikzcd}
+           &F(U)\ar{dl} \ar{dr}\ar{dd}\\
+        F(U_i) \ar{dr}&&F(U_j)\ar{dl}\\
+        &F(U_i\cap U_j)
+       \end{tikzcd}
+   \end{center}
+   where the arrows are the restrictions. We now wish to show $F(U)$ is universal with respect to this property. Notice that by definition of $F$ being a presheaf, the middle arrow is implicit and will be omitted. Now suppose a set $W$ also makes the diagram commute. Notice that the arrows from $W$ into each $F(U_i\cap U_j)$ is determined by the arrows from $W$ to $F(U_i)$ and the arrows from $W$ to $F(U_j)$, because the following diagram must commute:
+   \begin{center}
+       \begin{tikzcd}
+           &W\ar{dl}[swap]{p_i} \ar{dr}{p_j}\ar{dd}{p_{ij}}\\
+        F(U_i) \ar{dr}&&F(U_j)\ar{dl}\\
+        &F(U_i\cap U_j)
+       \end{tikzcd}
+   \end{center}
+   Therefore we may forget about all of the arrows from $W$ to $F(U_i\cap U_j)$ and only consider those going into each $F(U_i)$. If $W=\emptyset$ then trivially the unique arrow exists, so we may consider $W\ne \emptyset$, and pick any $x\in W$. Define $f_i\coloneqq p_i(x)$ for each $i\in \fI$. Therefore, by definition of $W$ making the system commute, we have that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$ for each $i,j$. Then by gluablility, there exists some $f\in F(U)$ such that $f\vert_{U_i}=f_i$ for every $i\in \fI$. Then we can define the map $W\to F(U)$ that sends everything to $f$, which proves existence of the arrow going into $F(U)$.\\
+   For uniqueness, suppose there exist two maps $\varphi$ and $\phi$ from $W\to F(U)$ that make the following diagram commute:
+   \begin{center}
+       \begin{tikzcd}
+           &W \ar[dashed]{d} \ar[bend right]{ddl}[swap]{p_i} \ar[bend left]{ddr}{p_j}\\
+           &F(U) \ar{dl} \ar{dr}\\
+           F(U_i)\ar{dr}&&F(U_j)\ar{dl}\\
+           &F(U_i\cap U_j)
+       \end{tikzcd}
+   \end{center}
+   If $\varphi \ne \phi$, then there exists some $x\in W$ such that $\varphi(x)\ne \phi(x)$. However,
+   \[
+   \varphi(x)\vert_{U_i} =p_i(x)=\phi(x)\vert_{U_i}
+   \]
+   for each $i\in \fI$ by commutativity. By identity, this implies that $\varphi(x)=\phi(x)$, a contradiction. This proves uniqueness, so $F(U)$ is indeed the limit of the system.
+   
+   \vspace{\baselineskip}
+    \noindent Conversely, suppose $F(U)$ is the limit of the system. To show $F$ satisfies gluability, suppose there is a collection of $f_i$'s for each $i$ such that $f_i\vert_{U_i \cap U_j}=f_j\vert_{U_i \cap U_j}$ for each $i,j$. Now, let $W$ be the final set and define maps $p_i:W\to F(U_i)$ that outputs $f_i$ for each $i\in \fI$. Then the following diagram commutes, and induces a unique morphism $\varphi:W\to F(U)$ below:
+   \begin{center}
+       \begin{tikzcd}
+           &W \ar[dashed]{d}[description]{\exists!} \ar[bend right]{ddl}[swap]{p_i} \ar[bend left]{ddr}{p_j}\\
+           &F(U) \ar{dl} \ar{dr}\\
+           F(U_i)\ar{dr}&&F(U_j)\ar{dl}\\
+           &F(U_i\cap U_j)
+       \end{tikzcd}
+   \end{center}
+   Then we can take $\varphi(\ast)$ to be our map in $F(U)$ that restricts to give us each of the maps $f_i$, which shows gluability. To show identity, suppose we have $f_1,f_2\in F(U)$ such that $f_1\vert_{U_i}=f_2\vert_{U_i}$ for every $i\in \fI$. If we define the set $W\coloneqq \{f_1,f_2\}$, then $W\xhookrightarrow{\iota} F(U)$ naturally. Then the following diagram commutes, so we obtain a unique arrow $W\to F(U)$ shown below:
+   \begin{center}
+       \begin{tikzcd}
+           &W \ar[dashed]{d}[description]{\exists!} \ar[bend right]{ddl}[swap]{\res_{U,U_i} \circ \iota} \ar[bend left]{ddr}{\res_{U,U_j}\circ \iota}\\
+           &F(U) \ar{dl} \ar{dr}\\
+           F(U_i)\ar{dr}&&F(U_j)\ar{dl}\\
+           &F(U_i\cap U_j)
+       \end{tikzcd}
+   \end{center}
+   However, we can define two such maps that work, namely $\varphi(W)=\{f_1\}$, as well as $\phi(W)=\{f_2\}$. This implies, by uniqueness, that $\varphi=\phi$, so indeed $f_1=f_2$, proving identity.
+\end{proof}
+\subsubsection{D}\label{2.2.D}
+\begin{proof}
+    \begin{enumerate}[(a)]
+    \item We will show smooth functions form a sheaf on a smooth manifold $M$, as this is the only example in $\S 2.1$ that I can find. Clearly, this is a presheaf with the obvious restriction maps, so we will just show gluability and identity.
+
+    \vspace{\baselineskip}
+    To show gluability, suppose we have $f_i$'s in $C^\infty(U_i)$ with $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$ for every $i,j$ in the index. Define a function $f:U\to \R$ as
+    \[
+    f(x)=f_i(x) \text{ if } x\in U_i
+    \]
+    where $U=\bigcup_i U_i$. This is well defined by hypothesis. By the pasting lemma, this function is continuous as well. In addition, because differentiability is a local property, we have that
+    \begin{align*}
+        \frac{\partial^n f}{(\partial x^i)^n}\vert_{x\in U_i}=\frac{\partial^n f_i}{(\partial x^i)^n}
+    \end{align*}
+    exists for every $n\in \N$, proving that our function $f\in C^\infty(U)$, so gluability holds.
+
+    \vspace{\baselineskip}
+    Identity is rather trivial: if there exists $f_1,f_2\in C^\infty(M)$ such that $f_1\vert_{U_i}=f_2\vert_{U_i}$ for every $i$, then because every point in $U$ is in some $U_i$ and $f_1$ agrees with $f_2$ there, they must be the same at every point, hence $f_1=f_2$.
+    \item Let $X\in \Top$, and $F$ be the functor sending an open set $U$ to the set $\Mor(U,\R)$, together with the obvious restriction maps. Again, $F$ is trivially a presheaf. To show gluability, let $f_i\in \Mor(U_i,\R)$ be a family such that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$ for every $i,j$. Then define a map $f:U\to \R$ as
+    \begin{align*}
+        f(x)= f_i(x) \text{ if }x\in U_i
+    \end{align*}
+    which is again well defined by hypothesis. This is also continuous by the pasting lemma. Therefore $f\in \Mor(X,\R)$, so gluability holds.
+
+    \vspace{\baselineskip}
+    For exactly the same reasoning as above, identity follows trivially because any two maps that agree pointwise are equal.
+\end{enumerate}
+\end{proof}
+\subsubsection{E}\label{2.2.E}
+\begin{proof}
+    Like usual, $\fF$ is clearly a presheaf on $X$. To show $\fF$ satisfies gluability, suppose $\{U_i\}$ is an open cover of $U$, and suppose we have a collection of $f_i\in \Mor(U_i,S)$'s for each $i$ such that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$ for every $i,j$. Then we can define $f:U\to S$ as $f(x)=f_i(x)$ if $x\in U_i$. This is well defined and continuous by the pasting lemma, so gluability holds.\\
+    If We have $f_1,f_2:U\to S$ such that $f_1\vert_{U_i}=f_2\vert_{U_i}$ for each $i$, then for every $x\in U$, $f_1(x)=f_1\vert_{U_i}(x)=f_2\vert_{U_i}(x)=f_2(x)$, so $f_1$ agrees with $f_2$ everywhere, hence the two are identical.
+\end{proof}
+\subsubsection{F}\label{2.2.F}
+\begin{proof}
+    Like usual, the presheaf axioms are readily verified by manipulation of definitions. To show gluability, if we have a collection of continuous maps $f_i:U_i\to Y$ such that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$ for each $i,j$, then we can define $f(x)=f_i(x)$ if $x\in U_i$. This is well defined and agrees on the intersections by assumption, so it is continuous by the pasting lemma. Then we have our candidate $f:U\to Y$ that restricts to each $f_i$.\\
+    To show identity, if we have $f_1,f_2:U\to Y$ as continuous maps and $f_1\vert_{U_i}=f_2\vert_{U_i}$ for every $i$, then $f_1(x)=f_1\vert_{U_i}(x)=f_2\vert_{U_i}(x)=f_2(x)$. Thus $f_1$ and $f_2$ agree everywhere, so they are identical.
+\end{proof}
+\subsubsection{G}\label{2.2.G}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item This is clearly a presheaf by simply rearranging the definitions, as
+    \begin{align}
+        \mu\circ (s\vert_V)=(\mu \circ s)\vert V=(\altid_U)\vert_V=\altid_V
+    \end{align}
+    shows that indeed restricting sections gives more sections. To show gluability, if we have a collection of sections $s_i:U_i\to Y$ such that $s_i\vert_{U_i\cap U_j}=s_j\vert_{U_i\cap U_j}$ for every $i,j$, then we can use the pasting lemma -- using our assumptions -- to obtain a continuous map $s:U\to Y$ where $s(x)=s_i(x)$ if $x\in U_i$. Then indeed, for every $x\in U$, $x\in U_i$ for some $i$, so
+    \[
+    \mu \circ s(x)=\mu \circ s_i(x)=\altid_{U_i}(x)=x
+    \]
+    proves $\mu \circ s=\altid_U$ as desired. This shows gluability.\\
+    To show identity, if $s_1,s_2:U\to Y$ are sections of $\mu$ such that $s_1\vert U_i=s_2\vert U_i$ for every $i$, then for arbitrary $x\in U$, there exists some $U_i$ containing $x$, hence
+    \[
+    s_1(x)=s_1\vert_{U_i}(X)=s_2\vert_{U_i}(x)=s_2(x)
+    \]
+    Thus $s_1$ agrees with $s_2$ everywhere, so they are identical functions. This proves identity.
+    \item This is a sheaf of sets by Exercise \ref{2.2.F}F. Thus we want to show each $\fF(U)$ has group structure. Because $Y$ is a topological group, for any $f,g\in \fF(U)$, we may define the product $fg$ to act as
+    \[
+    fg(x)=f(x)g(x)
+    \]
+    This is indeed a continuous map from $U$ to $Y$ because multiplication is required to be continuous by $Y$ being a topological group. It follows that the identity element is the map that takes everything to the identity element of $Y$. This operation is associative because $Y$ is a group, so
+    \[
+    (fg)h(x)=(fg)(x)h(x)=f(x)g(x)h(x)=f(x)gh(x)=f(gh)(x)
+    \]
+    Finally, every $f\in \fF(U)$ has an inverse $f^{-1}$, where $f^{-1}(x)\coloneqq (f(x))^{-1}$, i.e. a pointwise inverse. This is indeed a continuous map because inversion is required to be continuous since $Y$ is a topological group. Secondly, we easily verify that
+    \[
+    f f^{-1}(x)=f(x)f^{-1}(x)=f(x)(f(x))^{-1}=1
+    \]
+    and
+    \[
+    f^{-1} f(x)=f^{-1}(x)f(x)=(f(x))^{-1}f(x)=1
+    \]
+    indeed proves each multiplication gives the constant map to the identity, so the notation we gave $f^{-1}$ is appropriate. Because $\fF(U)$ satisfies all of the group axioms, it may be considered to be a topological group with this structure.
+    \end{enumerate}
+\end{proof}
+\subsubsection{H}\label{2.2.H}
+\begin{proof}
+    To show $\pi_* \fF$ is a presheaf given $\fF$ is a presheaf, take any open set $V\in \Op(Y)$. Then $\pi^{-1}(V)\in \Op(X)$ because $\pi$ is continuous, hence $\pi_* \fF$ is well defined. We can verify that if $W\subset V\subset U$, then indeed $\pi^{-1}(W)\subset \pi^{-1}(V)\subset \pi^{-1}(U)$, and the following diagram commutes with the restrictions given by $\fF$ being a presheaf:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(\pi^{-1}(W)) \ar{rr} \ar{dr}&&\fF(\pi^{-1}(V)) \ar{dl}\\
+            &\fF(\pi^{-1}(U))
+        \end{tikzcd}
+    \end{center}
+    This is how we may define our restrictions for $\pi_* \fF$, $\res_{U,V}\coloneqq \res_{\pi^{-1}(U),\pi^{-1}(V)}$, which is well defined because $V\subset U$ implies that $\pi^{-1}(V)\subset \pi^{-1}(U)$. Finally, with this definition of restriction, we observe that
+    \[\res_{V,V}=\res_{\pi^{-1}(V),\pi^{-1}(V)}=\id_{\pi^{-1}(V)}=\id_{\pi_\ast\fF(V)}
+    \]
+    This indeed proves $\pi_*\fF$ is a presheaf as desired.\\
+    \indent Now, let's suppose further that $\fF$ is a sheaf. To show identity, suppose we have an open set $U\in \Op(Y)$ and an open cover $\{U_i\}$, as well as $f_1,f_2\in \pi_*\fF(U)$, or equivalently $f_1,f_2\in \fF(\pi^{-1}(U))$ such that $f_1\vert_{\pi^{-1}(U_i)}=f_2\vert_{\pi^{-1}(U_i)}$ for every $i$. By identity of $\fF$, it must be that $f_1=f_2$. This proves identity.\\
+    \indent To show gluability, suppose we have a collection of open sets $U_i\in \Op(Y)$ covering an open set $U$, and maps $f_i\in \pi_* \fF(U_i)$ such that $f_i\vert_{\pi^{-1}(U_i)\cap \pi^{-1}(U_j)}=f_j\vert_{\pi^{-1}(U_i)\cap \pi^{-1}(U_j)}$ for every $i,j$. By gluability of $\fF$, we obtain a map $f\in \fF \pi^{-1}(\bigcup \pi^{-1}(U_i))$ that restricts to each $f_i$ on $\pi^{-1}(U_i)$. However, because unions commute with preimages, we obtain that
+    \[
+    \bigcup \pi^{-1}(U_i)=\pi^{-1}(U)
+    \]
+    Thus $f\in \fF(\pi^{-1}(U))=\pi_*\fF(U)$, and restricts accordingly, so gluability holds. Thus, $\pi_*\fF$ is a sheaf as well.
+\end{proof}
+\subsubsection{I}\label{2.2.I}
+\begin{proof}
+    If we take the definition of a stalk $\fF_p=\colim \fF(U)$ where each $U$ is a neighborhood of $p$, then we get the following commutative diagram
+    \begin{center}
+        \begin{tikzcd}
+            &\fF_p\\
+            &(\pi_*\fF)_q \ar[dashed]{u}[description]{\exists!}\\
+            \pi_*\fF(U) \ar{rr}{\res} \ar[bend left]{uur} \ar{ur}&&\pi_*\fF(V) \ar[bend right]{uul}\ar{ul}
+        \end{tikzcd}
+    \end{center}
+    because each $\pi_* \fF(U)=\fF(\pi^{-1}(U))$, and each $\pi^{-1}(U)$ is a neighborhood of $p$ since $\pi(p)=q$. Thus we have the maps from $\fF(\pi^{-1}(U))\to \fF_p$ by considering every $\pi_*\fF(U)$ to be a neighborhood of $p$.
+\end{proof}
+\subsubsection{J}\label{2.2.J}
+\begin{proof}
+    Because we require the following diagram to commute
+    \begin{center}
+        \begin{tikzcd}
+            \fO_X(V)\times \fF(V) \ar{r}{\text{action}} \ar{d}{\res_{V,U}\times \res_{V,U}}& \fF(V) \ar{d}{\res_{V,U}}\\
+            \fO_X(U)\times \fF(U)\ar{r}{\text{action}}&\fF(U)
+        \end{tikzcd}
+    \end{center}
+    we have a well defined action of germs by picking the action of a representative. More explicitly, given a germ $[f,U]\in \fO_{X,p}$ and $[g,V] \in \fF_p$, then we may define $[f,U]\cdot [g,V]=[f\vert_{U\cap V}\cdot g\vert_{U\cap V},U\cap V]$. This is well defined exactly because we require our diagram to commute.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.3.A}
+\begin{proof}
+    By definition of stalks as colimits of neighborhoods of $p$, if $\phi:\fF\to \fG$ is a morphism of presheaves on $X$, then we get our unique induced morphism $\phi_p$ in the commutative diagram below:
+    \begin{center}
+        \begin{tikzcd}
+            &&\fG_p \\
+            \\
+            \fG(U) \ar{uurr} \arrow[bend left=10, crossing over, pos=0.4]{rrrr}{\res_{U,V}}&&\fF_p \ar[dashed]{uu}[description]{\exists!\phi_p}&& \fG(V) \ar{uull}\\
+            &\fF(U) \ar{rr}{\res_{U,V}} \ar{ul}{\phi(U)} \ar{ur}&&\fF(V) \ar{ul} \ar{ur}[swap]{\phi(V)}
+        \end{tikzcd}
+    \end{center}
+\end{proof}
+\subsubsection{B}\label{2.3.B}
+\begin{proof}
+    By Exercise \ref{2.2.H}H, we've already shown $\pi_*$ takes presheaves on $X$ to presheaves on $Y$. If we're given a morphism $\phi:\fF\to \fG$ of presheaves on $X$, then we obtain a morphism $\pi_* \phi:\pi_* \fF\to \pi_* \fG$ as morphisms of presheaves on $Y$, shown below:
+    \begin{center}
+        \begin{tikzcd}
+            \pi_*\fG(U) \ar{r}{\res_{U,V}} & \pi_*\fG(V)\\
+            \pi_*\fF(U) \ar{r}{\res_{U,V}} \ar{u}{\phi(\pi^{-1}(U))}&\pi_*\fF(V) \ar{u}[swap]{\phi(\pi^{-1}(V))}
+        \end{tikzcd}
+    \end{center}
+    In other words, we define $\pi_*\phi(U)$ to be $\phi(\pi^{-1}(U))$, which is a morphism of presheaves on $Y$ because $\phi$ was a morphism of presheaves on $X$. By stacking the commutative diagrams, we can show $\pi_*$ distributes over composition below:
+    \begin{center}
+        \begin{tikzcd}
+            \pi_*\fH(U) \ar{r}{\res_{U,V}} & \pi_*\fH(V)\\
+            \pi_*\fG(U) \ar{r}{\res_{U,V}} \ar{u}{\pi_*\varphi(U)} & \pi_*\fG(V)\ar{u}[swap]{\pi_*\varphi(V)}\\
+            \pi_*\fF(U) \ar{r}{\res_{U,V}} \ar{u}{\pi_*\phi(U)}&\pi_*\fF(V) \ar{u}[swap]{\pi_*\phi(V)}
+        \end{tikzcd}
+    \end{center}
+    The last thing to show is that $\pi_*$ preserves identity morphisms of presheaves, which it does because $\pi_*\id_{\fF}$ is the natural transformation that acts as $\pi_*\id_{\fF}(U)=\id_{\fF}(\pi^{-1}(U))=\fF(\pi^{-1}(U))=\pi_*\fF(U)$ that is shown below:
+    \begin{center}
+        \begin{tikzcd}
+            \pi_*\fF(U) \ar{r}{\res_{U,V}}& \pi_*\fF(V)\\
+            \pi_*\fF(U) \ar{u}{\pi_*\id_{\fF}(U)} \ar{r}{\res_{U,V}}&\pi_*\fF(V) \ar{u}[swap]{\pi_* \id_{\fF}(V)}
+        \end{tikzcd}
+    \end{center}
+    This natural transformation is the identity morphism on $\pi_*\fF$, so as desired $\pi_*$ does preserve identities and is thus a functor.
+\end{proof}
+\subsubsection{C}\label{2.3.C}
+\begin{proof}
+    It's clear that $\Hom(\fF,\fG):\Op(X)\to \Set$ is well defined. We may define the restriction maps as follows: Given any $U,V,W\in \Op(X)$ such that $W\subset V\subset U$ and any $\phi\in \Hom(\fF,\fG)(U)$, we define $\phi\vert_{V}$ as the natural transformation that acts as $\phi\vert_{V}(W)\coloneqq \phi(W)$ -- in other words, just forgets its definitions on subsets not contained in $V$. This defines a natural transformation $\fF\vert_{V}\to \fG\vert_{V}$ because $\phi$ is a natural transformation $\fF\vert_{U}\to \fG\vert_{U}$, and $V\subset U$ implies every open subset $W$ of $V$ that $\phi\vert_{V}$ must act on is already taken care of by $\phi$. By this definition, it is clear that $\Hom(\fF,\fG)$ is a presheaf.\\
+    \indent To show $\Hom(\fF,\fG)$ satisfies identity, fix any $U\in \Op(X)$ and let $\{U_i\}$ be an open cover of $U$. Furthermore suppose we have two natural transformations $\phi_1,\phi_2\in \Hom(\fF,\fG)(U)$ such that $\phi_1\vert_{U_i}=\phi_2\vert_{U_i}$ for each $i$. For an arbitrary open subset $V\subset U$, we will show $\phi_1(V)=\phi_2(V)$. Because $\{U_i\}$ covers $U$ and $V\subset U$, we obtain the following open cover $\{V_i\}$ of $V$:
+    \[
+    \{V_i\}\coloneqq \{U_i\cap V\}
+    \]
+    Notice that each $V_i\subset U_i$ by construction. Thus because $\phi_1\vert_{U_i}=\phi_2\vert_{U_i}$, it's also true that $\phi_1\vert_{V_i}=\phi_2\vert_{V_i}$ for each $i$. Recall that because $\phi_1$ and $\phi_2$ are natural transformations, the following diagram(s) commute for $j=1,2$ and all $i$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(V) \ar{d}{\res_{V,V_i}} \ar{r}{\phi_j(V)}&\fG(V)\ar{d}{\res_{V,V_i}}\\
+            \fF(V_i) \ar{r}{\phi_j(V_i)}& \fG(V_i)
+        \end{tikzcd}
+    \end{center}
+    Fixing an arbitrary $x\in \fF(V)$, we obtain by commutativity that $\res_{V,V_i}\circ \phi_j(V)(x)=\phi_j(V_i)\circ \res_{V,V_i}(x)$. However, since $\phi_1(V_i)=\phi_1\vert_{V_i}(V_i)=\phi_2\vert_{V_i}(V_i)=\phi_2(V_i)$ for every $i$, we obtain that 
+    \[
+    \res_{V,V_i}( \phi_1(V)(x))=\res_{V,V_i}(\phi_2(V)(x))
+    \]
+    for each $i$. By identity of $\fG$, we obtain that indeed $\phi_1(V)(x)=\phi_2(V)(x)$. But because $V\subset U$ and $x\in \fF(V)$ were arbitrary, we get that indeed $\phi_1\vert_{U}=\phi_2\vert_{U}$ as desired.\\
+    \indent To show gluability, suppose we have an open set $U\in \Op(X)$ and an open cover $\{U_i\}$ of $U$. Suppose further we have a collection $\{\phi_i\}$ where each $\phi_i\in \Hom(\fF,\fG)(U_i)$ are such that $\phi_i\vert_{U_i \cap U_j}=\phi_j\vert_{U_i\cap U_j}$ for each $i,j$, and pick an arbitrary open subset $V\subset U$. We will define a natural transformation $\phi\in \Hom(\fF,\fG)(U)$ pointwise. First, define $V_i\coloneqq U_i \cap V$ for each $i$, and notice that $\{V_i\}$ form an open cover of $V$. For each fixed section $x\in \fF V$, we obtain sections $g_i(x)\coloneqq \phi_i(V_i)\circ \res_{V,V_i}(x)\in \fG(V_i)$ for each $i$. We will now show each $\res_{V_i,V_i\cap V_j}(g_i(x))=\res_{V_j,V_i\cap V_j}(g_j(x))$. By definition of each $\phi_i$ being a natural transformation, the following diagram commutes for every $i,j$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(V_i) \ar{d}[swap]{\res_{V_i,V_i\cap V_j}} \ar{r}{\phi_i(V_i)}& \fG(V_i) \ar{d}{\res_{V_i,V_i\cap V_j}}\\
+            \fF(V_i\cap V_j) \ar{r}{\phi_i(V_i\cap V_j)}& \fG(V_i\cap V_j)
+        \end{tikzcd}
+    \end{center}
+    which makes sense because $V_i\subset U_i$ for each $i$, so we may indeed apply $\phi_i$ to these subsets. By commutativity, we may observe that
+    \begin{align*}
+        &\res_{V_i,V_i\cap V_j}(g_i(x))\\
+        &=\res_{V_i,V_i\cap V_j}\circ \phi_i(V_i)\circ \res_{V,V_i}(x)\\
+        &=\phi_i(V_i\cap V_j)\circ \res_{V_i,V_i\cap V_j}\circ \res_{V,V_i}(x)\\
+        &=\phi_i(V_i\cap V_j)\circ \res_{V,V_i\cap V_j}(x)\\
+        &=\phi_j(V_i\cap V_j)\circ \res_{V,V_i\cap V_j}(x)\\
+        &=\phi_j(V_i\cap V_j)\circ \res_{V_j, V_i\cap V_j}\circ \res_{V,V_j}(x)\\
+        &=\res_{V_j,V_i\cap V_j}\circ \phi_j(V_j)\circ \res_{V,V_j}(x)\\
+        &=\res_{V_j,V_i \cap V_j}(g_j(x))
+    \end{align*}
+    Thus by gluability of $\fG$, we obtain a section $g_V(x)\in \fG(V)$ such that $\res_{V,V_i}(g_V(x))=g_i(x)=\phi_i(V_i)\circ \res_{V,V_i}(x)$ for every $i$. Then we define the natural transformation $\phi\in \Hom(\fF,\fG)(U)$ that acts as $\phi(V)(x)\coloneqq g_V(x)$ for every $x\in \fF(V)$ and every $V\subset U$. We need to show that this $\phi$ is a natural transformation, and that its restriction to $U_i$ gives $\phi_i$. To show that $\phi$ is a natural transformation, we want to show the following diagram commutes for all $W\subset V\subset U$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(V) \ar{r}{\phi(V)} \ar{d}{\res_{V,W}}& \fG(V) \ar{d}{\res_{V,W}}\\
+            \fF(W) \ar{r}{\phi(W)}&\fG(W)
+        \end{tikzcd}
+    \end{center}
+    We will use identity of $\fG$ to prove this. For arbitrary $x\in \fF(V)$, defining an open cover $\{W_i\}$ of $W$ where $W_i\coloneqq W\cap U_i$, we compute that
+    \begin{align*}
+        &\res_{W,W_i}\circ \phi(W)\circ \res_{V,W}(x)\\
+        &=\res_{W,W_i}\circ g_W(\res_{V,W}(x))\\
+        &=\phi_i(W_i)\circ \res_{W,W_i}\circ \res_{V,W}(x)\\
+        &=\phi_i(W_i)\circ \res_{V,W_i}(x)
+    \end{align*}
+    On the other hand, we compute that
+    \begin{align*}
+        &\res_{W,W_i}\circ \res_{V,W}\circ \phi(V)(x)\\
+        &=\res_{W,W_i}\circ \res_{V,W}(g_V(x))\\
+        &=\res_{V_i,W_i}\circ\res_{V,V_i}(g_V(x))\\
+        &=\res_{V_i,W_i}\circ \phi_i(V_i)\circ \res_{V,V_i}(x)\\
+        &=\phi_i(W_i)\circ \res_{V_i,W_i}\circ \res_{V,V_i}(x)\\
+        &=\phi_i(W_i)\circ \res_{V,W_i}(x)
+    \end{align*}
+    Therefore identity of $\fG$ gives us that, because $\phi(W)\circ \res_{V,W}(x)$ agrees with $\res_{V,W}\circ \phi(V)(x)$ on restrictions to every $W_i$, that
+    \[
+    \res_{V,W}\circ \phi(V)(x)=\phi(W)\circ \res_{V,W}(x)
+    \]
+    Because $W\subset V\subset U$ were arbitrary with $x\in \fF(V)$, we obtain that indeed $\phi\in \Hom(\fF,\fG)(U)$. The last thing to show is that $\phi\vert_{U_i}=\phi_i$ for each $i$. Fix any $W\subset U_i$ and any $x\in \fF(W)$. Then, like before, we have an open cover $\{W_i\}$ of $W$. We will use identity of $\fG$ one final time to show that $\phi\vert_{U_i}=\phi_i$. We compute that
+    \begin{align*}
+        &\res_{W,W_i}\circ \phi\vert_{U_i}(W)(x)\\
+        &=\res_{W,W_i}\circ \phi(W)(x)\\
+        &=\res_{W,W_i}\circ g_W(x)\\
+        &= \phi_i(W_i)\circ \res_{W,W_i}(x)
+    \end{align*}
+    while on the other hand
+    \begin{align*}
+        \res_{W,W_i}\circ \phi_i(W)(x)=\phi_i(W_i)\circ \res_{W,W_i}(x)
+    \end{align*}
+    Thus because $\phi\vert_{U_i}(W)(x)$ agrees with $\phi_i(W)(x)$ on all restrictions each $W_i$, the two must be the same by identity of $\fG$. Because $W\subset V$ and $x\in \fF(W)$ were arbitrary, we obtain that indeed $\phi\vert_{U_i}=\phi_i$ as desired, which proves gluability of $\Hom(\fF,\fG)$. Thus $\Hom(\fF,\fG)\in \Set_X$ for all $\fF\in \Set_X^{pre}$ and $\fG\in \Set_X$.
+\end{proof}
+\subsubsection{D}\label{2.3.D}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Notice that because $\{p\}$ is the terminal object in $\Top$, there exists a unique continuous map from every $U\subset X$ into $\{p\}$, which we will denote as $f_U$. In other words, $\underline{\{p\}}(U)=\{f_U\}$ for each $U$, and $f_U\vert_{V}=f_V$ for every $V\subset U\subset X$. We define $\varphi\in \Nat(\Hom(\underline{\{p\}},\fF)$ that acts on $\phi \in \Hom(\underline{\{p\}},\fF)(U)$ as 
+        \[
+        \varphi(U)(\phi)=\phi(U)(f_U)
+        \]
+        For ease of notation, we write $\phi(f_V)$ to denote $\phi(V)(f_V)$ for all $V\subset U\subset X$ and $\phi\in \Hom(\underline{\{p\}},\fF)(U)$. Notice that for each $\phi \in \Hom(\underline{\{p\}},\fF)(U)$, $\phi(f_U)$ determines $\phi$ entirely because each $\underline{\{p\}}(V)=\{f_V\}$, and $\phi$ being a natural transformation implies the following diagram commutes for all $V\subset U$:
+        \begin{center}
+            \begin{tikzcd}
+                \underline{\{p\}}(U) \ar{r}{\phi(U)} \ar{d}{\res_{U,V}}&\fF(U) \ar{d}{\res_{U,V}}\\
+                \underline{\{p\}}(V) \ar{r}{\phi(V)}& \fF(V)
+            \end{tikzcd}
+        \end{center}
+        and $\res_{U,V}(f_U)=f_V$, so $\phi(f_V)=\res_{U,V}\circ \phi(f_U)$. We will use this fact to define natural transformations later and show that they are equal. To show $\varphi$ is indeed a natural transformation, we want to show the following diagram commutes for all $V\subset U\subset X$:
+        \begin{center}
+            \begin{tikzcd}
+                \Hom(\underline{\{p\}},\fF)(U) \ar{r}{\varphi(U)} \ar{d}{\res_{U,V}}& \fF(U) \ar{d}{\res_{U,V}}\\
+                \Hom(\underline{\{p\}},\fF)(V) \ar{r}{\varphi(V)}& \fF(V)
+            \end{tikzcd}
+        \end{center}
+        This commutes because for any $\phi\in \Hom(\underline{\{p\}},\fF)(U)$, we compute that
+        \begin{align*}
+            &\varphi(V)\circ \res_{U,V}(\phi)\\
+            &= \res_{U,V}(\phi)(f_V)\\
+            &=\phi(f_V)\\
+            &=\phi\circ \res_{U,V}(f_V)\\
+            &=\res_{U,V}(\phi(f_U))\\
+            &=\res_{U,V}\circ \varphi(U)(\phi)
+        \end{align*}
+        by our definition of restriction of natural transformations defined in Exercise \ref{2.3.D}D. Now all that's left to show is that $\varphi$ is an isomorphism, or equivalently, for every $U\subset X$, $\varphi(U)$ is a bijection. To show surjectivity, fix any $s\in \fF(U)$. Then there exists $\phi_s\in \Hom(\underline{\{p\}},\fF)(U)$ such that $\phi_s(f_V)=\res_{U,V}(s)$ for every $V\subset U$. To show $\phi_s$ is a natural transformation, we observe that
+        \begin{center}
+            \begin{tikzcd}
+                \underline{\{p\}}(V) \ar{r}{\phi_s(V)} \ar{d}{\res_{V,W}}&\fF(V) \ar{d}{\res_{V,W}}\\
+                \underline{\{p\}}(W) \ar{r}{\phi_s(W)}& \fF(W)
+            \end{tikzcd}
+        \end{center}
+        commutes because
+        \begin{align*}
+            &\phi_s(W)\circ \res_{V,W}(f_V)\\
+            &=\phi_s(W)(f_W)\\
+            &=\res_{U,W}(s)\\
+            &=\res_{V,W}\circ \res_{U,V}(s)\\
+            &=\res_{V,W}\circ \phi_s(f_V)
+        \end{align*}
+    \end{enumerate}
+    Then because $\varphi(U)(\phi_s)=\phi_s(f_U)=\res_{U,U}(s)=s$, we get that indeed $\varphi(U)$ is surjective.\\
+    To show $\varphi(U)$ is injective, suppose $\phi_1,\phi_2\in \Hom(\underline{\{p\}},\fF)(U)$ are such that
+    \[
+    \varphi(U)(\phi_1)=\varphi(U)(\phi_2)
+    \]
+    By definition, then $\phi_1(f_U)=\phi_2(f_U)$. By our initial observations though, because $\phi(f_U)$ entirely determines $\phi\in \Hom(\underline{\{p\}},\fF)(U)$, then $\phi_1=\phi_2$ so $\varphi(U)$ is injective too. Thus $\varphi$ is an isomorphism.
+    \item We may assume, without loss of generality, that $X$ is connected, for if $X=\coprod X_i$ and \\$\Hom(\underline{\Z}, \fF)(X_i)\cong \fF (X_i)$ for every $i$, then because $\fG(X)=\prod \fG(X_i)$ for every sheaf $\fG$ on $X$, we can lift these isomorphisms to obtain $\fF\cong \Hom(\underline{\Z},\fF)$ as desired.\\
+    Recall that $\underline{\Z}(U)$ is the set of all continuous maps $U\to \Z$ where $\Z$ is endowed with the discrete topology for each $U\subset X$. Notice we have a particular map $c_U:U\to \Z$ that sends everything to the generator $1\in \Z$. We claim that $\langle c_U \rangle = \underline{\Z}(U)$. To show this, suppose we have some continuous map $f:U\to \Z$. Then because $\Z$ is endowed with the discrete topology, we obtain that $f^{-1}(n)$ is open for every $n\in \Z$. In addition, we directly observe that $f^{-1}(n)=f^{-1}(m)$ if and only if $n=m$. Thus $\{f^{-1}(n)\}$ form a disjoint open cover of $U$. But because $U$ is connected, it must be that exactly one $f^{-1}(n)$ is nonempty. Thus indeed $f(x)=n$ for all $x\in U$ and for some $n\in \Z$. In other words, $f=nc_U$, because we are working with sheaves of abelian groups, so we may multiply sections by values in $\Z$. This proves our claim that $\underline{\Z}(U)=\langle c_U\rangle \cong \Z$.\\
+    Therefore for any $\phi \in \Hom(\underline{\Z}, \fF)(U)$, $\phi(U)(c_U)$, or using the same notation as in part (a), $\phi(c_U)$ determines $\phi$ entirely because $c_U$ generates $\underline{\Z}(U)$ and
+    \begin{center}
+        \begin{tikzcd}
+            \underline{\Z}(U) \ar{r}{\phi(U)} \ar{d}{\res_{U,V}}&\fF(U)\ar{d}{\res_{U,V}}\\
+            \underline{\Z}(V) \ar{r}{\phi(V)}&\fF(V)
+        \end{tikzcd}
+    \end{center}
+    commutes, along with the fact that $\res_{U,V}(c_U)=c_V$ so that
+    \[
+    \phi(c_V)=\res_{U,V}(\phi(c_U))
+    \]
+    Now we may define a map $\varphi \in \Nat(\Hom(\underline{\Z},\fF),\fF)$ that acts as $\varphi(U)(\phi)=\phi(c_U)$ for every $U\subset X$ and $\phi\in \Hom(\underline{\Z},\fF)(U)$. We want to show that the following diagram commutes for all $V\subset U\subset W$ to prove $\varphi$ is a natural transformation:
+    \begin{center}
+        \begin{tikzcd}
+            \Hom(\underline{\Z},\fF)(U) \ar{r}{\varphi(U)} \ar{d}{\res_{U,V}}& \fF(U) \ar{d}{\res_{U,V}}\\
+            \Hom(\underline{\Z},\fF)(V) \ar{r}{\varphi(V)}& \fF(V)
+        \end{tikzcd}
+    \end{center}
+    To show this, fix any $\phi\in \Hom(\underline{\Z},\fF)(U)$, then 
+    \begin{align*}
+        &\res_{U,V}\circ \varphi(U)(\phi)=\res_{U,V}(\phi(c_U))=\phi(\res_{U,V}(c_U))=\phi(c_V)\\
+        &=\res_{U,V}(\phi)(c_V)=\varphi(V)\circ \res_{U,V}(\phi)
+    \end{align*}
+    of course relying on the naturality of $\phi$, and the fact that we define $\phi_{V}$ to act just as $\phi$ does. Now we wish to show that for every $U\subset X$, $\varphi(U)$ is a bijection. To show surjectivity, fix any section $s\in \fF(U)$. We may define $\phi_s\in \Hom(\underline{\Z},\fF)(U)$ that acts as $\phi_s(V)(c_V)=\res_{U,V}(s)$. Then by construction, $\varphi(U)(\phi_s)=\phi_s(c_U)=\res_{U,U}(s)=s$. To show that $\phi_s$ is actually natural, we want to show the following diagram commutes for all $W\subset V\subset U$:
+    \begin{center}
+        \begin{tikzcd}
+            \underline{\Z}(V) \ar{r}{\phi_s(V)} \ar{d}{\res_{V,W}}& \fF(V) \ar{d}{\res_{V,W}}\\
+        \underline{\Z}(W) \ar{r}{\phi_s(W)}& \fF(W)
+        \end{tikzcd}
+    \end{center}
+    We may compute that
+    \begin{align*}
+        &\res_{V,W}\circ \phi_s(c_V)=\res_{V,W}\circ \res_{U,V}(s)=\res_{U,W}(s)\\
+        &=\phi_s(W)(c_W)=\phi_s(W)\circ \res_{V,W}(c_V)
+    \end{align*}
+    which suffices because again $\underline{\Z}(V)=\langle c_V\rangle$ for every $V\subset X$. Thus $\varphi(U)$ is surjective.\\
+    To show $\varphi(U)$ is injective, suppose $\varphi(U)(\phi_1)=\varphi(U)(\phi_2)$ for some $\phi_1,\phi_2\in \Hom(\underline{\Z},\fF)(U)$. Then $\phi_1(c_U)=\phi_2(c_U)$. By our previous observations regarding how $\phi(c_U)$ determines $\phi$ entirely, it follows that $\phi_1=\phi_2$ as desired. Thus $\varphi(U)$ is a bijection, hence $\varphi$ is an isomorphism.
+    \item Define $\varphi\in \Nat(\Hom(\fO_X,\fF),\fF)$ that acts as $\varphi(U)(\phi)=\phi(1_U)$ for any $\phi \in \Hom(\fO_X,\fF)(U)$, where $1_U\in \fO_X(U)$ is the multiplicative identity. To show $\varphi$ is natural, fix any $V\subset U\subset X$. We claim the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \Hom(\fO_X,\fF)(U) \ar{r}{\varphi(U)} \ar{d}{\res_{U,V}}& \fF(U) \ar{d}{\res_{U,V}}\\
+            \Hom(\fO_X,\fF)(V) \ar{r}{\varphi(V)}&\fF(V)
+        \end{tikzcd}
+    \end{center}
+    Letting $\phi \in \Hom(\fO_X,\fF)(U)$ be arbitrary, we compute that
+    \begin{align*}
+        &\res_{U,V}\circ \varphi(U)(\phi)=\res_{U,V}(\phi(1_U))=\phi(\res_{U,V}(1_U))\\
+        &=\phi(1_V)=\res_{U,V}(\phi)(1_V)=\varphi(V)\circ \res_{U,V}(\phi)
+    \end{align*}
+    This comes from the fact that $\phi$ is assumed to be natural, together with the fact that since each $\res_{U,V}:\fO_X(U)\to \fO_X(V)$ is a ring homomorphism, it must preserve multiplicative identities.\\
+    Then indeed $\varphi$ is natural. To show $\varphi$ is an isomorphism, it suffices to show each $\varphi(U)$ is a bijection. First, we claim that every natural transformation $\phi\in \Hom(\fO,\fF)(U)$ is uniquely determined by its action on $1_U$. To see this, if we take any $V\subset U$ and any $x\in \fO(U)$, we observe that by definition the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fO_X(U) \ar{r}{\phi(U)} \ar{d}{\res_{U,V}}& \fF(U) \ar{d}{\res_{U,V}}\\
+            \fO_X(V) \ar{r}{\phi(V)}& \fF(V)
+        \end{tikzcd}
+    \end{center}
+    For ease of notation, let $\phi(1_U)\coloneqq \phi(U)(1_U)$ for each open $U$. Because $\res_{U,V}(1_U)=1_V$, we obtain that
+    \begin{align*}
+        \phi(V)(x)=\phi(V)(x\cdot 1_V)=x\cdot \phi(V)(1_V)=x\cdot \res_{U,V}\circ \phi(1_U)
+    \end{align*}
+    because we have that $\phi$ is a $\Mod_{\fO_X}$ homomorphism. To show $\varphi(U)$ is surjective, fix any section $s\in \fF(U)$. Define $\phi_s\in \Hom(\fO_X,\fF)(U)$ that acts as
+    \[
+    \phi_s(V)(1_V)=\res_{U,V}(s)
+    \]
+    for any $V\subset U$. By our previous observation, this defines $\phi_s$ entirely. To show $\phi_s$ is natural, we want to show the following diagram commutes for all $W\subset V\subset U$:
+    \begin{center}
+        \begin{tikzcd}
+            \fO_X(V) \ar{r}{\phi_s(V)} \ar{d}{\res_{V,W}}& \fF(V) \ar{d}{\res_{V,W}}\\
+            \fO_X(W) \ar{r}{\phi_s(W)}& \fF(W)
+        \end{tikzcd}
+    \end{center}
+    To see this, by our previous observations it suffices to show both paths action on $1_V$ agrees. We observe
+    \begin{align*}
+        \phi_s(W)\circ \res_{V,W}(1_V)=\phi_s(1_W)=\res_{U,W}(s)=\res_{V,W}\circ \res_{U,V}(s)=\res_{V,W}\circ \phi_s(1_V)
+    \end{align*}
+    as desired. We also have that, by construction,
+    \begin{align*}
+        \varphi(U)(\phi_s)=\phi_s(1_U)=\res_{U,U}(s)=s
+    \end{align*}
+    so $\varphi(U)$ is surjective.\\
+    $\varphi(U)$ is injective because if $\varphi(U)(\phi_1)=\varphi(U)(\phi_2)$ for some $\phi_1,\phi_2\in \Hom(\fO_X,\fF)(U)$, then by definition $\phi_1(1_U)=\phi_2(1_U)$. But by our previous observations, this action determines $\phi_1$ and $\phi_2$ to be the same. Thus $\varphi(U)$ is injective, and hence $\varphi$ is an isomorphism as desired.
+\end{proof}
+\subsubsection{E}\label{2.3.E}
+\begin{proof}
+    We use the following diagram to define $\res_{U,V}$ for every $V\subset U\subset X$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(U) \ar{r}{\res_{U,V}}& \fF(V) \ar{r}{\phi(V)}& \fG(V)\\
+            &\ker \phi(V) \ar{ur}{0} \ar[hook]{u}{\iota_V}\\
+            \ker \phi(U) \ar[hook]{uu}{\iota_U} \ar[dashed]{ur}[description]{\exists!}
+        \end{tikzcd}
+    \end{center}
+    Indeed,
+    \begin{align*}
+        \phi(V)\circ \res_{U,V}\circ \iota_U=\res_{U,V}\circ \phi(U)\circ \iota_U=\res_{U,V}\circ 0=0
+    \end{align*}
+    so we obtain the induced morphism $\res_{U,V}:\ker \phi(U)\to \ker \phi(V)$ that makes the diagram commute. By this construction, it is clear that $\res_{U,U}=\id_{\ker \phi(U)}$ by uniqueness of $\res_{U,U}$ and the fact that $\res_{U,U}:\fF(U)\to \fF(U)=\id_{\fF(U)}$. The last thing to show is that for all $W\subset V\subset U\subset X$, we have that $\res_{U,W}=\res_{V,W}\circ \res_{U,V}$. Notice that by our constructions of the restrictions, the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF(U) \ar{r}{\res_{U,V}}& \fF(V) \ar{r}{\res_{V,W}}&\fF(W)\\
+            \ker \phi(U) \ar{r}{\res_{U,V}} \ar[hook]{u}{\iota_U}& \ker \phi(V) \ar[hook]{u}{\iota_V} \ar{r}{\res_{V,W}}& \ker \phi(W) \ar[hook]{u}{\iota_W}
+        \end{tikzcd}
+    \end{center}
+    By this diagram, it is clear that
+    \begin{align*}
+        \iota_W\circ \res_{V,W}^{\ker}\circ \res_{U,V}^{\ker}=\res_{V,W}^\fF \circ \iota_V\circ \res_{U,V}^{\ker}=\res_{V,W}^\fF \circ \res_{U,V}^\fF \circ \iota_U=\res_{U,W}^\fF \circ \iota_U=\iota_W\circ \res_{U,W}^{\ker }
+    \end{align*}
+    where here we use superscripts to denote which presheaf the restriction is occuring in. Now, using the fact that $\iota_W$ is a monomorphism, we obtain that indeed
+    \begin{align*}
+        \res_{V,W}^{\ker}\circ \res_{U,V}^{\ker}=\res_{U,W}^{\ker}
+    \end{align*}
+    so $\kerpre \phi$ is a presheaf.
+\end{proof}
+\subsubsection{F}\label{2.3.F}
+\begin{proof}
+    Let $\pi:\fG\twoheadrightarrow \cokpre \phi$ be the projection defined on each open set $U\subset X$ as
+    \[
+    \pi_U=\cok \phi(U)
+    \]
+    Dually to how we defined the restriction maps in Exercise \ref{2.3.E}E, we obtain natural restriction maps for $\pi$. As shown in the commutative diagram below, we may observe that indeed $\pi \circ \phi$ is the zero morphism in $\Mod_{\fO_X}^{\text{pre}}$ because it is on each open $V\subset U\subset X$:
+    \begin{center}
+        \begin{tikzcd}
+            \cokpre \phi(U) \ar{r}{\res}&\cokpre \phi(V)\\
+            \fG(U) \ar[two heads]{u}[swap]{\pi_U} \ar{r}{\res}& \fG(V) \ar[two heads]{u}{\pi_V}\\
+            \fF(U) \ar{u}[swap]{\phi(U)} \ar{r}{\res} \ar[bend left=50]{uu}{0}&\fF(V) \ar{u}{\phi(V)} \ar[bend right=50]{uu}[swap]{0}
+        \end{tikzcd}
+    \end{center}
+    Now suppose we have the following commutative diagram in $\Mod_{\fO_X}^{\text{pre}}$:
+    \begin{center}
+        \begin{tikzcd}
+            &\fH\\
+            \fF \ar{ur}{0} \ar{r}{\phi}& \fG \ar{u}{\psi}
+        \end{tikzcd}
+    \end{center}
+    Then, in particular, on each open $U\subset X$, we get the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            &&\fH(U)\\
+            &\cokpre \phi (U) \ar[dashed]{ur}[description]{\exists! h_U}\\
+            \fF(U) \ar{ur}{0} \ar{r}{\phi(U)}& \fG(U) \ar[two heads]{u}{\pi_U} \ar[bend right]{uur}{\psi(U)}
+        \end{tikzcd}
+    \end{center}
+    Now we define the morphism $h:\cokpre \phi \to \fH$ given on each open set $U$ as $h_U$. We now need to show that $h$ is in fact a natural transformation by showing the following diagram commutes for all open $V\subset U\subset X$:
+    \begin{center}
+        \begin{tikzcd}
+            \fH(U) \ar{r}{\res^H}& \fH(V)\\
+            \cokpre \phi(U) \ar{r}{\res^{\cok}} \ar{u}{h_U}&\cokpre \phi(V) \ar{u}{h_V}
+        \end{tikzcd}
+    \end{center}
+    The good news is that $\pi$ is an epimorphism, so we can compute the following equalities:
+    \begin{align*}
+        &\res^H \circ h_U \circ \pi_U\\
+        &=\res^H\circ \psi(U)\\
+        &=\psi(V)\circ \res^G\\
+        &=h_V\circ \pi_V\circ \res^G\\
+        &=h_V\circ \res^{\cok}\circ \pi_U
+    \end{align*}
+    Because $\pi_U$ is an epimorphism, we get that
+    \[
+    \res^H\circ h_U=h_V\circ \res^{\cok}
+    \]
+    as desired. Then indeed $h$ is a natural transformation, and by construction $h\circ \pi=\psi$.
+\end{proof}
+\subsubsection{G}\label{2.3.G}
+\begin{proof}
+    We obtain a functor taking $\fF \mapsto \fF(U)$ and taking $\phi:\fF\to \fG$ to $\phi(U)$. This preserves identity morphisms by definition, and if we have $\fF \xrightarrow{\phi} \fG \xrightarrow{\psi} \fH$, then we take $\psi\circ \phi$ to $(\psi\circ \phi)(U)=\psi(U)\circ \phi(U)$ by definition, proving this is a functor.
+
+    Now, to show that this functor is exact, we will show that if $\fF \xrightarrow{\phi} \fG \xrightarrow{\psi} \fH$ is exact, then $\fF(U) \xrightarrow{\phi(U)} \fG(U) \xrightarrow{\psi(U)} \fH(U)$ is also exact. Supposing the first sequence is exact, then $\kerpre \psi=\impre \phi$ by definition. By definition of $\kerpre$ and $\cokpre$ (and hence $\impre$), we obtain that
+    \[
+    \ker \psi(U)=\kerpre \psi(U)=\impre \phi (U)=\im \psi(U)
+    \]
+    Thus $\fF(U) \xrightarrow{\phi(U)} \fG(U) \xrightarrow{\psi(U)} \fH(U)$ is exact as desired. To be completely thorough, we would need to show that our functor preserves the additive structures of the hom-sets, but this is simply because the additive structure of hom-sets in $\Ab_X^{\text{pre}}$ is defined by addition on each open set.
+\end{proof}
+\subsubsection{H}\label{2.3.H}
+\begin{proof}
+    The forward direction is clear; to convince yourself, look at Exercise \ref{2.3.G}G. For the reverse direction, because $\kerpre$ and $\cokpre$ (and hence $\impre$) are defined "pointwise", meaning on each open set, we immediately obtain that $0 \to \fF_1(U) \to \dots \to \fF_n(U) \to 0$ exact for every open $U$ implies $0\to \fF_1 \to \dots\to \fF_n \to 0$ is also exact.
+\end{proof}
+\subsubsection{I}\label{2.3.I}
+\begin{proof}
+    Because the category of sheaves is a full subcategory of the category of presheaves, the universal property is satisfied by a dual argument to Exercise \ref{2.3.F}F. Thus it suffices to show that $\kerpre \phi$  satisfies identity and gluability.
+
+    Suppose $U\subset X$ is open, and $\{U_i\}$ is an open cover of $U$. Now suppose that we have a collection of $f_i:\kerpre \phi(U_i)$ such that
+    \[
+    f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}
+    \]
+    for each $i,j$. If $\iota:\kerpre \phi\to \fF$ is the inclusion, consider $\{\iota_{U_i}(f_i)\}$. Then for each $i,j$, $\iota_{U_i}(f_i)\vert_{U_i\cap U_j}=\iota_{U_j}(f_j)\vert_{U_i\cap U_j}$ because
+    \[
+    \res^{\fF} \circ \iota =\iota \circ \res^{\kerpre \phi}
+    \]
+    so 
+    \[
+    \iota_{U_i}(f_i)\vert_{U_i\cap U_j}=\iota_{U_i\cap U_j}(f_i\vert_{U_i\cap U_j})=\iota_{U_i\cap U_j}(f_j\vert_{U_i\cap U_j})=\iota_{U_j}(f_j)\vert_{U_i\cap U_j}
+    \]
+    Then by gluability of $\fF$, there exists some $f\in \fF(U)$ such that $f\vert_{U_i}=\iota_{U_i}(f_i)$ for each $i$. To show $f\in \im \iota(U) \cong \kerpre\phi(U)$, we will show $\phi(U)(f)=0$, where here $0$ is the identity element of $\fG(U)$. Notice that
+    \[
+    0\vert_{U_i}=0=\phi(U_i)(\iota_{U_i}(f_i))=\phi(U_i)(f\vert_{U_i})=\phi(U)(f)\vert_{U_i}
+    \]
+    for each $i$, where again $0$ here denotes the identity element(s), we obtain by identity of $\fG$ that indeed $0=\phi(U)(f)$. Thus $f\in \im \iota(U)$ as desired, so we take $\iota^{-1}_U(f)$ to be the desired map in $\kerpre\phi(U)$. We compute that
+    \[
+    \iota^{-1}_U(f)\vert_{U_i}=\iota^{-1}_{U_i}(f\vert_{U_i})=\iota^{-1}_{U_i}(\iota_{U_i}(f_i))=f_i
+    \]
+    so gluability holds for $\kerpre\phi$.
+
+    To show identity, using the same open set and open cover as before, suppose we have $f_1,f_2\in \kerpre\phi(U)$ such that $f_1\vert_{U_i}=f_2\vert_{U_i}$ for each $i$. Then \[
+    \iota_U(f_1)\vert_{U_i}=\iota_{U_i}(f_1\vert_{U_i})=\iota_{U_i}(f_2\vert_{U_i})=\iota_U(f_2)\vert_{U_i}
+    \]
+    for each $i$. By identity of $\fF$, we get that $\iota_U(f_1)=\iota_U(f_2)$. Then by injectivity of $\iota$, we get $f_1=f_2$ as desired.
+\end{proof}
+\subsubsection{J}\label{2.3.J}
+\begin{proof}
+    Recall that $\underline \Z$ takes an open set to the abelian group of continuous maps $U\to \Z$, where $\Z$ is given the discrete topology. There is a natural inclusion of $\underline \Z$ into $\fO_X$, because locally constant functions are holomorphic and $\Z\subset \C$. Thus
+    \[
+    0\rightarrow \underline \Z \xrightarrow{\iota}\fO_X
+    \]
+    is exact. For the exactness at $\fF$, any function $f\in \fF(U)$ by definition has some holomorphic $g\in \fO_X(U)$ such that $\exp(g)=f$. Thus the holomorphic function $\frac{g}{2\pi i}$ is sent to $f$, proving
+    \[
+    \fO_X \xrightarrow{\pi} \fF\rightarrow 0
+    \]
+    is also exact. To show $\im \iota \subset \ker \pi$, for any $f\in \underline \Z(U)$, we have $\exp(2\pi i f)=c_1$, where $c_1$ is the constant function to $1\in \C$, because all integer multiples of $2\pi i$ are sent to $1$ by $\exp$. This is the identity on $\fF(U)$, as the abelian group structure of $\fF$ is pointwise multiplication.
+
+    To show $\ker \pi \subset \im \iota$, suppose $\exp(2\pi i f)=c_1$. We obtain immediately that for every $z\in U$, $f(z)\in \Z$ because these are the only values of $\C$ for which the exponential evaluates to $1$. In addition, we may pick any small $\epsilon$, and notice that $\bigcup_{n\in \Z} \D(n,\epsilon)$ is a disjoint open cover of $\Z$, hence $\bigcup_{n\in \Z} f^{-1}(\D(n,\epsilon))$ is a disjoint open cover of $U$. Therefore $f$ must be locally constant, so $f\in \underline \Z(U)$ as desired. Thus
+    \[
+    \underline \Z \rightarrow \fO_X \rightarrow \fF
+    \]
+    is exact.
+
+    Now, we will show $\fF$ is not a sheaf. Consider the following open cover of $\C^*$: $U\coloneqq \{e^{it}:0<t<2\pi\}$ and $V\coloneqq \{e^{it}:\pi<t<3\pi\}$. Then $\id_U$ and $\id_V$ both have holomorphic logarithms, because $U,V$ by construction have made a branch cut along $\R_{\ge 0}$ and $\R_{\le 0}$ respectively. If $\fF$ satisfied gluability, then $\id_{\C^*}$ would have a logarithm, so there would be a global logarithm on $\C^*$; this is a contradiction because there is no such global logarithm. Thus $\fF$ is not a sheaf.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.4.A}
+\begin{proof}
+    The natural map sends $f\in \fF(U)$ to $([f,U])_{p\in U}$, the element that projects to the germ $[f,U]$ for each $p\in U$. To show this map is injective, suppose $f,g\in \fF(U)$ have the same image under our map. Then for every $p\in U$, we have that $[f,U]=[g,U]$. By definition, this means that there exists some open neighborhood $V_p\subset U$ of $p$ such that $f\vert_{V_p}=g\vert_{V_p}$. Notice that $\{V_p\}_{p\in U}$ is an open cover of $U$, and $f\vert_{V_p}=g\vert_{V_p}$ for every $p$ implies, by identity of $\fF$, that $f=g$.
+\end{proof}
+\subsubsection{B}\label{2.4.B}
+\begin{proof}
+    Let $(s_p)_{p\in U}\in \prod_{p\in U} \fF_p$ be a compatible germ. Then there exists some open cover $\{U_i\}$ of $U$ and sections $f_i\in \fF(U_i)$ such that for every $p\in U$, if $p\in U_i$ then $[f_i,U_i]=s_p$. We claim that for any $i,j$, on $U_i\cap U_j$ it holds that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i \cap U_j}$. To show this, for any $p\in U_i\cap U_j$, 
+    \[
+    [f_i,U_i]=s_p=[f_j,U_j]
+    \]
+    Then by definition, there exists some open neighborhood $V_p\subset U_i\cap U_j$ of $p$ such that $f_i\vert_{V_p}=f_j\vert_{V_p}$. Letting $p$ range freely over $U_i\cap U_j$, we get an open cover $\{V_p\}$ of $U_i\cap U_j$. Because $f_i$ and $f_j$ restrict to the same thing on each $V_p$, by identity of $\fF$ we get that $f_i\vert_{U_i\cap U_j}=f_j\vert_{U_i\cap U_j}$. With this result, by gluability of $\fF$, there exists some $f\in \fF(U)$ such that $f\vert_{U_i}=f_i$ for each $i$.
+
+    Then $f\mapsto ([f,U])_{p\in P}$. By construction, for every $p\in U$,
+    \[
+    s_p=[f_i,U_i]=[f,U]
+    \]
+    because again $f\vert_{U_i}=f_i$. Thus indeed $f$ maps to $(s_p)$, so the set of compatible germs is contained in the image.
+\end{proof}
+\subsubsection{C}\label{2.4.C}
+\begin{proof}
+    We want to show that for arbitrary $f\in \fF(U)$, $\phi_1(U)(f)=\phi_2(U)(f)$ given that $\phi_1$ and $\phi_2$ induce the same maps of stalks. Recall that the induced map of stalks by $\phi:\fF\to \fG$ is given by
+    \[
+    [f,U]\mapsto [\phi(U)(f),U]
+    \]
+    Fix an arbitrary $p\in U$. Then because the induced maps of $\phi_1,\phi_2$ agree, we get that
+    \[
+    [\phi_1(U)(f),U]=[\phi_2(U)(f),U]
+    \]
+    By definition, there exists some open neighborhood $V_p \subset U$ of $p$ such that $\phi_1(U)(f)\vert_{V_p}=\phi_2(U)(f)\vert_{V_p}$. Because $p$ was arbitrary, we get an open cover $\{V_p\}_{p\in U}$ for $U$. But because $\phi_1(U)(f)\vert_{V_p}=\phi_2(U)(f)\vert_{V_p}$ for every $p$, we get by identity of $\fG$ that $\phi_1(U)(f)=\phi_2(U)(f)$ as desired. Thus $\phi_1(U)=\phi_2(U)$ because $f$ was arbitrary, hence $\phi_1=\phi_2$ as $U$ was also arbitrary.
+\end{proof}
+\subsubsection{D}\label{2.4.D}
+\begin{proof}
+    For the forward direction, suppose $\phi:\fF \to \fG$ is an isomorphism of sheaves in $\Set_X$. We want to show that the induced map $\phi_p:\fF_p\to \fG_p$ is an isomorphism. We observe
+    \[
+    \phi_p\circ \phi_p^{-1}([g,U])=\phi_p([\phi^{-1}(U)(g),U])=[\phi(U)\circ \phi^{-1}(U)(g),U]=[g,U]
+    \]
+    and
+    \[
+    \phi_p^{-1}\circ \phi_p([f,U])=\phi_p^{-1}([\phi(U)(f),U])=[(\phi^{-1}(U)\circ \phi(U))(f),U]=[f,U]
+    \]
+    so indeed the induced maps $\phi_p$ and $\phi_p^{-1}$ are inverses, so $\phi_p$ is an isomorphism.
+
+    For the reverse direction, suppose $\phi:\fF\to \fG$ induces isomorphisms (natural bijections) of all stalks. To shown that $\phi$ is injective, suppose $\phi(U)(f_1)=\phi(U)(f_2)$ for any two $f_1,f_2\in \fF(U)$. Then for each $p\in U$,
+    \[
+    \phi_p([f_1,U])=[\phi(U)(f_1),U]=[\phi(U)(f_2),U]=\phi_p([f_2,U])
+    \]
+    By injectivity of $\phi_p$, we get $[f_1,U]=[f_2,U]$. Then there exists some neighborhood $V_p\subset U$ of $p$ such that $f_1\vert_{V_p}=f_2\vert_{V_p}$. But because $p\in U$ was arbitrary, we have an open cover $\{V_p\}$ of $U$ such that $f_1\vert_{V_p}=f_2\vert_{V_p}$ for all $p$, so by identity of $\fF$ we get that $f_1=f_2$ as desired; thus $\phi$ is injective.
+
+    To show surjectivity, fix any $g\in \fG(U)$, and we want to show that there exists some $f\in \fF(U)$ such that $\phi(U)(f)=g$. For each $p\in U$, $[g,U]\in \fG_p$; by surjectivity of each $\phi_p$, let
+    \[
+    \phi_p([f_p,U_p])=[g,U]
+    \]
+    Then the $\{U_p\}$ forms an open cover of $U$. We now claim that the $f_p$ together with the $\{U_p\}$ is a compatible germ. To show this, we want to show that if $p\in U_q$, that $[f_q,U_q]=[f_p,U_p]$ as stalks at $p$. We notice that
+    \begin{align*}
+        &\phi_p[f_q,U_q]=[\phi(U_q)(f_q),U_q]=[\phi(U_p\cap U_q)(f_q\vert_{U_p\cap U_q}),U_p\cap U_q]\\
+        &=[g\vert_{U_p\cap U_q},U_p\cap U_q]=[g\vert_{U_p},U_p]=[\phi(U_p)(f_p),U_p]=\phi_p[f_p,U_p]
+    \end{align*}
+    By injectivity of $\phi_p$, we get that $[f_q,U_q]=[f_p,U_p]$ as desired. By Exercise \ref{2.4.B}B, this choice of compatible germs is the image of some section $f$ of $\fF$ over $U$. We claim now that $\phi(U)(f)=g$, which will come from identity on $\fG$. We have that for every $p\in U$,
+    \[
+    f\vert_{U_p}=f_p
+    \]
+    and
+    \[
+    \phi(U)(f)\vert_{U_p}=\phi(U_p)(f\vert_{U_p})=\phi(U_p)(f_p)
+    \]
+    which agrees with $g$ on some neighborhood $V_p\subset U$. In other words, $\phi(U)(f)$ agrees with $g$ on the open cover $\{V_p\}$, so that, by identity of $\fG$, $\phi(U)(f)=g$. This concludes the proof as we've shown $\phi$ is injective and surjective, hence an isomorphism.
+\end{proof}
+\subsubsection{E}\label{2.4.E}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item As suggested, let $X=\{p,q\}$ be the two point space with the discrete topology. Below is the diagram describing the presheaf -- i.e. contravariant functor from $\Op(X)\to \Set$ -- 
+        \begin{center}
+            \begin{tikzcd}
+                &\fF(X)=\{0,1\} \ar{dl}[swap]{\res_{X,\{p\}}} \ar{dr}{\res_{X,\{q\}}}\\
+                \fF(\{p\})=\{0\} \ar{dr}[swap]{\res_{\{p\},\emptyset}}&&\fF(\{q\})=\{1\} \ar{dl}{\res_{\{q\},\emptyset}}\\
+                &\fF(\emptyset)=\{*\}
+            \end{tikzcd}
+        \end{center}
+        It's easy to check this is a presheaf by the functor definition. However, $0\vert_{\{p\}}=0=1\vert_{\{p\}}$ and $0\vert_{\{q\}}=1=1\vert_{\{q\}}$, so this is where identity fails. Thus $a$ and $b$ have identical germs at each point. Therefore, under the natural map $\fF(X)\to \prod_{x\in X} \fF_x$, we observe
+        \[
+        0\mapsto ([0\vert_{\{p\}},\{p\}],[0\vert_{\{q\}},\{q\}])=([0,\{p\}],[1,\{q\}])
+        \]
+        and
+        \[
+        1\mapsto ([1\vert_{\{p\}},\{p\}],[1\vert_{\{q\}},\{q\}])=([0,\{p\}],[1,\{q\}])
+        \]
+        so injectivity fails.
+        \item 
+        Let $\fF$ be defined as above, let $\phi_1:\fF\to \fF$ be the identity, and $\phi_2:\fF\to \fF$ be defined by $\phi_2(X)$ being the constant function to $0\in \fF(X)$. This defines $\phi_2$ entirely because the other values of $\phi_2$ are uniquely determined since the sheaf $\fF$ evaluates every other set to be the final object in $\Set$. We notice that, as before, there is only one element in $\fF_p$ and one element in $\fF_q$. Therefore $\phi_1$ and $\phi_2$ induce the same maps on each stalk as $\phi_1(0)=\phi_2(0)$, and
+        \begin{align*}
+            [\phi_1(1),X]_p=[1,X]_p=[0,\{p\}]_p=[0,X]_p=[\phi_2(1),X]_p
+        \end{align*}
+        where the subscript indicates the stalk we are looking at. Similarly
+        \begin{align*}
+            [\phi_1(1),X]_q=[1,X]_q=[1,\{q\}]_q=[0,X]_q=[\phi_2(1),X]_q
+        \end{align*}
+        proves that, because $\phi_1$ agrees with $\phi_2$ on every other open set, that the two endomorphisms of $\fF$ induce the same maps on each stalk, but are not equal.
+        \item Let $\fF$ be as above, and let $\fG$ be defined by the commutative diagram below:
+        \begin{center}
+            \begin{tikzcd}
+                &\fG(X)=\{2\} \ar{dl}[swap]{\res_{X,\{p\}}} \ar{dr}{\res_{X,\{q\}}}\\
+                \fF(\{p\})=\{0\} \ar{dr}[swap]{\res_{\{p\},\emptyset}}&&\fF(\{q\})=\{1\} \ar{dl}{\res_{\{q\},\emptyset}}\\
+                &\fF(\emptyset)=\{*\}
+            \end{tikzcd}
+        \end{center}
+        Now let $\phi:\fF\to \fG$ be the unique morphism of presheaves into $\fG$, because $\fG$ is the final object in $\Set^{\text{pre}}_X$. Similarly to $\fF$, there is only one element in $\fG_p$ as there is in $\fG_q$. Thus, $\phi$ induces bijections (isomorphisms in $\Set$) on each stalk. However, $\phi:\fF\to \fG$ is not an isomorphism because $\fG$ is not the final object, while $\fG$ is, so indeed there cannot be an isomorphism between them.
+    \end{enumerate}
+\end{proof}
+\subsubsection{F}\label{2.4.F}
+\begin{proof}
+    Suppose $\fF$ is a presheaf, and $\phi:\fF\to \fG$ and $\varphi:\fF\to \fH$ are two sheaves satisfying the universal property of the sheafification $\fF^{\text{sh}}$ of $\fF$. Then, by the universal property of $\fG$, the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\phi} \ar{dr}[swap]{\varphi}&\fG \ar{d}[description]{\exists! \tilde \varphi}\\
+            & \fH
+        \end{tikzcd}
+    \end{center}
+    On the other hand, by the universal property of $\fH$, the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\varphi} \ar{dr}[swap]{\phi}&\fH \ar{d}[description]{\exists! \tilde \phi}\\
+            & \fG
+        \end{tikzcd}
+    \end{center}
+    Now, consider the following commutative diagram induced by $\fG$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\phi} \ar{dr}[swap]{\phi}&\fG \ar{d}[description]{\exists!}\\
+            & \fG
+        \end{tikzcd}
+    \end{center}
+    The identity morphism satisfies this unique arrow, as does $\tilde \phi \circ \tilde \varphi$ because
+    \[
+    \tilde \phi \circ \tilde \varphi \circ \phi=\tilde \phi \circ \varphi=\phi.
+    \]
+    By uniqueness, the two are equal. Similarly, the unique arrow in the commutative diagram below
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\varphi} \ar{dr}[swap]{\varphi}&\fH \ar{d}[description]{\exists!}\\
+            & \fH
+        \end{tikzcd}
+    \end{center}
+    is satisfied by both the identity morphism and $\tilde \varphi \circ \tilde \phi$, so the two are equal. This proves $\tilde \varphi$ and $\tilde \phi$ are inverses, and thus $\fG\cong \fH$ as sheaves. 
+    
+    Also, if $\fF$ is already a sheaf, then we claim $\fF$ with the identity is the sheafification of $\fF$. Indeed, for every other sheaf $\fG$ and $f:\fF\to \fG$, then the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\id_{\fF}} \ar{dr}[swap]{f}&\fF \ar{d}[description]{\exists!}\\
+            & \fG
+        \end{tikzcd}
+    \end{center}
+    because the unique arrow is $f$ itself, and $f$ is a morphism of sheaves because $\Set_X$ is a full subcategory of $\Set^{\text{pre}}_X$.
+\end{proof}
+\subsubsection{G}\label{2.4.G}
+\begin{proof}
+    Suppose we have $\phi:\fF\to\fG$ where $\fF$ and $\fG$ are presheaves. Then we have the following commutative diagram by the universal property of $\fF^{\text{sh}}$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{d}{\phi} \ar{r}{\text{sh}_\fF}&\fF^{\text{sh}} \ar{d}[description]{\exists! \phi^\text{sh}}\\
+            \fG \ar{r}{\text{sh}_\fG}& \fG^{\text{sh}}
+        \end{tikzcd}
+    \end{center}
+    To show sheafification is a functor, we need to show that it preserves identity morphisms and respects composition of morphisms. We observe that, by the commutative diagram above defining the induced morphism, that sheafification preserves identities. To show sheafification respects composition, suppose we have
+    \[
+    \fF \xrightarrow{f} \fG \xrightarrow{g} \fH
+    \]
+    The following commutative diagram defines $(g\circ f)^{\text{sh}}$:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{d}{g\circ f} \ar{r}{\text{sh}_\fF}&\fF^{\text{sh}} \ar[dashed]{d}[description]{\exists!}\\
+            \fH \ar{r}{\text{sh}_\fH}& \fH^{\text{sh}}
+        \end{tikzcd}
+    \end{center}
+    By uniqueness of $(g\circ f)^\text{sh}$, it suffices to show that $g^\text{sh}\circ f^\text{sh}$ satisfies this commutative diagram. We compute that, by definition of $g^\text{sh}$ and $f^\text{sh}$,
+    \begin{align*}
+        g^\text{sh}\circ f^\text{sh}\circ \text{sh}_\fF=g^\text{sh}\circ \text{sh}_\fG \circ f=\text{sh}_\fH\circ g\circ f
+    \end{align*}
+    as desired, so sheafification indeed preserves composition of morphisms and identities, and is thus a functor.
+\end{proof}
+\subsubsection{H}\label{2.4.H}
+\begin{proof}
+    This construction is easily seen to be a presheaf, so we will just prove it satisfies identity and gluability.
+
+    For identity, suppose we have two sections $(f_p\in \fF_p)_{p\in U}$ and $(g_p\in \fF_p)_{p\in U}$ and and open cover $\{U_i\}$ of $U$ such that $(f_p)_{p\in U}$ and $(g_p)_{p\in U}$ restrict to the same section on each $U_i$, i.e.
+    \[
+    (f_p)_{p\in U_i}=(g_p)_{p\in U_i}
+    \]
+    for each $i$. But then indeed, since the $U_i$'s form an open cover for $U$, for each $p\in U$, $p\in U_i$ for some $i$ implies $f_p=g_p$. Then indeed the two sections are equal because they project to the same sections at each point, so identity holds.
+
+    For gluability, suppose we have a set of sections $\{(f^i_p)_{p\in U_i}\}_{i}$ for an open cover $\{U_i\}$ of $U$ such that on each $U_i\cap U_j$, 
+    \[
+    (f^i_p)_{p\in U_i\cap U_j}=(f^j_p)_{p\in U_i\cap U_j}
+    \]
+    where I am using the superscript as an index notation for the sections. Let $(f_p)_{p\in U}$ be a choice of sections such that for each $p\in U$, $f_p$ is $f^i_p$ for some neighborhood $U_i$ of $p$. Notice that this is not actually a ``choice" because of the sections agreeing on their intersections, so that
+    \[
+    f^i_p=f^j_p
+    \]
+    for every $p\in U_i\cap U_j$ where we would need to make a choice.
+    We claim that $(f_p)_{p\in U}$ is indeed a section of $\fF^{\text{sh}}$ over $U$. By the compatibility condition that for all $p\in U_i$, there exists an open neighborhood $V_i\subset U_i$ of $p$, and $s\in \fF(V_i)$ such that $s_q=f^i_q$ for all $q\in V_i$ an all $i$, we obtain that $V_i\cap V_j$ is an open neighborhood of $p$ contained in $U_i\cap U_j$. Fixing $p\in U$ to be arbitrary, we know $p\in U_i$ for some $i$. Then there exists an open neighborhood $V_i\subset U_i$ and $s\in \fF(V_i)$ such that $f^i_q=s_q$ for every $q\in V_i$. By construction of $(f_p)_{p\in U}$, we decided that $f_q$ is $f^i_q$ for every $q\in U_i$, hence $f_q=s_q$ for every $q\in V_i$. Then indeed $(f_p)_{p\in U}$ consists of compatible germs of $U$, so $(f_p)_{p\in U}\in \fF^{\text{sh}}(U)$. Finally, restricting this section to each $U_i$ gives
+    \[
+    (f_p)_{p\in U_i}=(f^i_p)_{p\in U_i}
+    \]
+    by construction, so gluability holds.
+\end{proof}
+\subsubsection{I}\label{2.4.I}
+\begin{proof}
+    The natural map $\sh:\fF\to \fF^{\sh}$ is defined by 
+    \[
+    \sh(U)(f)=(f_p)_{p\in U}
+    \]
+    Clearly the output consists of compatible germs. Furthermore, if $V\subset U\subset X$, we observe that for any $f\in \fF(U)$,
+    \[
+    \sh(U)(f)\vert_{V}=(f_p)_{p\in V}=(f\vert_{V\ p})_{p\in V}=\sh(V)(f\vert_{V})
+    \]
+    where the middle equality comes from the fact that germs are local, so the germs of $f\vert_V$ are equal to the germs of $f$ at points in $V$. This shows that $\sh$ is a natural transformation, and is thus a map of presheaves.
+\end{proof}
+\subsubsection{J}\label{2.4.J}
+\begin{proof}
+    Suppose we have a sheaf $\fG$ and a map of presheaves $\phi:\fF\to \fG$. Then for any section $(f_p\in \fF_p)_{p\in U}$ consisting of compatible germs, for each $p\in U$, let $V_p\subset U$ denote the open neighborhood of $p$ and $s^p\in \fF(V_p)$ be the section such that $s^p_q=f_q$ for every $q\in V_p$. We define $\phi^{\sh}(U)$ to take $(f_p)_{p\in U}$ to the unique section of $\fG$ over $U$ obtained by gluability applied to the collection of $\{\phi(V_p)(s^p)\in \fG(V_p)\}$. Gluability is applicable here because on any $V_p\cap V_q$, we observe
+    \begin{align*}
+        \phi(V_p)(s^p)\vert_{V_p\cap V_q}=\phi(V_p\cap V_q)(s^p\vert_{V_p\cap V_q})=\phi(V_p\cap V_q)(s^q\vert_{V_p\cap V_q})=\phi(V_q)(s^q)\vert_{V_p\cap V_q}
+    \end{align*}
+    The reason $\phi(V_p\cap V_q)(s^p\vert_{V_p\cap V_q})=\phi(V_p\cap V_q)(s^q\vert_{V_p\cap V_q})$ is because by Exercise \ref{2.4.A}A, sections of a sheaf is determined by its germs, and we know that for all  $r\in V_p\cap V_q$,
+    \[
+    s^p_r=f_r=s^q_r
+    \]
+    In other words, for every $r\in V_p\cap V_q$, there exists some neighborhood $W_r\subset V_p\cap V_q$ of $r$ such that $s^p\vert_{W_r}=s^q\vert_{W_r}$. Therefore
+    \begin{align*}
+        \phi(V_p\cap V_q)(s^p\vert_{V_p\cap V_q})\vert_{W_r}=\phi(V_p\cap V_q)(s^p\vert_{W_r})=\phi(V_p\cap V_q)(s^q\vert_{W_r})=\phi(V_p\cap V_q)(s^q\vert_{V_p\cap V_q})\vert_{W_r}
+    \end{align*}
+    so indeed the two sections have equal germs everywhere, which shows they are equal by Exercise \ref{2.4.A}A.
+
+    Notice that our function $\phi^{\sh}(U)$ is well defined by identity of $\fG$, because our choice of gluability is the unique section with this property. Now we have to show that $\phi^{\sh}$ is natural. If we take $V\subset U$, we want to show that
+    \begin{align}
+        \phi^{\sh}(U)(f_p)_{p\in U}\vert_{V}=\phi^{\sh}(V)(f_p)_{p\in V}
+    \end{align}
+    To do this, it suffices by identity of $\fG$ to show that $\phi^{\sh}(U)(f_p)_{p\in U}\vert_V$ agrees with $\phi^{\sh}(V)(f_p)_{p\in V}$ on some open cover of $V$. By definition, we have that
+    \[
+    \phi^{\sh}(U)(f_p)_{p\in U} \vert_{V_p}=\phi(V_p)(s^p)
+    \]
+    Now let $W_p\coloneqq V\cap V_p$ for each $p\in V$, so that $\{W_p\}$ forms an open cover of $V$. Then
+    \[
+    \phi^{\sh}(U)(f_p)_{p\in U}\vert_{W_p}=\phi(V_p)(s^p)\vert_{W_p}=\phi(W_p)(s^p\vert_{W_p})=\phi^{\sh}(V)(f_p)_{p\in V} \vert_{W_p}
+    \]
+    To show the final equality, we use the fact that the choice of sections whose stalks yield any choice of compatible germs is independent. This follows from Exercise \ref{2.4.A}A, because if we pick some other choice of representing sections , then we use the fact that sections of $\fG$ are determined by their germs. This will be made precise as follows: for each $p\in V$, take $U_p\subset V$ to be a neighborhood of $p$ and $t^p$ to be a section such that for all $q\in U_p$, $t^p_q=f_q$. Then $W_p\cap U_p$ is a neighborhood of $p$ contained in $V$ such that each germ of $t^p$ and $s^p$ are equal. This would enforce that
+    \[
+    \phi(W_p\cap U_p)(t^p)=\phi(W_p\cap U_p)(s^p)
+    \]
+    because their germs are the same everywhere by Exercise \ref{2.4.A}A. Then we would replace our open cover $\{W_p\}$ by $\{W_p\cap U_p\}$, and everything would be the same.
+
+    Now we have shown that $\phi^{\sh}(U)(f_p)_{p\in U}$ restricts the same as $\phi^{\sh}(V)(f_p)_{p\in V}$ on the open cover $\{W_p\}$, which by identity shows they are equal. Thus $\phi^{\sh}$ is a map of sheaves.
+
+    To show $\phi^{\sh}$ satisfies the desired universal property, we take any $U\subset X$ and any $f\in \fF(U)$. Then we observe that the following diagram commutes
+    \begin{center}
+        \begin{tikzcd}
+            \fF(U) \ar{r}{\sh(U)}  \ar{dr}[swap]{\phi(U)}& \fF^{\sh}(U) \ar{d}{\phi^{\sh}(U)}\\
+            & \fG(U)
+        \end{tikzcd}
+    \end{center}
+        because
+        \[
+        \phi^{\sh}(U)\circ \sh(U)(f)= \phi^{\sh}(U)(f_p)_{p\in U}=\phi(U)(f).
+        \]
+        The last equality holds because $(f_p)_{p\in U}$ has the representative section $f$ on the open cover $\{U\}$ of $U$. Then gluability of $\phi(U)(f)$ on the open cover $\{U\}$ of $U$ trivially gives $\phi(U)(f)$ back. Then because the diagram commutes for every open subset and is natural, existence is proven.
+        
+        The last thing to show is that $\phi^{\sh}$ is unique. Suppose we had another map of sheaves $\varphi:\fF^{\sh}\to \fG$ satisfying the universal property. To show $\varphi=\phi^{\sh}$, it suffices to show for arbitrary $U\subset X$ and $(f_p)_{p\in U}\in \fF^{\sh}(U)$, that $\varphi(U)(f_p)_{p\in U}=\phi^{\sh}(U)(f_p)_{p\in U}$. Let $\{V_p\}_{p\in U}$ be an open cover of $U$ and $s^p\in \fF(V_p)$ be a section such that for each $q\in V_p$, $f_q=s^p_q$. By the universal property that $\varphi$ satisfies, we obtain that
+        \begin{align*}
+            &\varphi(U)(f_q)_{q\in U}\vert_{V_p}=\varphi(V_p)(f_q)_{q\in V_p}=\varphi(V_p)\circ \sh(V_p)(s^p)\\
+            &=\phi(V_p)(s^p)=\phi^{\sh}(V_p)\circ \sh(V_p)(s^p)=\phi^{\sh}(V_p)(f_q)_{q\in V_p}=\phi^{\sh}(U)(f_q)_{q\in U} \vert_{V_p}
+        \end{align*}
+        Because the $\{V_p\}$ form an open cover of $U$, and we just showed that $\varphi(U)(f_q)_{q\in U}$ restricts the same as $\phi^{\sh}(U)(f_q)_{q\in U}$ on each $V_p$, thus proving by identity of $\fG$ that $\phi^{\sh}(U)(f_q)_{q\in U}=\varphi(U)(f_q)$. This proves that, because $U$ was arbitrary and $(f_q)_{q\in U}$ was as well, that $\varphi=\phi^{\sh}$, so uniqueness holds as well.
+\end{proof}
+\subsubsection{K}\label{2.4.K}
+\begin{proof}
+    We want to show that for any presheaves $\fF$ and $\fG$, any sheaves $\fH$ and $\fT$, $\phi:\fH\to \fT$, and $\varphi:\fG \to \fF$ the following diagrams commute:
+    \begin{center}
+        \begin{tikzcd}
+            \Hom(\fF^{\sh},\fH) \ar{d}{\tau_{\fF,\fH}} \ar{r}{\phi_*}&\Hom(\fF^{\sh},\fT) \ar{d}{\tau_{\fF,\fT}}\\
+            \Hom(\fF, \fH) \ar{r}{\phi_*}&\Hom(\fF, \fT)
+        \end{tikzcd}
+        \begin{tikzcd}
+            \Hom(\fF^{\sh},\fH) \ar{d}{\tau_{\fF,\fH}} \ar{r}{(\varphi^{\sh})^*}&\Hom(\fG^{\sh},\fH) \ar{d}{\tau_{\fG,\fH}}\\
+            \Hom(\fF, \fH) \ar{r}{\varphi^*}&\Hom(\fG, \fH)
+        \end{tikzcd}
+    \end{center}
+    where in addition the $\tau$'s are bijections. By the universal property of sheafification, we define $\hat f\coloneqq \tau_{\fF,\fH}^{-1}(f)$, where $f:\fF\to \fH$; more explicitly, $\hat f$ is the unique morphism induced by the commutative diagram below:
+    \begin{center}
+        \begin{tikzcd}
+            \fF \ar{r}{\sh} \ar{dr}[swap]{f}& \fF^{\sh} \ar[dashed]{d}[description]{\exists!}\\
+            & \fH
+        \end{tikzcd}
+    \end{center}
+    On the other hand, given a morphism $\tilde f:\fF^{\sh}\to \fH$, then we define a morphism $\tau_{\fF,\fH}(\tilde f):\fF\to \fH$ given by 
+    \[
+    \tau_{\fF,\fH}(\tilde f)=\tilde f\circ \sh
+    \]
+    By uniqueness of the arrow induced by the universal property of $\fF^{\sh}$, we obtain that 
+    \[
+    \tau_{\fF,\fH}^{-1}\circ \tau_{\fF,\fH}(\tilde f)=\tau_{\fF,\fH}^{-1}(\tilde f\circ \sh)=\tilde f
+    \]
+    and that also
+    \[
+    \tau_{\fF,\fH}\circ \tau_{\fF,\fH}^{-1}(f)=\tau_{\fF,\fH}(\hat f)=\hat f\circ \sh=f.
+    \]
+    Now that the $\tau$'s are bijections, we need to check that the first diagram commutes. We check that
+    \begin{align*}
+        \tau_{\fF,\fT}\circ \phi_*(f)=\tau_{\fF,\fT}(\phi\circ f)=\phi\circ f\circ \sh
+    \end{align*}
+    and that
+    \begin{align*}
+        \phi_*\circ \tau_{\fF,\fH}(f)=\phi_*(f\circ \sh)=\phi\circ f\circ \sh
+    \end{align*}
+    so the first diagram does commute. To show the second diagram commutes, we see
+    \begin{align*}
+        \tau_{\fG,\fH}\circ (\varphi^{\sh})^*(f)=\tau_{\fG,\fH}(f\circ \varphi^{\sh})=f\circ \varphi^{\sh}\circ \sh_\fG=f\circ \sh_\fF\circ \varphi
+    \end{align*}
+    while on the other hand
+    \begin{align*}
+        \varphi^*\circ \tau_{\fF,\fH}(f)=\varphi^*(f\circ \sh_\fF)=f\circ \sh_\fF\circ \varphi
+    \end{align*}
+    so both diagrams commute, thus proving that sheafification is left-adjoint to the forgetful functor from sheaves to presheaves.
+\end{proof}
+\subsubsection{L}\label{2.4.L}
+\begin{proof}
+    Fix $p\in X$ as an arbitrary point, and consider the induced map $\sh_p:\fF_p\to \fF^{\sh}_p$. To show $\sh_p$ is injective, suppose $\sh_p(x_p)=\sh_p(y_p)$ for $x,y\in \fF_p$. Using the constructive definitions, we have that on some open neighborhood $U$ of $p$, the germs of $x$ agree with the germs of $y$ at every point in $U$. In particular, $x_p=y_p$ so $\sh_p$ is injective. To show $\sh_p$ is surjective, if we fix any $[(f_q)_{q\in U},U]\in \fF_p^{\sh}$, we know that by construction there exists some open neighborhood $V\subset U$ of $p$ such that for every $q\in V$, $f_q=s_q$ for some $s\in \fF(V)$. We claim that $\sh(s)=(f_q)_{q\in V}$. Indeed, $(f_q)_{q\in V}=(s_q)_{q\in V}=\sh(s)$. Therefore
+    \[
+    \sh_p([s,V])=[\sh(s),V]=[(f_q),V]=[(f_q),U]
+    \]
+    proves the induced map is surjective as well.
+\end{proof}
+\subsubsection{M}\label{2.4.M}
+\begin{proof}
+    \item [$(b\Rightarrow a)$] Suppose we have morphisms of sheaves $\varphi,\psi:\fG\to \fH$ such that $\phi\circ \varphi=\phi\circ \psi$. Our approach will be to show that $\varphi$ and $\psi$ induce the same maps on stalks. Notice that induced maps of stalks distributes over composition, so we get that on each stalk $\fF_p$,
+    \[
+    \phi_p\circ \varphi_p=\phi_p\circ \psi_p.
+    \]
+    By injectivity of $\phi_p$, we get that for every $p\in X$
+    \[
+    \varphi_p=\psi_p.
+    \]
+    By Exercise \ref{2.4.C}C, morphisms are determined by stalks implies that $\varphi=\psi$, so indeed $\phi$ was a monomorphism.
+    \item [$(a\Rightarrow c)$] 
+    Let $x,y\in \fF(U)$ be such that $\phi(U)(x)=\phi(U)(y)$, and let $\varphi, \psi:\fI_U\to \fF$ be morphisms from the indicator sheaf $\fI_U$ at $U$ such that $\varphi(U)(*)=x$ while $\psi(U)(*)=y$, thus determining $\varphi,\psi$ entirely by the nature of them being natural transformations from $\fI_U$. By definition, we obtain that
+    \[
+    \phi\circ \varphi=\phi\circ \psi
+    \]
+    because $\fI_U(V)=\{*\}$ if $V\subset U$ and $\emptyset$ otherwise, so for $V\subset U$ we have
+    \[
+    \phi(V)\circ \varphi(V)(*)=\phi(U)\circ \varphi(U)(*)\vert_{V}=\phi(x)\vert_V=\phi(y)\vert_V=\phi(U)\circ \psi(U)(*)\vert_V=\phi(V)\circ \psi(V)(*).
+    \]
+    By $\phi$ being a monomorphism, we obtain that $\phi=\psi$, which implies \[
+    x=\phi(U)(*)=\psi(U)(*)=y
+    \]
+    so $\phi(U)(x)=\phi(U)(y)$ implies $x=y$, or $\phi(U)$ is injective.
+    \item [$(c\Rightarrow b)$]
+    Suppose $\phi_p(x_p)=\phi_p(y_p)$ for some $x_p,y_p\in \fF_p$. Then there exists some neighborhood $V$ of $p$ such that $\phi(U_x)(x)\vert_V$ agrees with $\phi(U_y)(y)\vert_V$, where we take $x_p=[x,U_x]$ and $y_p=[y,U_y]$. By our assumptions and the naturality of $\phi$, we get that
+    \begin{align*}
+        \phi(V)(x\vert_V)=\phi(U_x)(x)\vert_V=\phi(U_y)(y)\vert_V=\phi(V)(y\vert_V)
+    \end{align*}
+    Because $\phi$ is assumed to be injective on the level of open sets, we get that $x\vert_V=y\vert_V$. Therefore
+    \[
+    x_p=[x,U_x]=[x\vert_V,V]=[y\vert_V,V]=[y,U_y]=y_p
+    \]
+    so that indeed $\phi_p$ is injective.
+\end{proof}
+\subsubsection{N}\label{2.4.N}
+\begin{proof}
+    \item [$(b\Rightarrow a)$]
+    Suppose $\psi \circ \phi=\varphi \circ \phi$ for some maps of sheaves $\psi,\varphi:\fG\to \fH$. Then on each stalk at $p\in X$,
+    \[
+    \psi_p\circ \phi_p=(\psi \circ \phi)_p=(\varphi\circ \phi)_p=\varphi_p\circ \phi_p
+    \]
+    Because $\phi_p$ is surjective, also known as an epimorphism in $\Set$, we get that $\psi_p=\phi_p$. By Exercise \ref{2.4.C}C, since $p\in X$ was arbitrary we get that $\psi=\varphi$, so $\phi$ is an epimorphism.
+    \item [$(a\Rightarrow b)$]
+    We will show that each $\phi_p$ is an epimorphism in $\Set$, also known as a surjective map. Suppose there is some set $S$ and maps of sets $\varphi, \psi:\fG_p\to S$ such that $\varphi \circ \phi_p=\psi\circ \phi_p$. These maps of sets induce maps of sheaves into the skyscraper sheaf $\iota_{p,*}S$ uniquely defined by
+    \[
+    \Phi(U)(x)=\varphi([x,U])
+    \]
+    and
+    \[
+    \Psi(U)(x)=\psi([x,U])
+    \]
+    for any neighborhood $U$ of $p$, and are otherwise determined since $\iota_{p,*}S(U)=\{*\}$ otherwise. Indeed, these are natural because for any $V\subset U$ both neighborhoods of $p$,
+    \begin{align*}
+        \Phi(U)(x)\vert_V=\varphi([x,U])\vert_V=\varphi([x,U])=\varphi([x\vert_V,V])=\Phi(V)(x\vert_V)
+    \end{align*}
+    and similarly for $\Psi$ because the restriction maps on the skyscraper sheaf are just the identity on neighborhoods of $p$. If $V$ is not a neighborhood of $p$, then the restriction is the unique map onto the empty section $*\in \iota_{p,*}(V)$. Notice then that
+    \[
+    \Phi(U)\circ \phi(U)(x)=\varphi([\phi(U)(x),U])=\varphi \circ \phi_p([x,U])=\psi\circ \phi_p([x,U])=\psi([\phi(U)(x),U])=\Psi(U)\circ \phi(U)(x)
+    \]
+    by construction of $\Phi$ and $\Psi$. This shows that indeed $\Phi\circ \phi =\Psi \circ \phi$, which, by $\phi$ being an epimorphism, proves that $\Phi=\Psi$. In particular,
+    \[
+    \varphi([x,U])=\Phi(U)(x)=\Psi(U)(x)=\psi([x,U])
+    \]
+    so indeed $\varphi=\psi$, proving the result.
+\end{proof}
+\subsubsection{O}\label{2.4.O}
+\begin{proof}
+    We will check that $\fO_X^*$ is a quotient sheaf of $\fO_X$ by looking at the level of stalks. At any point $z\in \C$, we claim that for any $[f,U]\in \fO_{X,z}^*$, there is some $g_z\in \fO_{X,z}$ such that
+    \[
+    \exp(g)_z=f_z
+    \]
+    In $U$, we may take some small simply connected neighborhood $V$ of $z$ contained in $U$. Then on \( V \), since \( f \) is non-vanishing, there exists a logarithm \( g \) of \( f|_V \) \cite{sarason2007complex}, explicitly given by
+\[
+g(w)=b+\int_z^w \frac{f'(\xi)}{f(\xi)}d\xi
+\]
+for any choice of a branch of logarithm \( b \) of \( f(z) \). Then indeed
+\[
+\exp_p([g,V])=[\exp(g),V]=[f\vert_V,V]=[f,U]
+\]
+which shows, because $z\in \C$ was arbitrary, that $\exp$ is an epimorphism of sheaves by Exercise \ref{2.4.N}N.
+
+However, $\exp$ is not surjective on the level of open sets. Consider $U\coloneqq \C\setminus \{0\}$, and consider the identity function $\id_U$ on $U$. Then indeed $\id_U$ is nowhere $0$, and is holomorphic, so $\id_U\in \fO_X^*(U)$. However, because there is no branch cut in $U$, $\id_U$ does not admit a logarithm on $U$, so $\id_U$ is not in the image of $\exp(U)$.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.5.A}
+\begin{proof}
+    Suppose we have a sheaf $\fF$ on $X$, and a basis $\{B_i\}$ for the topology of $X$. To show we can recover $\fF$ entirely from what it does to the basis, let $U\subset X$ be open, and $U=\bigcup_j B_j$. We claim that $\fF(U)=S\coloneqq \{\text{gluability applied to every} \{f_j\in \fF(B_j) : f_j\vert_{B_j\cap B_j}=f_k\vert_{B_j\cap B_k}\}$. We see that $\fF(U)\subset S$ because each section $s\in \fF(U)$ restricts to sections of each $\fF(B_j)$ with the desired property, and by the identity applied to $s$ and gluability of $\{s\vert_{B_j}\}$, then $s\in S$. It is clear by definition that $S\subset \fF(U)$, so we have recovered $\fF(U)$ from the data of $\fF$ on the base of the topology.
+    
+    \vspace{0.1in}
+    First, we need to define what it means for a section to restrict to a basis element from $U$. Let $\{B_i\}$ be an open cover of $U$, and fix any $B_j\in \{B_i\}$. By the previous part, let $s\in \fF(U)$ be gluability of some collection of $\{s_i\in B_i\}$. We then define $s\vert_{B_j}=s_j$. Our choice of open cover doesn't matter by identity.
+
+    \vspace{0.1in}
+    For arbitrary restriction maps, suppose we have some $V\subset U$ where $U$ is as before. Let $\{B_j\}$ be an open cover of $V$. We then define $s\vert_V$ to be gluability applied to $\{s\vert_{B_j}\}$. By identity, our construction yields the same result as the original $s\vert_{B_j}$ because our definition of $s\vert_V$ restricts the same as the original $s\vert_V$ to the open cover $\{B_j\}$ of $V$. Thus we can also recover the data of the restriction maps.
+\end{proof}
+\subsubsection{B}\label{2.5.B}
+\begin{proof}
+    The natural map $\phi:F(B)\to \fF(B)$ is given by $s\mapsto (s_p)_{p\in B}$. For injectivity, suppose $s,t\in F(B)$ are such that their germs agree everywhere on $B$. Then for each point $p\in B$, there exists a base element $U$ of $p$ contained in $B$ such that $s\vert_U=t\vert_U$. By identity of $F$, we get $s=t$.
+
+    \vspace{0.1in}
+    For surjectivity, if $(s_p)_{p\in B}$ is a family of compatible germs with corresponding neighborhoods $B_p$ for each $p$ such that $s_q=f^p_q$ for every $q\in B_p$, we apply gluability to $\{f^p\in F(B_p)\}_{p\in B}$ to get a section $f\in F(B)$ such that $f\vert_{B_p}=f^p$ for each $p\in B$. Then
+    \[
+    \phi(f)=(f_p)_{p\in B}=(f^p_p)_{p\in B}=(s_p)_{p\in B}.
+    \]
+\end{proof}
+\subsubsection{C}\label{2.5.C}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Suppose $\varphi, \phi:\fF\to \fG$ are morphisms of sheaves such that $\varphi(B_i)=\phi(B_i)$ for every $i$. Now, fixing $U\subset X$ to be an arbitrary open set, let $U=\bigcup_j B_j$, and choose any $s\in \fF(U)$. Letting $\glue$ be the gluability operation of $\fG$, notice we have
+        \begin{align*}
+            \varphi(U)(s)=\glue\{\varphi(U)(s)\vert_{B_j}\}=\glue \{\varphi(B_j)(s\vert_{B_j})\}=\glue\{\phi(B_j)(s\vert_{B_j})\}=\glue\{\phi(U)(s)\vert_{B_j}\}=\phi(U)(s)
+        \end{align*}
+        where the first and last equalities come from identity of $\fG$.
+        \item If $\phi:F\to G$ is a morphism of sheaves on the base, define $\tilde \phi:\fF\to \fG$ by $(f_p)_{p\in U}\mapsto (\phi_p(f_p))_{p\in U}$. Our image is indeed a choice of compatible germs because for every $p\in U$, there exists a neighborhood $B\subset U$ of $p$ and $\phi(B)(s)\in G(B)$ such that for every $q\in B$, $\phi_q(f_q)=\phi(B)(s)_q$. We used the compatibility of the germs in $F$ to obtain the section $s\in F(B)$ such that for every $q\in B$, $s_q=f_q$, so in other words, for each $q\in B$, there exists some $A\subset B$ containing $q$ such that
+        \[
+        f_q\vert_A=s\vert_A
+        \]
+        so that
+        \[
+        [\phi(B)(s),B]=[\phi(B)(s)\vert_A,A]=[\phi(A)(s\vert_A),A]=[\phi(A)(f_q\vert_A)]=\phi_q(f_q).
+        \]
+        Our map $\tilde \phi$ is natural because
+        \[
+        \res_{U,V} \circ \tilde \phi(f_p)_{p\in U}=(\phi_p(f_p))_{p\in V}=\tilde \phi \circ \res_{U,V}(f_p)_{p\in U}.
+        \]
+    \end{enumerate}
+\end{proof}
+\subsubsection{D}\label{2.5.D}
+\begin{proof}
+    By Exercise \ref{2.4.N}N, a morphism of sheaves $\phi:\fF\to \fG$ is an epimorphism if and only if it is surjective on the level of stalks. Let $\varphi:F\to G$ be the morphism of sheaves on the base inducing $\fF$ and $\fG$. If $\tilde \varphi:\fF\to \fG$ is the induced morphism of sheaves, we want to show that every $(g_q)_{q\in U}\in \fG_p$ is in the image of $\tilde \varphi_p$. Because $(g_q)_{q\in U}$ is a choice of compatible germs, let $B\subset U$ be the neighborhood of $p$ and $s\in G(B)$ be such that for every $q\in B$, $s_q=g_q$. By hypothesis, there exists some $t\in F(B)$ such that $\varphi(B)(t)=s$, so in particular, for each $q\in B$, 
+    \[
+    \varphi_q(t_q)=\varphi_q([t,B])=[\varphi(B)(t),B]=[s,B]=s_q.
+    \]
+    Then we observe
+    \begin{align*}
+        \tilde \varphi_p(t_q)_{q\in B}=[\tilde \varphi(t_q)_{q\in B},B]=[(\varphi_q(t_q))_{q\in B},B]=[(s_q)_{q\in B},B]=[(g_q)_{q\in B},B]=[(g_q)_{q\in U},U]
+    \end{align*}
+    which proves $\tilde \varphi_p$ is surjective, finishing the proof.
+\end{proof}
+\subsubsection{E}\label{2.5.E}
+\begin{proof}
+    We will first define a sheaf $F$ on the base of open sets contained in at least one of the $U_i$. This is indeed a base because for any open set $U\subset X$, we have $\{U\cap U_i\}$ is an open cover of $U$, and each $U\cap U_i\subset U_i$ implies that each is some proposed base element. For any open set $U$ that is contained in at least one $U_i$, define $l(U)$ to be the least index such that $U\subset U_i$, which is well defined by the well-ordering theorem (equivalent to the axiom of choice). Then we define
+    \[
+    F(U)\coloneqq \fF_{l(U)} (U).
+    \]
+    To define restriction for any $V\subset U$, 
+    \[
+    \res_{U,V}^F\coloneqq \phi_{l(U)l(V)}(V)\circ \res_{U,V}^{\fF_{l(U)}}
+    \]
+    which makes sense because $V\subset U\subset U_{l(U)}$ and $V\subset U_{l(V)}$ implies $V\subset U_{l(U)}\cap U_{l(V)}$. To show our construction is indeed a sheaf on the base, we will first show identity.
+
+    \vspace{0.1in}
+    Suppose $B$ is a base element covered by $\{B_j\}$ of other base elements, and $f,g\in F(B)$ are such that $f\vert_{B_j}=g\vert_{B_j}$ for each $j$. By definition,
+    \begin{align*}
+        \phi_{l(B)l(B_j)}(B_j)\circ \res_{B,B_j}^{\fF_{l(B)}}(f)=\phi_{l(B)l(B_j)}(B_j)\circ \res_{B,B_j}^{\fF_{l(B)}}(g).
+    \end{align*}
+    Because each of the $\phi_{ij}$ are isomorphisms, we get that
+    \[
+    \res_{B,B_j}^{\fF_{l(B)}}(f)=\res_{B,B_j}^{\fF_{l(B)}}(g)
+    \]
+    for each $j$. By identity of $\fF_{l(B)}$, we have that indeed $f=g$, proving identity holds for $F$.
+
+    \vspace{0.1in}
+    To prove gluability holds for $F$, suppose we have a collection of $f_j\in F(B_j)$ with $B_i\coloneqq \bigcup B_j$ be a basis element as well such that for each $j,k$, we have
+    \[
+    \phi_{l(B_j)l(B_j\cap B_k)}(B_j\cap B_k)\circ \res_{B_j,B_j\cap B_k}^{\fF_{l(B_j)}}(f_j)=\phi_{l(B_k)l(B_j\cap B_k)}(B_j\cap B_k)\circ \res_{B_k,B_j\cap B_k}^{\fF_{l(B_k)}}(f_k).
+    \]
+    Notice that we then have isomorphisms
+    \[
+    \phi_{l(B_j)l(B_i)}:\fF_{l(B_j)}\vert_{U_{l(B_j)}\cap U_{l(B_i)}}\to \fF_{l(B_i)}\vert_{U_{l(B_j)}\cap U_{l(B_i)}}
+    \]
+    so in particular $\phi_{l(B_j)l(B_i)}(B_j):F(B_j)\to \fF_{l(B_i)}(B_j)$ is an isomorphism because $B_j\subset B_i$ implies that $B_j\subset U_{l(B_j)}$ and $B_j\subset U_{l(B_i)}$ as well. In addition, its inverse is $\phi_{l(B_i) l(B_j)}$ by the cocycle condition. By commutativity of the below diagram
+    \begin{center}
+        \begin{tikzcd}
+            \fF_{l(B_i)}\vert_{B_j\cap B_k} \ar{rr}{\phi_{l(i)l(j)}} \ar{drr}[description]{\phi_{l(B_i) l(B_j\cap B_k)}} \ar{d}[swap]{\phi_{l(B_i)l(B_k)}}&& \fF_{l(B_j)}\vert_{B_j\cap B_k} \ar{d}{\phi_{l(B_j)l(B_j\cap B_k)}}\\
+            \fF_{l(B_k)}\vert_{B_j\cap B_k} \ar{rr}[swap]{\phi_{l(B_k)l(B_j\cap B_k)}}&&\fF_{l(B_j\cap B_k)}\vert_{B_j\cap B_k}
+        \end{tikzcd}
+    \end{center}
+        we obtain that
+        \begin{align*}
+            & \phi_{l(B_i)l(B_j\cap B_i)}(B_j\cap B_k)\circ\phi_{l(B_j)l(B_i)}(B_j\cap B_k)\circ \res_{B_j,B_j\cap B_k}^{\fF_{l(B_j)}}(f_j)\\
+            &= \phi_{l(B_i)l(B_j\cap B_i)}(B_j\cap B_k)\circ\phi_{l(B_k)l(B_i)}(B_j\cap B_k)\circ \res_{B_k,B_j\cap B_k}^{\fF_{l(B_k)}}(f_k)
+        \end{align*}
+         or equivalently by naturality
+         \begin{align*}
+             & \phi_{l(B_i)l(B_j\cap B_i)}(B_j\cap B_k)\circ \res_{B_j,B_j\cap B_k}^{\fF_{l(B_i)}}\circ\phi_{l(B_j)l(B_i)}(B_j)(f_j)\\
+            &= \phi_{l(B_i)l(B_j\cap B_i)}(B_j\cap B_k)\circ \res_{B_k,B_j\cap B_k}^{\fF_{l(B_i)}}\circ \phi_{l(B_k)l(B_i)}(B_k)(f_k).
+         \end{align*}
+        Now we use the fact that the morphisms on the left of each side of the equation are isomorphisms (so in particular monomorphisms) to get
+         \begin{align*}
+             & \res_{B_j,B_j\cap B_k}^{\fF_{l(B_i)}}\circ\phi_{l(B_j)l(B_i)}(B_j)(f_j)\\
+            &= \res_{B_k,B_j\cap B_k}^{\fF_{l(B_i)}}\circ \phi_{l(B_k)l(B_i)}(B_k)(f_k).
+         \end{align*}
+    Now we consider the family $\{\phi_{l(B_j)l(B_i)}(B_j)(f_j)\in \fF_{l(B_i)}(B_j)\}$. We can apply gluability of $\fF_{l(B_i)}$ to this family by the previous observation. Let $f\in \fF_{l(B_i)}(B_i)$ be the result of this gluing. Then we observe
+    \begin{align*}
+        \res_{B_i,B_j}^F(f)=\phi_{l(B_i)l(B_j)}(B_j)\circ \res_{B_i,B_j}^{\fF_{l(B_i)}}(f)=\phi_{l(B_i)l(B_j)}(B_j)(\phi_{l(B_j)l(B_i)}(f_j))=f_j
+    \end{align*}
+    which proves that gluability holds for $F$ as well.
+
+    \vspace{0.1in}
+    Now that $F$ is a sheaf on a base, we get our induced sheaf $\fF$ on $X$. By Theorem 2.5.1, we have that $\fF$ extends $F$ up to isomorphism, so $\fF(U_i)\cong F(U_i)$, and $F(U_i)=\fF_{l(U_i)}(U_i)\cong \fF_i(U_i)$ because even if $l(U_i)\ne i$, then $U_i\subset U_{l(U_i)}$, then by the cocycle condition we obtain $\fF_{l(U_i)}\vert_{U_i}\cong \fF_i$ because
+    \[
+    \phi_{l(U_i),i}:\fF_{l(U_i)}\vert_{U_{l(U_i)}} \xrightarrow{\sim} \fF_i\vert_{U_i}=\fF_i.
+    \]
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.6.A}
+\begin{proof}
+    Suppose $\phi:\fF\to \fG$ is a morphism of sheaves, and $\phi_p:\fF_p\to \fG_p$ is the induced map on stalks. To show $(\ker \phi)_p\cong \ker \phi_p$,
+    \begin{align*}
+        &\phi_p([f,U])=0\\
+        &\iff [\phi(U)(f),U]=0\\
+        &\iff \phi(V)(f\vert_V)=0 \text{ for some open $V\subset U$}\\
+        &\iff f\vert_V\in \ker \phi(V)\\
+        &\iff [f\vert_V,V]\in (\ker \phi)_p.
+    \end{align*}
+    Then our map $\varphi:\ker \phi_p\to (\ker \phi)_p$ is given by $[f,U]\mapsto [f\vert_V,V]$ where $V$ is some neighborhood of $p$ such that $[f\vert_V,V]\in (\ker \phi)_p$. $\varphi$ is well defined because if $V'$ is another such neighborhood, then $[f\vert_{V},V]=[f\vert_{V'},V']$ because $[f\vert_V,V]=[f\vert_{V\cap V'},V\cap V']=[f\vert_{V'},V']$ so our choice of $V$ doesn't matter, and furthermore if $[f,U]=[f',U']$, then $f\vert_V=f'\vert_V$ for some $V\subset U\cap U'$, then we can take $[f,U]\mapsto [f\vert_{V'}, V']$ where $V'$ is again some neighborhood of $p$ contained in $V$ so that $f\vert_{V'}\in \ker \phi(V')$ ensures that also $\varphi([f,U])=[f\vert_{V'},V']=[f'\vert_{V'},V']=\varphi([f',U'])$.
+
+    \vspace{0.1in}
+    $\varphi$ can also be seen to be a homomorphism because
+    \begin{align*}
+        &\varphi([f,U]+[g,V])\\
+        &=\varphi([f\vert_{U\cap V}+g\vert_{U\cap V}])\\
+        &= [f\vert_W+g\vert_W,W]\\
+        &=[f\vert_W,W]+[g\vert_W,W]\\
+        &=\varphi([f,U])+\varphi([g,V]).
+    \end{align*}
+    To prove $\varphi$ is injective, suppose $\varphi([f,U])=[f\vert_V,V]=0$. Then for some neighborhood $W$ of $p$ contained in $V$, $f\vert_W=0$. This implies that $[f,U]=0$. To prove surjectivity, if $[f,U]\in (\ker \phi)_p$ is arbitrary $f\in \ker \phi(U)$ implies that $[f,U]\in \ker \phi_p$, so $\varphi([f,U])=[f,U]$. Then $\varphi$ is an isomorphism.
+\end{proof}
+\subsubsection{B}\label{2.6.B}
+\begin{proof}
+    If $\phi:\fF\to \fG$ is a morphism of sheaves, we will show $\cok \phi_p\cong (\cok \phi)_p$ by showing $(\cok \phi)_p$ satisfies the universal property of $\cok \phi_p$. Suppose the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            & A\\
+            \fF_p \ar{r}{\phi_p} \ar{ur}{0}& \fG_p \ar{u}[swap]{\theta}.
+        \end{tikzcd}
+    \end{center}
+    We consider the constant sheaf $\underline{A}$, and let $\sigma_U:\fG(U)\to \fG_p$ be the map sending a section to its germ and $\tau_U:\fF(U)\to \fF_p$ do the same. Then for $x\in \fG(U)$, we let $f_x:U\to A$ be the constant function to $\theta \circ \sigma_U(x)$. Clearly $f_x$ is continuous (where $A$ is given the discrete topology), so we may define a morphism $\varphi:\fG \to \underline{A}$ given by $\varphi(U)(x)=f_x$. We verify that $\varphi$ is natural because for $x\in \fG(U)$, $\varphi(V)(x\vert_V)=f_{x\vert_V}$, sending everything to $\theta \circ \sigma _V(x\vert_V)=\theta \circ \sigma_U(x)$, which is the same function as $\varphi(U)(x)$ restricted to $V$. We also check that $\varphi \circ \phi = 0$ because if $x\in \fF(U)$, then $\varphi \circ \phi(U)(x)$ sends everything in $U$ to $\theta \circ \sigma_U \circ \phi(U)(x) = \theta \circ \phi_p \circ \tau_U(x)=0\circ \tau_U(x)=0$. By the universal property of the cokernel presheaf, we get the below commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            && \underline{A}\\
+            & \cokpre \phi \ar[dashed]{ur}[description]{\exists! \alpha}\\
+            \fF \ar{r}{\phi} \ar{ur}{0} & \fG \ar[two heads]{u}{\pi} \ar[bend right]{uur}{\varphi}.
+        \end{tikzcd}
+    \end{center}
+    Because $\underline{A}$ is a sheaf, $\alpha=\beta \circ \sh$ for a unique map $\beta:\cok \phi \to \underline{A}$. Notice $\underline{A}_p \cong A$ by taking a germ to its value at $p$, so we have a natural map $\beta_p:(\cok \phi)_p\to A$ which we claim makes the following diagram commute:
+    \begin{center}
+        \begin{tikzcd}
+            && A\\
+            & (\cok \phi)_p \ar{ur}[description]{\beta_p}\\
+            \fF_p \ar{r}{\phi_p} \ar{ur}{0} & \fG_p \ar{u}{\mu_p} \ar[bend right]{uur}{\theta}
+        \end{tikzcd}
+    \end{center}
+    where $\mu=\sh \circ \pi:\fG\to \cok \phi$ is the map to the cokernel sheaf. Unraveling our definitions, we recall $\beta \circ \mu = \alpha \circ \pi = \varphi$. This is of interest because the below diagram commutes
+    \begin{center}
+        \begin{tikzcd}
+            \underline{A}(U) \ar{r}{\ev_p} & A\\
+            \cok \phi(U) \ar{u}{\beta(U)}& (\cok \phi)_p \ar{u}{\beta_p}\\
+            \fG(U) \ar{r}{\sigma_U} \ar{u}{\mu(U)}& \fG_p \ar{u}{\mu_p},
+        \end{tikzcd}
+    \end{center}
+    so we take any $\sigma_U(x)\in \fG_p$, and get $\beta_p\circ \mu_p (\sigma_U(x))= \ev_p \circ \varphi(x)=\theta( \sigma_U(x))$ as desired, which proves existence. To show $\beta_p$ is unique, suppose some $\gamma$ has $\gamma \circ \mu_p = \theta$. Because $\mu$ is an epimorphism in the category of sheaves by Proposition 2.6.1, Exercise \ref{2.4.N} tells us that $\mu_p$ is an epimorphism, hence we get $\beta_p \circ \mu_p = \theta = \gamma_p \circ \mu_p $ implies $\gamma = \beta_p$ as desired.
+\end{proof}
+\subsubsection{C}\label{2.6.C}
+\begin{proof}
+    We will first show the sheafification satisfies the universal property of the coimage sheaf. Let $\phi:\fF\to \fG$ be a map of sheaves, $i:\ker \phi \hookrightarrow \fF$ be the kernel, and $q:\fF\twoheadrightarrow \coim_{\pre} \phi$ be the cokernel of $i$ in $\Ab_X^{\pre}$. It's clear to see the following diagram commutes in $\Ab_X$:
+    \begin{center}
+        \begin{tikzcd}
+            & (\coim_{\pre} \phi)^{\sh}\\
+            \ker \phi \ar[hook]{r}{i} \ar{ur}{0}& \fF \ar[two heads]{u}[swap]{\sh \circ q}.
+        \end{tikzcd}
+    \end{center}
+    Now suppose $\fH$ is a sheaf and $\psi:\fF\to \fH$ is a map such that $\psi \circ i=0$. By the universal property of $\coim_{\pre} \phi$, we get the below commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            && \fH\\
+            & \coim_{\pre} \phi \ar[dashed]{ur}[description]{\exists! \alpha}\\
+            \ker \phi \ar[hook]{r}{i} \ar{ur}{0} & \fF \ar[two heads]{u}{q} \ar[bend right]{uur}[swap]{\psi}.
+        \end{tikzcd}
+    \end{center}
+    Note that we have used the fact that the kernel presheaf is the kernel sheaf. Now, by the universal property of the sheafification, the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \coim_{\pre} \phi \ar{r}{\alpha} \ar{dr}[swap]{\sh}& \fH\\
+            & (\coim_{\pre} \phi)^{\sh} \ar[dashed]{u}[description]{\exists! \beta}.
+        \end{tikzcd}
+    \end{center}
+    Thus the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            && \fH\\
+            & (\coim_{\pre} \phi)^{\sh} \ar{ur}{\beta}\\
+            \ker \phi \ar[hook]{r}{i} \ar{ur}{0} & \fF \ar{u}{\sh \circ q} \ar[bend right]{uur}[swap]{\psi}.
+        \end{tikzcd}
+    \end{center}
+    This shows existence. If there were another map $\gamma:(\coim_{\pre} \phi)^{\sh} \to \fH$ making the diagram commute, since $q$ is an epimorphism we have $\gamma \circ \sh \circ q = \psi = \beta \circ \sh \circ q$ implies that $\gamma \circ \sh =\alpha= \beta \circ \sh$, which implies $\gamma = \beta$ by uniqueness of the arrow in the sheafification diagram, proving $(\coim_{\pre} \phi)^{\sh}$ satisfies the universal property of $\coim \phi$ in $\Ab_X$. However, coimages are the same as images in abelian categories by Theorem %\ref{thm:1IT}
+    \todo{uncomment out in main version}, and Theorem 2.6.2 and Section 2.3 tell us $\Ab_X$ and $\Ab_X^{\text{pre}}$ are abelian categories.
+
+    In addition, Exercises \ref{2.6.A}A and \ref{2.6.B}B say that stalks commute with kernels and cokernels, hence
+    \[
+    (\im \phi)_p = (\ker \cok \phi)_p = \ker (\cok \phi)_p = \ker \cok \phi_p= \im \phi_p.
+    \]
+\end{proof}
+\subsubsection{D} \label{2.6.D}
+\begin{proof}
+    For one direction, suppose $\fF \xrightarrow{\alpha} \fG \xrightarrow{\beta} \fH$ is exact, and let $p\in X$ be arbitrary. Exercise \ref{2.3.A}A tells us that taking stalks at $p$ is functorial so we have a sequence
+    \[
+    \fF_p \xrightarrow{\alpha_p} \fG_p \xrightarrow{\beta_p} \fH_p
+    \]
+    and Exercises \ref{2.6.A}A and \ref{2.6.C}C give exactness since kernels and images commute with stalks.
+    
+    For the other direction, suppose $\fF_p \xrightarrow{\alpha_p} \fG_p \xrightarrow{\beta_p} \fH_p$ is exact for all $p\in X$. Exercise \ref{2.6.C}C tells us that since $\im \alpha$ and $\ker \beta$ induce the same maps on stalks, they are equal by Exercise \ref{2.4.C}C.
+\end{proof}
+\subsubsection{E}\label{2.6.E}
+\begin{proof}
+    If 
+    \[
+    0\to \fF \xrightarrow{\phi} \fG \xrightarrow{\psi} \fH \to 0
+    \]
+    is exact, Exercise \ref{2.3.A}A tells us that taking stalks at $p$ is functorial so we have a sequence
+    \[
+    0\to \fF_p \xrightarrow{\phi_p} \fG_p \xrightarrow{\psi_p} \fH_p \to 0
+    \]
+    and Exercises \ref{2.6.A}A and \ref{2.6.C}C give exactness since kernels and images commute with stalks.
+\end{proof}
+\subsubsection{F}\label{2.6.F}
+\begin{proof}
+    To show
+    \[
+    0\to \underline \Z \xrightarrow{\cdot 2\pi i} \fO_\C \xrightarrow{\exp} \fO_\C^* \to 0
+    \]
+    is exact, we will first show $\cdot 2\pi i$ is a monomorphism by checking this on the level of open sets. If $U\subset \C$ is an open set with connected components $U_i$, then an arbitrary element of $\underline \Z(U)$ is a choice of $n_i$'s with each $n_i\in \Z$. Then $(n_i)\cdot 2\pi i=(2\pi i n_i)$ is trivial only if each $n_i=0$, proving exactness at $\underline \Z$.
+
+    Exercise \ref{2.4.O}O gives exactness at $\fO_\C^*$. To show exactness at $\fO_\C$, we first claim that $\impre \cdot 2\pi i$ is a sheaf, which will then show $\impre \cdot 2\pi i = \im \cdot 2\pi i$ by Exercise \ref{2.6.C}C. Because we have shown $\cdot 2\pi i$ is a monomorphism, we use the fact that $\Ab_\C^{\pre}$ is an abelian category and apply Corollary %\ref{cor:comp with monic and coim}
+    \todo{uncomment in compiled version} along with the 1IT to get an isomorphism between $\impre \cdot 2\pi i$ and $\underline{\Z}$, proving the required statement. Now that $\impre \cdot 2\pi i = \im \cdot 2\pi i$ and $\kerpre \exp = \ker \exp$, we need to show $\im \cdot 2\pi i = \ker \exp$, which we will do on the level of stalks by Exercise \ref{2.4.D}D. Let $z\in \C$ and $[f,U]\in \ker \exp_z$ be arbitrary, so $[\exp(f),U]=[1,U]$. It's clear that $\im \cdot 2\pi i_z\subset \ker \exp_z$, so we will just show the reverse inclusion. The fact that $[\exp(f),U]=[1,U]$ tells us that there is some open $V\subset U$ containing $z$ such that $\exp(f\vert_V)$ is identically $1$. This implies that $f\vert_V$ is some integer multiple of $2\pi i$, so $[f,U]=[2\pi i n, V]$ for some $n\in \Z$, so $[f,U]\in \im \cdot 2\pi i_z$ as desired.
+\end{proof}
+\subsubsection{G}\label{2.6.G}
+\begin{proof}
+    We suppose
+    \[
+    0\to \fF \xrightarrow{\phi} \fG \xrightarrow{\psi } \fH
+    \]
+    is an exact sequence of sheaves. Exercise \ref{2.4.M}M gives that since $\phi$ is a monomorphism, $\phi(U):\fF(U) \to \fG(U)$ is also a monomorphism. To show $\im \phi(U)\cong \ker \psi(U)$, we have
+    \[
+    \ker \psi(U)
+    \]
+    
+    
+    we have an isomorphism $\alpha:\im \phi \to \ker \psi$ with inverse $\alpha^{-1}:\ker \psi\to \im \phi$ which, in particular, gives the desired isomorphisms $\alpha(U),\alpha^{-1}(U)$.
+
+    To show the section functor need not be exact, again consider the exponential exact sequence
+    \[
+    0\to \underline \Z \xrightarrow{\phi } \fO_\C \xrightarrow{ \psi} \fO_\C^* \to 0.
+    \]
+    However, $\psi(\C)$ is not surjective because $\altid_\C \in \fO_\C^*$, but not in the image of $\psi$ because the $\C$ does not admit a global logarithm.
+\end{proof}
+\subsubsection{H}\label{2.6.H}
+\begin{proof}
+    Let
+    \[
+    0\to \fF \xrightarrow{\phi} \fG \xrightarrow{\psi} \fH
+    \]
+    be exact. First, we will show that $\pi_*$ commutes with kernels. If $\varphi$ is some map of sheaves, then
+    \[
+    \pi_* \ker \varphi (U) = \ker \varphi (\pi^{-1}(U)) = \ker \pi_* \varphi(U),
+    \]
+    which relies on the fact that the kernel sheaf is the kernel presheaf. Indeed the restriction maps are the same, which proves the claim. To show exactness at $\pi_* \fF$, we use our result to see
+    \[
+    \ker \pi_* \phi = \pi_* \ker \phi = \pi_* 0 = 0.
+    \]
+    For exactness at $\pi_* \fG$, we first notice that $\pi_* \ker \psi = \ker \pi_* \psi$ by our previous observations. Then by hypothesis and $\Ab_Y$ is an abelian category (we identify the image of a monomorphism with its source by the 1IT and Corollary\todo{remove commented out part} %\ref{cor:comp with monic and coim}
+    ),
+    \[
+    \ker \pi_* \psi = \pi_* \ker \psi = \pi_* \im \phi = \pi_* \fF = \im \pi_* \phi.
+    \]
+    Alternatively, we could have used Exercise 2.7.B \todo{reference when added} together with the fact that right adjoint functors are left-exact as stated in 1.6.12.
+\end{proof}
+\subsubsection{I}\label{2.6.I}
+\begin{proof}
+    Suppose $\fF\in \Ab_X$, and
+    \[
+    0\to \fA \xrightarrow{\phi} \fB \xrightarrow{\psi} \fC
+    \]
+    is exact in $\Ab_X$, so we need to show
+    \[
+    0 \to \Hom(\fF,\fA) \xrightarrow{\phi_*} \Hom(\fF, \fB) \xrightarrow{\psi_*} \Hom(\fF,\fC)
+    \]
+    is exact. By Exercise \ref{2.4.M}M, it suffices to show $\phi_*(U)$ is injective for exactness at $\Hom(\fF,\fA)$. Let $\eta:\fF\vert_U \to \fA \vert_U$ be a natural transformation. We note $\phi\vert_U$ is a monomorphism because it is injective on the level of sections, both claims following from Exercise \ref{2.4.M}M. Then $0=\phi_*(U)(\eta)=\phi\vert_U\circ \eta$ implies that, since $\phi\vert_U$ is a monomorphism,  $\eta = 0$ so $\phi_*(U)$ is indeed injective.
+
+    To show $\ker \psi_* = \im \phi_*$, now that we've shown $\phi_*$ is a monomorphism, we get $\im \phi_* \cong \Hom(\fF, \fA)$ which is in particular a sheaf, so $\im \phi_* = \impre \phi_*$. Then we need to show $\kerpre \psi_* = \impre \phi_*$ as subsheaves of $\Hom(\fF, \fB)$, which we can do by checking equality on the level of sections (both are subsheaves of the same sheaf). For arbitrary open $U\subset X$, we have
+    \begin{align*}
+        &\ker \psi_*(U) = \{\eta \in \Nat(\fF\vert_U, \fB\vert_U) \mid \psi\vert_U \circ \eta = 0\}\\
+        &\im \phi_*(U) = \{\eta \in \Nat(\fF \vert_U, \fB\vert_U) \mid \exists \eta' \in \Nat(\fF\vert_U,\fA\vert_U) \text{ where } \eta = \phi\vert_U \circ \eta'\}.
+    \end{align*}
+    Its clear that the image is contained in the kernel. For the reverse inclusion, we pick any $\eta:\fF\vert_U \to \fB\vert_U$ such that $\psi\vert_U \circ \eta = 0$. Since $A\cong \ker \psi$ and $\ker (\psi \vert_U) = (\ker \psi)\vert_U$ (seen because again the kernel sheaf is the kernel presheaf), we get the below commutative diagram
+    \begin{center}
+        \begin{tikzcd}
+            &&\fC\vert_U\\
+            & \fA\vert_U \ar[hook]{r}{\phi \vert_U} \ar{ur}{0}& \fB\vert_U \ar{u}[swap]{\psi\vert_U}\\
+            \fF\vert_U \ar[dashed]{ur}[description]{\exists! \eta'} \ar[bend right]{urr}[swap]{\eta}.
+        \end{tikzcd}
+    \end{center}
+    Then $\eta = \phi \vert_U \circ \eta'$, so the kernel is contained in the image.
+
+    \vspace{0.1in}
+    Now suppose $$\fA \xrightarrow{\phi} \fB \xrightarrow{\psi} \fC \to 0$$ is exact, so we need to show
+    \[
+    0 \to \Hom(\fC, \fF) \xrightarrow{\psi^*} \Hom(\fB, \fF) \xrightarrow{\phi^*} \Hom(\fA, \fF)
+    \]
+    is exact. It suffices to show $\psi^*_p$ is injective for exactness at $\Hom(\fC, \fF)$ by Exercise \ref{2.4.M}M. If $[\eta, U]$ is such that $[\eta \circ \psi \vert_U, U]=0$, then there is some open $V\subset U$ containing $p$ such that $\eta \vert_V \circ \psi \vert_V=0$. Fixing $p\in X$, we use Exercise \ref{2.4.N} to get $\psi_p:\fB_p \twoheadrightarrow \fC_p$, so $\eta_p\circ \psi_p = 0$ implies $\eta_p = 0$. By Exercise \ref{2.4.C}, $\eta$ being a map of sheaves inducing trivial maps on all stalks means $\eta=0$.
+
+    To show $\ker \phi^* = \im \psi^*$, now that we've shown $\psi^*$ is a monomorphism, we get $\im \psi^* \cong \Hom(\fC, \fF)$ which is in particular a sheaf, so $\im \psi^* = \impre \psi^*$. Then we need to show $\kerpre \phi^* = \impre \psi^*$ as subsheaves of $\Hom(\fB, \fF)$, which we can do by checking equality on the level of sections (both are subsheaves of the same sheaf). For arbitrary open $U\subset X$, we have
+    \begin{align*}
+        &\ker \phi^*(U) = \{\eta \in \Nat(\fB\vert_U, \fF\vert_U) \mid \eta\circ \phi\vert_U = 0\}\\
+        &\im \psi^*(U) = \{\eta \in \Nat(\fB\vert_U, \fF\vert_U) \mid \exists \eta' \in \Nat(\fC\vert_U,\fF\vert_U) \text{ where } \eta = \eta' \circ \psi\vert_U \}.
+    \end{align*}
+    Its clear that the image is contained in the kernel. For the reverse inclusion, we pick any $\eta: \fB\vert_U \to \fF\vert_U$ such that $\eta\circ \phi\vert_U = 0$. We have
+    \[
+    \fC = \coim \psi = \cok \ker \psi = \cok \im \phi = \cok \phi.
+    \]
+    We define a sheaf $\tilde \fF$ over $X$ where $\tilde \fF(V) =\fF(U\cap V)$ for open $V\subset X$ with the natural restriction maps $x\vert_W \coloneqq x\vert_{U\cap W}$ (the left side is the definition of restriction in $\tilde \fF$, and the right occurs in $\fF$), and let $\tilde \eta:\fB \to \tilde \fF$ be given as $\tilde \eta(V)(x) = \eta(U\cap V)(x\vert_{U\cap V})$. That $\tilde \fF$ is a sheaf follows from $\fF$ being a sheaf, and $\tilde \eta$ is easily checked to be natural:
+    \[
+    \tilde \eta(V)(x)\vert_W = \eta(U\cap V)(x\vert_{U\cap V})\vert_{U\cap W} = \eta(U\cap W)(x\vert_{U\cap W}) = \tilde \eta(W)(x\vert_W).
+    \]
+    We claim that $\tilde \eta \circ \phi =0$ so that we can use our result that $\fC=\cok \phi$ to get a desirable factorization. To see this, we let $V\subset X$ be an open set, and see
+    \[
+    \tilde \eta(V) \circ \phi(V)(x) = \eta(U\cap V)(\phi(V)(x) \vert_{U\cap V}) = \eta(U\cap V)\circ \phi\vert_U(U\cap V)(x\vert_{U\cap V}) = 0
+    \]
+    by our assumption that $\eta \circ \phi\vert_U = 0$. Then the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            && \tilde \fF \\
+            & \fC \ar[dashed]{ur}[description]{\exists! \tilde \mu}\\
+            \fA \ar{r}{\phi} \ar{ur}{0}& \fB \ar[two heads]{u}{\psi} \ar[bend right]{uur}[swap]{\tilde \eta}.
+        \end{tikzcd}
+    \end{center}
+    We now notice that $\tilde \fF \vert_U = \fF\vert_U$ and that $\tilde \eta \vert_U = \eta$ by our constructions, and thus we have a map $\eta' \coloneqq \tilde \mu \vert_U$ such that $\eta = \eta' \circ \psi \vert_U$ as desired.
+\end{proof}
+\subsubsection{J}\label{2.6.J}
+\begin{proof}
+     Let $\fA, \fB, \fC$ be $\fO_X$ modules with $\alpha, \alpha':\fA \to \fB$ and $\beta,\beta': \fB \to \fC$, and $V\subset U\subset X$ be open sets. We will be using the fact that the category of $\fO_X(U)$ modules is an abelian category itself implicitly.
+     
+     First we will check additivity by showing hom-sets are abelian groups and composition distributes over addition. We define $\alpha+\alpha'$ to be the morphism such that $(\alpha+\alpha')(U)=\alpha(U)+\alpha'(U)$, which is easily checked to be natural. We also observe that $\beta \circ (\alpha+\alpha')=\beta \circ \alpha + \beta \circ \alpha'$ because this equality holds on the level of sections. Similarly $(\beta+\beta')\circ \alpha = \beta \circ \alpha + \beta' \circ \alpha$.
+
+     The zero object is the zero sheaf, which clearly has $\fO_X$-module structure.
+
+     We define $\fA \times \fB$ as the sheaf where $(\fA\times \fB)(U)=\fA(U)\oplus \fB(U)$, and where the restriction maps are the direct sums of the restriction maps. That $\fA \times \fB$ is a sheaf (not just a presheaf) follows from $\fA$ and $\fB$ being sheaves. In addition, $\fA\times \fB$ is canonically an $\fO_X$ module by
+     \begin{center}
+         \begin{tikzcd}
+             &\fO_X(U) \ar[dashed]{d}[description]{\text{action}} \ar[bend right]{ddl}[swap]{\text{action}} \ar[bend left]{ddr}{\text{action}}\\
+             &\fA(U)\oplus \fB(U) \ar{dl} \ar{dr}\\
+             \fA(U)&& \fB(U).
+         \end{tikzcd}
+     \end{center}
+     This action commutes with restriction to $V$ because the actions on $\fA$ and $\fB$ do.
+
+     We already know that kernels and cokernels exist in the category of sheaves, so we just need to show $\ker \beta$ and $\cok \alpha$ are $\fO_X$ modules as well. Recall that $\cok \alpha$ is the sheafification of the cokernel presheaf, so an arbitrary element of $\cok \alpha(U)$ looks like $(\overline{x_i}_p)_{p\in U}$ for some collection of compatible germs $\overline{x_i}_p\in \fB_p$. Exercise \ref{2.2.J}J, we have a natural action of $\fO_{X,p}$ on $\fB_p$ for each $p\in U$, which induces an action of $\fO_X(U)$ on $(\cokpre \alpha)^{\sh}$ because the sheafification consists of choices of compatible germs. $\fO_X$ gets a canonical action on $\ker \beta$, since this is a subsheaf of $\fB$.
+
+     The last two axioms of every monomorphism being the kernel of its cokernel and every epimorphism being the cokernel of its kernel follow from our previous results, along with the fact that monomorphisms and epimorphisms in $\Ab_X$ already have this property.
+\end{proof}
+\subsubsection{K}\label{2.6.K}
+\begin{proof}
+    Categorically, if $\fF, \fG$ are $\fO_X$ modules, $\fF \otimes_{\fO_X} \fG$ should be an $\fO_X$ module equipped with an $\fO_X$-bilinear map from $\fF\times \fG$ where we say $\phi$ is an $\fO_X$-bilinear map if $\phi(U)$ is an $\fO_X(U)$-bilinear map of $\fO_X(U)$ modules for every open $U\subset X$. Moreover, for any $\fO_X$ module $\fH$ with a $\fO_X$-bilinear map $\phi:\fF\times \fG \to \fH$, the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fF\times \fG \ar{r} \ar{dr}[swap]{\phi}& \fF \otimes_{\fO_X} \fG \ar[dashed]{d}[description]{\exists!}\\
+            & \fH.
+        \end{tikzcd}
+    \end{center}
+    As usual, this universal property defines our object up to isomorphism. To show existence, we first define the ``presheaf tensor product". If $\fF, \fG$ are $\fO_X$ modules, we let $(\fF \otimes_{\fO_X} \fG)_{\pre}(U)\coloneqq \fF(U) \otimes_{\fO_X(U)} \fG(U)$ be the presheaf with restriction maps given by
+    \begin{center}
+        \begin{tikzcd}
+            \fF(U)\times \fG(U) \ar{r} \ar{dr}[swap]{\res \times \res}& \fF(U) \otimes_{\fO_X(U)} \fG(U) \ar[dashed]{d}[description]{\exists!}\\
+            & \fF(V) \times \fG(V) \ar{d}\\
+            & \fF(V)\otimes_{\fO_X(V)} \fG(V).
+        \end{tikzcd}
+    \end{center}
+    Then for $\fO_X$ modules $\fF, \fG$, we define the tensor product of $\fF$ and $\fG$ over $\fO_X$ as $(\fF\otimes_{\fO_X} \fG)_{\pre}^{\sh}$. It's clear our construction is a sheaf, so now we must show it is an $\fO_X$ module. We will call $(\fF \otimes_{\fO_X} \fG)_{\pre}^{\sh}$ $\fF\otimes_{\fO_X} \fG$ for ease of notation, keeping in mind that we have not shown this object satisfies the universal property we originally defined. $(\fF \otimes_{\fO_X} \fG)_{\pre}(U)$ is clearly an $\fO_X(U)$-module\iffalse, and we claim that this action commutes with restrictions. We will show the result for pure tensors for simplicity, and the more general result follows by linearity of our maps. For $V\subset U$ open, $f\in \fF(U)$, $g\in \fG(U)$, and $r\in \fO_X(U)$, we compute
+    \begin{align*}
+        \left( r(f\otimes g) \right) \vert_V = (rf\otimes g)\vert_V = (rf)\vert_V \otimes g \vert_V = r\vert_V f\vert_V \otimes g \vert_V = r\vert_V (f \otimes g)\vert_V.
+    \end{align*}
+    \fi. Then for $p\in U$, we claim there is an action of $\fO_X(U)$ on $(\fF\otimes_{\fO_X} \fG)_p$ given by \newline $r[x,V] = [r\vert_{U\cap V} x\vert_{U\cap V},U\cap V]$. To show this is well defined, if we picked some other representative where $[x,V]=[y,W]$, so there is some open $S\subset V\cap W$ with $x\vert_S = y\vert_S$, we have
+    \[
+    r[y,W] = [r\vert_{U\cap W} y\vert_{U\cap W}, U\cap W]=[r\vert_{U\cap S} y\vert_{U\cap S}, U\cap S]=[r\vert_{U\cap S} x\vert_{U\cap S}, U\cap S]=[r\vert_{U\cap V} x\vert_{U\cap V},U\cap V] = r[x,V].
+    \]
+    Then if $(x_p)\in \prod_{p\in U} (\fF\otimes_{\fO_X} \fG)_{\pre,p}$ is a choice of compatible germs, we define $r(x_p)_{p\in U} = (rx_p)_{p\in U}$ which defines an action of $\fO_X$ on $\fF\otimes_{\fO_X} \fG$ (being the sheafification of $(\fF\otimes_{\fO_X} \fG)_{\pre}$). This action commutes with restrictions because
+\begin{align*}
+    &\left( r([x_p, U_p])_{p\in U}\right) \vert_{V} = \left( ([r\vert_{U\cap U_p} x_p \vert_{U\cap U_p}, U\cap U_p])_{p\in U} \right) \vert_V=([r\vert_{U\cap U_p} x_p \vert_{U\cap U_p}, U\cap U_p])_{p\in V}\\
+    &=([r\vert_{V\cap U_p} x_p \vert_{V\cap U_p}, V\cap U_p])_{p\in V}=  (r\vert_V[x_p ,U_p])_{p\in V} = r\vert_V \left( ([x_p,U_p])_{p\in U}\right)\vert_{V}.
+\end{align*}
+    Then indeed $\fF \otimes_{\fO_X} \fG$ is an $\fO_X$ module.
+    
+    We now need to show $\fF \otimes_{\fO_X} \fG$ satisfies the universal property by supposing $\fH$ is an $\fO_X$ module and $\phi:\fF\times \fG \to \fH$ is $\fO_X$-bilinear. Then for each open $U\subset X$, if there were a factor $\alpha:\fF \otimes_{\fO_X} \fG\to \fH$ through which $\phi$ factored, we would see that for $(f,g)\in \fF(U)\times \fG(U)$,
+    \[
+    \alpha(U)(([f\otimes g,U]_p)_{p\in U})= \phi(U)(f,g)
+    \]
+    and we extend this linearly. By the universal property of tensor products, for each open $U\subset X$ we get a map $\beta(U):\fF(U) \otimes_{\fO_X(U)} \fG(U)\to \fH(U)$ given by 
+    \begin{center}
+        \begin{tikzcd}
+            \fF(U)\times \fG(U) \ar{r} \ar{dr}[swap]{\phi(U)} & \fF(U) \otimes_{\fO_X(U)} \fG(U) \ar[dashed]{d}[description]{\exists! \beta(U)}\\
+            &\fH(U)
+        \end{tikzcd}
+    \end{center}
+    by assumption that $\phi$ is $\fO_X$-bilinear. We claim that $\beta:(\fF \otimes_{\fO_X} \fG)_{\pre}\to \fH$ is a natural transformation. If $V\subset U$ is open, we see 
+    \begin{align*}
+        \left(\beta(U)(\sum f_i \otimes g_i)\right)\vert_V = \left( \sum \phi(U) (f_i, g_i)\right)\vert_V = \sum \phi(V)( f_i \vert_V, g_i \vert_V)=\sum \beta(V)(f_i \vert_V \otimes g_i \vert_V)=\beta(V)(\left( \sum f_i \otimes g_i\right)\vert_V)
+    \end{align*}
+    as desired. Because $\fH$ is a sheaf, we get a map $\alpha:\fF \otimes_{\fO_X} \fG \to \fH$ given below:
+    \begin{center}
+        \begin{tikzcd}
+            (\fF \otimes_{\fO_X} \fG)_{\pre} \ar{r}{\sh} \ar{dr}[swap]{\beta}& \fF \otimes_{\fO_X} \fG \ar[dashed]{d}[description]{\exists! \alpha}\\
+            &\fH
+        \end{tikzcd}
+    \end{center}
+    By our constructions, this shows existence for our universal property. To show uniqueness, suppose we had another map $\psi:\fF \otimes_{\fO_X} \fG\to \fH$ through which $\phi$ factors. By hypothesis, for any open set $U$, we have
+    \[
+     \psi(U)([\sum f_i\otimes g_i, U]_p)_{p\in U}=\sum \psi(U)\left(([f_i\otimes g_i, U]_p)_{p\in U}\right)=\sum \phi(U)(f_i,g_i).
+    \]
+    Our approach in showing that $\alpha = \psi$ will be to show that for every $p\in X$, $\alpha_p=\psi_p$ which suffices by Exercise \ref{2.4.C}C. Fix $z\in U\subset X$, and let $[\left([\sum f_{i,p}\otimes g_{i,p},U_p]\right)_{p\in U},U]$ be an arbitrary element of $(\fF \otimes_{\fO_X} \fG)_z$. Because $\left([\sum_i f_{i,p}\otimes g_{i,p},U_p]_p\right)_{p\in U}$ is a compatible choice of germs, for each $p\in U$ there exists an open set $V_p$ containing $p$ and $\sum_i x_{i,p}\otimes y_{i,p}$ such that
+    \[
+    [\sum_i x_{i,p}\otimes y_{i,p}, V_p]_q=[\sum_i f_{i,q}\otimes g_{i,q},U_q]_q
+    \]
+    for all $q\in V_p$. Then
+    \begin{align*}
+        &\psi_z\left([([\sum f_{i,p}\otimes g_{i,p},U_p]_p)_{p\in U},U]\right)= \psi_z\left([([\sum f_{i,p}\otimes g_{i,p},U_p]_p)_{p\in V_z},V_z]\right)\\
+        &=\psi_z\left([\sum x_{i,z}\otimes y_{i,z}, V_z]_p)_{p\in V_z},V_z]\right)=[\psi(V_z)\left(([\sum x_{i,z}\otimes y_{i,z}, V_z]_p)_{p\in V_z}\right),V_z]\\
+        &= \sum[ \phi(V_z)(x_{i,z}, y_{i,z}), V_z].
+    \end{align*}
+    But since
+    \[
+     \alpha(U)([\sum f_i\otimes g_i, U]_p)_{p\in U}=\sum \alpha(U)\left(([f_i\otimes g_i, U]_p)_{p\in U}\right)=\sum \phi(U)(f_i,g_i)
+    \]
+    for any open set $U$ as well, we derive that 
+    \[
+    \alpha_z\left([([\sum f_{i,p}\otimes g_{i,p},U_p]_p)_{p\in U},U]\right)=\sum[ \phi(V_z)(x_{i,z}, y_{i,z}), V_z]
+    \]
+    as well, so $\alpha_z=\psi_z$ as desired.
+    
+    Lastly, we want to show that $(\fF \otimes_{\fO_X} \fG)_p \cong \fF_p \otimes_{\fO_{X,p}} \fG_p$. We can reinterpret the universal property defining $\fF \otimes_{\fO_X} \fG$ as the colimit indexed by the final category (the final object in the category $\Cat$) inside a category whose objects are pairs $(\fH, \phi)$ where $\fH$ is an $\fO_X$ module and $\phi:\fF\times \fG \to \fH$ is $\fO_X$-bilinear, and whose morphisms are maps of sheaves making the diagrams commute. Explicitly if $(\fA, \phi)$ and $(\fB, \psi)$ are objects of this category, then $\alpha:\fA \to \fB$ is a morphism of our category whenever $\alpha \circ \phi = \psi$. In the language of category theory, our category is the coslice category of  $\Mod_{\fO_X}$ over $\fF\times \fG$. By the dual of Exercise %\ref{1.6.K}
+    \todo{uncomment out} or Vakil (1.6.14), colimits commute with colimits, and as taking the stalk at $p\in X$ is a colimit, we get our result.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{2.7.A}
+\begin{proof}
+    If $U\subset U'\subset U''$ are all open, we need to show existence of restriction maps so that
+    \begin{center}
+        \begin{tikzcd}
+            \pi^{-1}_{\pre} \fG(U'') \ar{rr} \ar{dr}&& \pi^{-1}_{\pre} \fG(U') \ar{dl}\\
+            & \pi^{-1}_{\pre} \fG(U)
+        \end{tikzcd}
+    \end{center}
+    commutes. First of all, for arbitrary open $V\subset U$, we have $\pi(V)\subset \pi(U)$, hence every $W\in \Op(Y)$ containing $\pi(U)$ also contains $\pi(V)$. In other words, we have the below commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & \colim_{W\supset \pi(V)} \fG(W)\\
+            \\
+            \fG(W) \ar{uur}&\colim_{W\supset \pi(U)} \fG(W) \ar[dashed]{uu}[description]{\exists! \res_{U,V}}&\fG(W') \ar{uul}\\
+            \fG(W) \ar{rr} \ar{ur} \ar[bend left]{u}{\id} && \fG(W') \ar{ul} \ar[bend right]{u}[swap]{\id}.
+        \end{tikzcd}
+    \end{center}
+    The uniqueness of the restriction maps ensure that $\res_{U',U} \circ \res_{U'',U'} = \res_{U'',U}$ as both maps satisfy the unique arrow below:
+    \begin{center}
+        \begin{tikzcd}
+            & \colim_{W\supset \pi(U)} \fG(W)\\
+            \\
+            \fG(W) \ar{uur}&\colim_{W\supset \pi(U'')} \fG(W) \ar[dashed]{uu}[description]{\exists!}&\fG(W') \ar{uul}\\
+            \fG(W) \ar{rr} \ar{ur} \ar[bend left]{u}{\id} && \fG(W') \ar{ul} \ar[bend right]{u}[swap]{\id}.
+        \end{tikzcd}
+    \end{center}
+    Lastly, we need to show that $\pi^{-1}_{\pre}$ preserves identity maps: this is clear by uniqueness of the restriction maps, since the identity makes the diagram commute.
+
+    To see that $\pi^{-1}_{\pre}$ need not be a sheaf, let $X=\C$, and $Y=\{*\}$, $\fG = \underline \Z $ be the sheaf associating $\Z$ to $\{*\}$, and let $\pi:\C \to \{*\}$. Then for any nonempty open $U\subset \C$, the only open $V$ containing $\pi(U)$ is $V=\{*\}$, so $\pi^{-1}_{\pre}(U) = \Z$ (also $\pi^{-1}_{\pre}(\emptyset)=0$). In addition, the restriction maps are all the identity. If we take disjoint open sets $U,V$ in $\C$ and let $0,1$ be sections of $\pi^{-1}_{\pre}$ over $U,V$ respectively, we try to glue $0$ and $1$ together on $U\sqcup V$ (which we should be able to do if $\pi^{-1}_{\pre}$ were a sheaf). If $n\in \Z$ was the glued section, then it would restrict to $0$ and $1$ on $U$ and $V$ respectively. However, as was shown earlier, the restriction maps are the identity, so $n$ would have to simultaneously be equal to $0$ and $1$, impossible.
+\end{proof}
+\subsubsection{B}\label{2.7.B}
+\begin{proof}
+    Following the notation in the hint, we will show each hom-set is in bijective correspondence with $\Mor_{YX}(\fG,\fF)$. First, we note that for every open set $U\subset X$ and $V\subset Y$, $\pi(\pi^{-1}(V))\subset V$ and $\pi^{-1}(\pi(U))\supset U$, two facts we will use repeatedly throughout the proof.
+    
+    Fix $\psi:\fG\to \pi_* \fF$, and for each open $U\subset X$ and $V\supset \pi(U)$, we let $\phi_{VU} = \res_{\pi^{-1}(V),U} \circ \psi(V)$. We claim our defined set of $\phi_{VU}$'s are natural, hence define an element of $\Mor_{YX}(\fG,\fF)$. To show this, fix open $V'\subset V\subset Y$ and $U'\subset U\subset X$ such that $V\supset \pi(U)$ and $V'\supset \pi(U')$. We want to show the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \fG(V) \ar{r}{\phi_{VU}} \ar{d}{\res_{V,V'}}& \fF(U) \ar{d}{\res_{U,U'}}\\
+            \fG(V') \ar{r}{\phi_{V'U'}}& \fF(U').
+        \end{tikzcd}
+    \end{center}
+    To see this, fix $x\in \fG(V)$. Then 
+    \begin{align*}
+         \phi_{VU}(x)\vert_{U'} = \res_{\pi^{-1}(V), U'} \circ \psi(V) (x)=\res_{\pi^{-1}(V'),U'}\circ \psi(V')(x\vert_{V'})=\phi_{V'U'}(x\vert_{V'})
+    \end{align*}
+    as desired. Thus we have a map $\alpha:\Mor(\fG,\pi_* \fF)\to \Mor_{YX}(\fG,\fF)$ given by our above construction. To show $\alpha$ is injective, suppose $\alpha(\psi) = \{\phi_{VU}\} = \alpha(\psi')$. Then for any open $U\subset X$ and $V\subset Y$ with $V\supset \pi(U)$, we have $\psi(V)(x)\vert_U = \psi'(V)(x)\vert_U$ for any $x\in \fG(V)$. Letting $p\in Y$ be arbitrary, $\psi_p=\psi'_p$ because if we take any germ $[x,V]$, we let $U=\pi^{-1}(V)$ so that $V\supset \pi(U)$. We then compute
+    \[
+    \psi_p[x,V] = [\psi(V)(x), V] = [\psi(V)(x)\vert_U,U]=[\psi'(V)(x)\vert_U,U]=[\psi'(V)(x),V]=\psi'_p[x,V].
+    \]
+    Then by Exercise \ref{2.4.C}C, we see $\psi=\psi'$ as desired. Now we claim $\alpha$ is surjective. Fix $\{\phi_{VU}\} \in \Mor_{YX}(\fG,\fF)$. For each open $V\subset Y$, we let $U=\pi^{-1}(V)$ so $V\supset \pi(U)$, and then define $\psi(V)=\phi_{VU}:\fG(V)\to \fF(U)=\pi_*\fF(V)$. We now claim $\psi$ is a map of sheaves. For any open $V'\subset V\subset Y$, we let $U=\pi^{-1}(V)$ and $U'=\pi^{-1}(V')$, so the following diagram commutes by naturality of $\{\phi_{VU}\}$:
+    \begin{center}
+        \begin{tikzcd}
+            \fG(V) \ar{r}{\psi(V)} \ar{d}{\res_{V,V'}}& \pi_* \fF(V) \ar{d}{\res_{V,V'}}\\
+            \fG(V') \ar{r}{\psi(V')} & \pi_* \fF(V').
+        \end{tikzcd}
+    \end{center}
+    Thus $\alpha$ is indeed a bijection.
+
+    Now fix $\phi =\{\phi_{VU}\} \in \Mor_{YX}(\fG,\fF)$. We will show there exists a unique element of $\Mor(\pi^{-1}_{\pre} \fG,\fF)$ corresponding to $\phi$. Fix open $U\subset X$, so for each open $V\supset V'\supset \pi(U)$ we get the below commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            &&\fF(U) \\
+            \\
+            \pi_*\fF(V) \ar{uurr} \arrow[bend left=10, crossing over, pos=0.4]{rrrr}{\res_{V,V'}}&&\pi^{-1}_{\pre}\fG(U) \ar[dashed]{uu}[description]{\exists!\varphi(U)}&& \pi_*\fF(V') \ar{uull}\\
+            &\fG(V) \ar{rr}{\res_{V,V'}} \ar{ul}{\phi_{V,\pi^{-1}(V)}} \ar{ur}{\mu_V}&&\fF(V') \ar{ul}[swap]{\mu_{V'}} \ar{ur}[swap]{\phi_{V',\pi^{-1(V')}}}.
+        \end{tikzcd}
+    \end{center}
+    Indeed, the $\varphi(U)'s$ are natural: if $U'\subset U$, then both $\res_{U,U'}\circ \varphi(U)$ and $\varphi(U')\circ \res_{U,U'}$ satisfy the unique arrow in the below commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            &&\fF(U) \\
+            \\
+            \pi_*\fF(V) \ar{uurr} \arrow[bend left=10, crossing over, pos=0.4]{rrrr}{\res_{V,V'}}&&\pi^{-1}_{\pre}\fG(U) \ar[dashed]{uu}[description]{\exists!}&& \pi_*\fF(V') \ar{uull}\\
+            &\fG(V) \ar{rr}{\res_{V,V'}} \ar{ul}{\phi_{V,\pi^{-1}(V)}} \ar{ur}{\mu_V}&&\fF(V') \ar{ul}[swap]{\mu_{V'}} \ar{ur}[swap]{\phi_{V',\pi^{-1(V')}}}.
+        \end{tikzcd}
+    \end{center}
+    Thus we have a unique map of presheaves $\varphi$ (uniqueness is because each map of sections is uniquely determined), which induces a unique $\psi:\pi^{-1}\fG \to \fF$ by the universal property of sheafification. We let $\beta(\phi) = \psi$, so by uniqueness $\beta$ is injective. For surjectivity, fix $\psi:\pi^{-1} \fG\to \fF$. By precomposing with $\sh:\pi^{-1}_{\pre}\fG \to \pi^{-1} \fG$, we get a collection of $\phi_{VU}$'s by $\phi_{VU}=\psi(U)\circ \sh(U) \circ \tau_V$ where $\mu_V:\fG(V)\to \pi^{-1}_{\pre} \fG(U)$. These $\phi_{VU}$'s define an element $\phi \in \Mor_{YX}(\fG,\fF)$ by naturality of $\psi$, and we will now see that $\beta(\phi)=\psi$. This is because on the level of sections, the unique arrow $\varphi(U)$ is satisfied by $\psi(U)\circ \sh(U)$, so $\varphi = \psi \circ \sh$, i.e. $\beta(\phi)=\psi$.
+
+    We now need to show the bijections $\tau = \beta \circ \alpha$ are functorial. First, let $\phi:\fH \to \fG$ be a map of sheaves, and we need to show
+    \begin{center}
+        \begin{tikzcd}
+            \Mor(\fG, \pi_* \fF) \ar{d}{\tau_{\fG \fF}} \ar{r}{\phi^*}& \Mor(\fH,\pi_*\fF) \ar{d}{\tau_{\fH\fF}}\\
+            \Mor(\pi^{-1} \fG, \fF) \ar{r}{(\pi^{-1}\phi)^*}& \Mor(\pi^{-1} \fH, \fF)
+        \end{tikzcd}
+    \end{center}
+    commutes. We fix $\psi:\fG \to \pi_*\fF$, and notice that the below four commutative diagrams summarize all of the constructions in play for any open $U\subset X$ with $\pi(U)\subset V'\subset V$:
+    \begin{center}
+        \begin{tikzcd}
+            &&\fF(U) \\
+            \\
+            \pi_*\fF(V) \ar{uurr}{\res} &&\pi^{-1}_{\pre}\fG(U) \ar{uu}[description]{\tilde \psi(U)}&& \pi_*\fF(V') \ar{uull}[swap]{\res}\\
+            &\fG(V) \ar{rr}{\res_{V,V'}} \ar{ul}{\psi(V)} \ar{ur}{\mu_V}&&\fG(V) \ar{ul}[swap]{\mu_{V'}} \ar{ur}[swap]{\psi(V')}.
+        \end{tikzcd}
+        \begin{tikzcd}
+            \pi^{-1}_{\pre} \fG \ar{r}{\sh} \ar{dr}[swap]{\tilde \psi}& \pi^{-1} \fG \ar{d}[description]{\tau_{\fG \fF}(\psi)}\\
+            & \fF
+        \end{tikzcd}
+        \begin{tikzcd}
+            &&\pi^{-1}_{\pre} \fG(U) \\
+            \\
+            \fG(V) \ar{uurr}{\mu_V} \arrow[bend left=10, crossing over, pos=0.4]{rrrr}{\res_{V,V'}}&&\pi^{-1}_{\pre}\fH(U) \ar{uu}[description]{\pi^{-1}_{\pre} \phi}&& \fG(V') \ar{uull}[swap]{\mu_{V'}}\\
+            &\fH(V) \ar{rr}{\res_{V,V'}} \ar{ul}{\phi(V)} \ar{ur}{\sigma_V}&&\fH(V) \ar{ul}[swap]{\sigma_{V'}} \ar{ur}[swap]{\phi(V')}.
+        \end{tikzcd}
+        \begin{tikzcd}
+            \pi^{-1}_{\pre} \fH \ar{d}{\pi^{-1}_{\pre} \phi} \ar{r}{\sh}& \pi^{-1} \fH \ar{d}[description]{\pi^{-1}\phi}\\
+            \pi^{-1}_{\pre} \fG \ar{r}{\sh}& \pi^{-1} \fG.
+        \end{tikzcd}
+    \end{center}
+    Our strategy in showing commutativity will be checking equality on the level of stalks, which suffices by Exercise \ref{2.4.C}C. For $p\in Y$, we want to show
+    \[
+    \tau_{\fG \fF}(\psi)_p \circ (\pi^{-1} \phi)_p \circ \sh^{\pi^{-1}_{\pre}\fH}_p = \tau_{\fH \fF}(\psi \circ \phi)_p \circ \sh_p^{\pi^{-1}_{\pre}\fH}
+    \]
+    because $\sh_p^{\pi^{-1}_{\pre}\fH}$ is an isomorphism by Exercise \ref{2.4.L}L.
+    For the left-hand side, we compute for an arbitrary germ $[\sigma_V(x),U]$ that
+    \begin{align*}
+        &\tau_{\fG \fF}(\psi)_p \circ (\pi^{-1} \phi)_p \circ \sh^{\pi^{-1}_{\pre}\fH}_p ([\sigma_V(x),U])= \tau_{\fG \fF} (\psi)_p \circ \sh_p^{\pi^{-1}_{\pre} \fG} \circ (\pi^{-1}_{\pre} \phi)_p([\sigma_V(x),U])\\
+        &=\tilde \psi_p ([\mu_V \circ \phi(V)(x),U]) = [\psi(V)\circ \phi(V)(x)\vert_U,U].
+    \end{align*}
+    For the right-hand side, we compute
+    \begin{align*}
+        \tau_{\fH \fF}(\psi \circ \phi)_p \circ \sh_p^{\pi^{-1}_{\pre}\fH} ([\sigma_V(x),U])=\widetilde{\psi \circ \phi}_p([\sigma_V(x),U])=[\psi(V)\circ \phi(V)\vert_U,U].
+    \end{align*}
+
+    Now let $\varphi:\fF\to \fH$ be a map of sheaves, so we need to show the below diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \Mor(\fG, \pi_*\fF) \ar{d}{\tau_{\fG \fF}} \ar{r}{(\pi_* \varphi)_*}& \Mor(\fG, \pi_*\fH) \ar{d}{\tau_{\fG \fH}}\\
+            \Mor(\pi^{-1} \fG, \fF) \ar{r}{\varphi_*}& \Mor(\pi^{-1} \fG, \fH).
+        \end{tikzcd}
+    \end{center}
+    Fix $\psi:\fG \to \pi_* \fF$. In a similar vein, we want to show $\tau_{\fG \fH} (\pi_* \varphi \circ \psi) = \varphi \circ \tau_{\fG \fF}(\psi)$ by checking stalks. Again, it suffices to show
+    \[
+    \tau_{\fG \fH} (\pi_* \varphi \circ \psi)_p \circ \sh^{\pi^{-1}_{\pre} \fG}_p = \varphi_p \circ \tau_{\fG \fF}(\psi)_p \circ \sh^{\pi^{-1}_{\pre} \fG}_p.
+    \]
+    For an arbitrary germ $[\mu_V(x),U]$, we compute that
+    \begin{align*}
+        &\tau_{\fG \fH} (\pi_* \varphi \circ \psi)_p \circ \sh^{\pi^{-1}_{\pre} \fG}_p([\mu_V(x),U])=\widetilde{\pi_* \varphi \circ \psi}_p([\mu_V(x),U])=[\pi_*\varphi(V)\circ \psi(V)(x)\vert_U,U]\\
+        &=[\varphi(\pi^{-1}(V)) \circ \psi(V)(x)\vert_U,U]=\varphi_p\circ \tau_{\fG \fF}(\psi)_p\circ \sh_p^{\pi^{-1}_{\pre}\fG}[\mu_V(x),U]=\varphi_p \circ \tilde \psi_p([\mu_V(x),U])\\
+        &= \varphi_p([\varphi(V)(x)\vert_U])=[\varphi(U)\circ \res_{\pi^{-1}(V),U}\circ \psi(V)(x),U]=\varphi_p([\psi(V)\vert_U,U])\\
+        &=\varphi_p\circ \tilde \psi_p([\mu_V(x),U])=\varphi_p \circ \tau_{\fG \fF}(\psi)_p \circ \sh^{\pi^{-1}_{\pre} \fG}_p([\mu_V(x),U]).
+    \end{align*}
+\end{proof}
+\begin{lemma} \label{lem:pushforward sheaf distributes}
+        If $X\xrightarrow{f}Y\xrightarrow{g}Z$, then $(gf)_* = g_*f_*$ as functors.
+    \end{lemma}
+    \begin{proof}
+        This is clear: if $\fF$ is a sheaf over $X$ and $U\subset Z$ is open, then
+        \[
+        g_*f_*\fF(U)=f_* \fF(g^{-1}(U))=\fF(f^{-1}(g^{-1}(U)))
+        \]
+        while simultaneously
+        \[
+        (gf)_*\fF(U)=\fF((gf)^{-1}(U))=\fF(f^{-1}(g^{-1}(U))).
+        \]
+    \end{proof}
+    \begin{lemma} \label{lem:inverse image sheaf distributes}
+        If $X\xrightarrow{f}Y\xrightarrow{g}Z$, then $(gf)^{-1} = f^{-1}g^{-1}$ as functors.
+    \end{lemma}
+    \begin{proof}
+        Recall that being an adjoint defines a functor up to natural isomorphism. In particular, the left adjoint of $(gf)_*$ is defined up to natural isomorphism. By Exercise \ref{2.7.B}B, $(gf)^{-1}$ is a left-adjoint, so to prove the claim it suffices to show $f^{-1}g^{-1}$ is also a left-adjoint of $(gf)_*$. Again by Exercise \ref{2.7.B}B, we have functorial bijections
+        \[
+        \Mor(f^{-1}g^{-1}\fH, \fF) \xrightarrow{\sim} \Mor(g^{-1} \fH, f_* \fF) \xrightarrow{\sim } \Mor(\fH, g_* f_* \fF)
+        \]
+        for arbitrary sheaves $\fH$ over $Z$ and $\fF$ over $X$. By Lemma \ref{lem:pushforward sheaf distributes}, $\Mor(\fH,g_*f_*\fF)= \Mor(\fH, (gf)_* \fF)$ which completes the claim.
+    \end{proof}
+    \begin{lemma}\label{lem:stalk as inverse image sheaf}
+        Let $i:\{*\}\hookrightarrow X$ have image $p$, and let $\fF$ be a sheaf over $X$. Then $i^{-1} \fF(\{*\})=\fF_p$.
+    \end{lemma}
+    \begin{proof}
+        By definition, $i^{-1}_{\pre}(\{*\})=\colim_{V\supset \{p\}} \fF(V) = \fF_p$. Then it just remains to show $i^{-1} \fF(\{*\}) = \fF_p$, i.e. the set of all compatible germs over $\{*\}$ is just $\fF_p$. Since $\{*\}$ is a single point, a choice of compatible germs is just a single germ at $*$. But $(i^{-1}_{\pre} \fF)_*=\colim_{*\in V} i^{-1}_{\pre} \fF(V)= i^{-1}_{\pre} \fF(\{*\})= \fF_p$ as desired. 
+    \end{proof}
+\subsubsection{C}\label{2.7.C}
+\begin{proof}
+    Fix $p\in X$ and let $q=\pi(p)$, and choose $\fG$ to be a sheaf over $Y$. We then have the chain of continuous maps $$\{p\} \xhookrightarrow{i}X \xrightarrow{\pi}Y.$$ By Lemma \ref{lem:inverse image sheaf distributes}, we get $(\pi  i)^{-1} \fG \cong i^{-1} \pi^{-1} \fG$. In particular, $(\pi i)^{-1} \fG(\{p\}) \cong i^{-1} \pi^{-1} \fG(\{p\})$. We notice $\pi i$ has image $q$ and $i$ has image $p$, so we apply Lemma \ref{lem:stalk as inverse image sheaf} to get that $(\pi i)^{-1} \fG(\{p\})=\fG_q$, whereas $i^{-1} \pi^{-1} \fG(\{p\}) = (\pi^{-1} \fG)_p$ as required.
+\end{proof}
+\subsubsection{D}\label{2.7.D}
+\begin{proof}
+\iffalse
+    Because the left-adjoint of $i_*$ is defined up to isomorphism, it suffices to show $(\vert_U, i_*)$ is an adjoint pair. Notice that for any open subset $V\subset Y$, $i^{-1}(V)=U\cap V$. On one hand, if we're given some $\phi \in \Mor(\fG\vert_U, \fF)$, we define $\tilde \phi:\fG \to i_* \fF$ be given by $\tilde \phi(V)=\phi(U\cap V)$ for any open $V\subset Y$. \fi
+    We will show that $\fG\vert_U = i^{-1}_{\pre} \fG$, which completes the result because the restriction of a sheaf is again a sheaf. We can do this by showing $\fG\vert_U(V) = \colim_{W\supset i(V)} \fG(W) = \colim_{W\supset V} \fG(W)$ for an arbitrary open $V\subset U$, where the index is over all open $V\subset W\subset U$. By definition, $\fG\vert_U(V)=\fG(V)$. But indeed because $\fG(V)$ is in the index and every $\fG(W)$ has a unique restriction map to $\fG(V)$, we can easily see our requirement
+    \begin{center}
+        \begin{tikzcd}
+            &&A\\
+            &&\fG(V) \ar[dashed]{u}[description]{\exists!}\\
+            \fG(V) \ar{urr}{\id} \ar[bend left]{uurr} &&&& \fG(W) \ar{llll}{\res} \ar{ull}[swap]{\res} \ar[bend right]{uull}
+        \end{tikzcd}
+    \end{center}
+    is satisfied. It's also easy to see the induced restriction maps are the same as those of $\fG\vert_U$.
+\end{proof}
+\subsubsection{E}\label{2.7.E}
+\begin{proof}
+    Suppose $0\to \fF \to \fG \to \fH \to 0$ is an exact sequence of sheaves. By Exercise \ref{2.6.E}E, $0\to \fF_q \to \fG_q\to \fH_q\to 0$ is exact. Then by Exercise \ref{2.7.C}C, $0\to (\pi^{-1} \fF)_p \to (\pi^{-1}\fG)_p\to (\pi^{-1} \fH)_p \to 0$ is exact. Then Exercise \ref{2.6.D}D gives that, since $p\in X$ was arbitrary and $q=\pi(p)$, that indeed $0\to \pi^{-1} \fF\to \pi^{-1} \fG \to \pi^{-1} \fH \to 0$ is exact.
+\end{proof}
+\begin{setting}\label{set:Adjoint functors into 2-category}
+    Let $\fA$ be a category and $\fB$ be a 2-category. Assume $R:\fA \to \fB$ and $L:\fA^{\op} \to \fB$ are functors such that for each $f:X\to Y$ in $\fC$, $LX=RX$ and $(L_f, R_f)$ is an adjoint pair, i.e. there are a 2-morphisms $\eta^f:\id_Y \Rightarrow R_fL_f$ and $\epsilon^f:L_fR_f \Rightarrow \id_X$ such that $R_f \epsilon^f \circ \eta^f R_f = \id_{R_f}$ and $\epsilon^f L_f \circ L_f \eta^f = \id_{L_f}$ where a 1-morphism next to a 2-morphism denotes whiskering. We let $\circ$ denote vertical composition and $*$ denote horizontal composition of 2-morphisms. We slightly abuse notation and omit explicit notation denoting composition of 1-morphisms. However, whiskering is still distinguishable from composition of 1-morphisms. Finally, $\altid_M$ denotes the identity 2-morphism of $\id_M$ for an object $M\in \fB$.
+\end{setting}
+\begin{lemma}\label{lem:unit counit commute}
+    As in Setting \ref{set:Adjoint functors into 2-category}, if $X\xrightarrow{f} Y \xrightarrow{g} Z$ in $\fC$, the below diagrams of 2-morphisms commute:
+    \begin{center}
+        \begin{tikzcd}
+            L_g R_g \ar[Rightarrow]{d}{\epsilon^g} \ar[Rightarrow]{r}{\eta^f L_g R_g}& R_f L_f L_g R_g \ar[Rightarrow]{d}{R_f L_f \epsilon^g}\\
+            \id_{LY} \ar[Rightarrow]{r}{\eta^f}& R_f L_f
+        \end{tikzcd}
+    \end{center}
+    \begin{center}
+        \begin{tikzcd}
+            L_g R_g \ar[Rightarrow]{d}{\epsilon^g} \ar[Rightarrow]{r}{L_g R_g\eta^f}& R_f L_f L_g R_g \ar[Rightarrow]{d}{ \epsilon^gR_f L_f}\\
+            \id_{LY} \ar[Rightarrow]{r}{\eta^f}& R_f L_f.
+        \end{tikzcd}
+    \end{center}
+    \end{lemma}
+    \begin{proof}
+        We have
+        \begin{align*}
+            &\eta^f \circ \epsilon^g =(\eta^f *\altid_{LY})\circ (\altid_{LY}*\epsilon^g)=(\eta^f \circ \altid_{LY})*(\altid_{LY}\circ \epsilon^g)=(\id_{R_f L_f}\circ \eta^f)*(\epsilon^g \circ \id_{L_g R_g})\\
+            &= R_fL_f \epsilon^g \circ \eta^f L_g R_g
+        \end{align*}
+        because horizontal composition by $\altid$ does nothing, as does vertical composition by identities by \cite{maclane1998categories}. Commutativity of the second diagram is analogous. To see diagrammatically what we are doing for commutativity of the second diagram, we observe
+        \begin{center}
+    \begin{tikzcd}
+        LY \ar[rr, ""{name=U1, below}]{}{\id}&& LY \ar{r}{R_g}&LZ \ar{r}{L_g} \ar[Rightarrow]{d}{\id}&LY\\
+        LY \ar{r}{L_f}&LX \ar[Rightarrow]{d}{\id} \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY \ar{r}{R_g}\ar[phantom, ""{name=D1, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar{r}{L_f}&LX \ar{r}{R_f} &LY \ar[rr, ""{name=D, above = 1.5mm}]{}{\id}&&LY \arrow[Rightarrow, from=D1, to=D, "\epsilon^g"]
+    \end{tikzcd}
+\end{center}
+is the same as
+\begin{center}
+    \begin{tikzcd}
+        LY \ar[rr, ""{name=U1, below}]{}{\id}&& LY && LY\ar{r}{R_g}&LZ \ar{r}{L_g} \ar[Rightarrow]{d}{\id}&LY\\
+        LY \ar{r}{L_f}&LX \ar[Rightarrow]{d}{\id} \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY &*& LY\ar{r}{R_g}\ar[phantom, ""{name=D1, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar{r}{L_f}&LX \ar{r}{R_f} &LY && LY \ar[rr, ""{name=D, above = 1.5mm}]{}{\id}&&LY \arrow[Rightarrow, from=D1, to=D, "\epsilon^g"]
+    \end{tikzcd}
+\end{center}
+is the same as
+\begin{center}
+    \begin{tikzcd}
+        LY \ar[rr, ""{name=U2, below}]{}{\id}&& LY && LY\ar{r}{R_g}\ar[phantom, ""{name=D1, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar[phantom, rr, ""{name=U3, above=1.5mm}]{}\ar[rr, ""{name=U1, below}]{}{\id}&& LY&*& LY \ar[rr, ""{name=D, above = 1.5mm}]{}{\id} \ar[phantom, rr, ""{name=D3, below }]{}&&LY \\
+        LY \ar{r}{L_f}&LX  \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY  && LY \ar[rr, ""{name=D2, above = 1.5mm}]{}{\id}&& LY \arrow[Rightarrow, from=D1, to=D, "\epsilon^g"] \ar[Rightarrow, from = U2, to=U3, "\altid_{LY}"] \ar[Rightarrow, from = D3, to= D2, "\altid_{LY}"]
+    \end{tikzcd}
+\end{center}
+is the same as
+\begin{center}
+    \begin{tikzcd}
+        LY \ar[rr, ""{name=U2, below}]{}{\id}&&  LY\ar{r}{R_g}\ar[phantom, ""{name=D1, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar[phantom, rr, ""{name=U3, above=1.5mm}]{}\ar[rr, ""{name=U1, below}]{}{\id}&&  LY \ar[rr, ""{name=D, above = 1.5mm}]{}{\id} \ar[phantom, rr, ""{name=D3, below }]{}&&LY \\
+        LY \ar{r}{L_f}&LX  \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY  \ar[rr, ""{name=D2, above = 1.5mm}]{}{\id}&& LY \arrow[Rightarrow, from=D1, to=D, "\epsilon^g"] \ar[Rightarrow, from = U2, to=U3, "\altid_{LY}"] \ar[Rightarrow, from = D3, to= D2, "\altid_{LY}"]
+    \end{tikzcd}
+\end{center}
+is the same as
+\begin{center}
+    \begin{tikzcd}
+        LY \ar[rr, ""{name=U2, below}]{}{\id}&&  LY\ar{r}{R_g}\ar[phantom, ""{name=D4, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar[phantom, rr, ""{name=U3, above=1.5mm}]{}\ar[rr, ""{name=U1, below}]{}{\id}&&  LY \ar[rr, ""{name=D5, above = 1.5mm}]{}{\id} \ar[phantom, rr, ""{name=D3, below }]{}&&LY \\
+        &&\circ \ar[Rightarrow, from = U2, to=U3, "\altid_{LY}"]  \\
+        LY \ar[phantom, rr, ""{name=U3, above=1.5mm}]{}\ar[rr, ""{name=U1, below}]{}{\id}&&  LY \ar[rr, ""{name=D, above = 1.5mm}]{}{\id} \ar[phantom, rr, ""{name=D3, below }]{}&&LY \\
+        LY \ar{r}{L_f}&LX  \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY  \ar[rr, ""{name=D2, above = 1.5mm}]{}{\id}&& LY \arrow[Rightarrow, from=D4, to=D5, "\epsilon^g"]  \ar[Rightarrow, from = D3, to= D2, "\altid_{LY}"]
+    \end{tikzcd}
+\end{center}
+is the same as
+\begin{center}
+    \begin{tikzcd}
+        LY\ar{r}{R_g}\ar[phantom, ""{name=D4, below}]{rr}{}& LZ  \ar{r}{L_g} & LY \\
+        LY \ar[rr, ""{name=D5, above = 1.5mm}]{}{\id} \ar[phantom, rr, ""{name=D3, below }]{}&&LY \\
+        &\circ   \\
+        LY \ar[phantom, rr, ""{name=U3, above=1.5mm}]{}\ar[rr, ""{name=U1, below}]{}{\id}&&  LY  \\
+        LY \ar{r}{L_f}&LX  \ar{r}{R_f} \arrow[Rightarrow, from=U1, "\eta^f"]&LY  \arrow[Rightarrow, from=D4, to=D5, "\epsilon^g"] 
+    \end{tikzcd}
+\end{center}
+which is simply $\eta^f \circ \epsilon^g$.
+    \end{proof}
+    \begin{lemma}\label{lem:unit counit distribute}
+        As in Setting \ref{set:Adjoint functors into 2-category}, if $X\xrightarrow{f} Y \xrightarrow{g} Z$ in $\fC$, then $\epsilon^{gf} = \epsilon^f\circ L_f \epsilon^g R_f$ and $\eta^{gf}=R_g \eta^f L_g \circ \eta^g$.
+    \end{lemma}
+    \begin{proof}
+        By uniqueness of the unit and counit, it suffices to show that $\epsilon^f\circ L_f \epsilon^g R_f$ (as a counit $\epsilon$)  and $R_g \eta^f L_g \circ \eta^g$ (as a unit $\eta$) satisfy the triangle identities, namely $\epsilon L_{gf} \circ L_{gf} \eta = \id_{L_{gf}}$ and $R_{gf} \epsilon \circ \eta R_{gf} = \id_{R_{gf}}$. Using Lemma \ref{lem:unit counit commute}, we see
+        \begin{align*}
+            &L_f \epsilon^g R_f L_{gf}\circ L_{gf}R_g \eta^f L_g= L_f \epsilon^g R_f L_f L_g \circ L_f L_g R_g \eta^f L_g\\
+            &=L_f(\epsilon^g R_f L_f \circ L_g R_g \eta^f)L_g = L_f(\eta^f \circ \epsilon^g) L_g=L_f \eta^f L_g \circ L_f \epsilon^g L_g.
+        \end{align*}
+        Using this observation, we compute
+        \begin{align*}
+            &(\epsilon^f\circ L_f \epsilon^g R_f) L_{gf} \circ L_{gf} (R_g \eta^f L_g \circ \eta^g)=\epsilon^fL_{gf}\circ L_f \epsilon^g R_f L_{gf} \circ L_{gf} R_g \eta^f L_g \circ L_{gf}\eta^g\\
+            &=\epsilon^fL_{f}L_g\circ L_f \eta^f L_g \circ L_f \epsilon^g L_g \circ L_{f}L_g\eta^g=(\epsilon^f L_f \circ L_f \eta^f)L_g \circ L_f(\epsilon^gL_g \circ L_g \eta^g)\\
+            &=(\id_{L_f})L_g\circ L_f(\id_{L_g})=\id_{L_{gf}}.
+        \end{align*}
+        Again using Lemma \ref{lem:unit counit commute}, we observe
+        \[
+         R_gR_f L_f \epsilon^g R_f \circ R_g \eta^fL_g R_g R_f = R_g(R_fL_f \epsilon^g\circ \eta^fL_g R_g)R_f=R_g(\eta^f \circ \epsilon^g)R_f=R_g \eta^f R_f \circ R_g \epsilon^g R_f
+        \]
+       Using this, we compute that on the other hand,
+        \begin{align*}
+            &R_{gf} (\epsilon^f \circ L_f \epsilon^g R_f)\circ (R_g \eta^f L_g \circ \eta^g)R_{gf}=R_gR_f \epsilon^f \circ R_gR_f L_f \epsilon^g R_f \circ R_g \eta^fL_g R_g R_f \circ \eta^g R_g R_f\\
+            &=R_gR_f \epsilon^f \circ R_g \eta^f R_f \circ R_g \epsilon^g R_f \circ \eta^g R_g R_f=R_g(R_f \epsilon^f \circ \eta^f R_f) \circ (R_g \epsilon^g \circ \eta^g R_g)R_f\\
+            &= R_g(\id_{R_f}) \circ (\id_{R_g})R_f = \id_{R_{gf}}.
+        \end{align*}
+    \end{proof}
+    \begin{corollary}\label{cor:swap counits}
+        As in Setting \ref{set:Adjoint functors into 2-category}, if $\beta \alpha' = \alpha \beta':W\to Z$ in $\fC$, the below diagram of 2-morphisms commutes in $\fB$:
+        \begin{center}
+            \begin{tikzcd}
+                L_{\beta \alpha'} R_{\beta \alpha'} \ar[Rightarrow]{r}{L_{\alpha'} \epsilon^\beta R_{\alpha'}} \ar[Rightarrow]{d}[swap]{L_{\beta'} \epsilon^\alpha R_{\beta'}}& L_{\alpha'}R_{\alpha'} \ar[Rightarrow]{d}{\epsilon^{\alpha'}}\\
+                L_{\beta'} R_{\beta'} \ar[Rightarrow]{r}{\epsilon^{\beta'}}& \id_{LW}.
+            \end{tikzcd}
+        \end{center}
+\end{corollary}
+\begin{proof}
+Immediate from Lemma \ref{lem:unit counit distribute}.
+\end{proof}
+\begin{lemma}\label{lem:unit counit distribute with identity in middle}
+    As in Setting \ref{set:Adjoint functors into 2-category}, if $\beta \alpha' = \alpha \beta':W\to Z$ in $\fC$, the below diagram of 2-morphisms commutes in $\fB$:
+        \begin{center}
+            \begin{tikzcd}
+                L_{\beta } R_{\alpha} \ar[Rightarrow]{r}{L_{\beta} R_\alpha \eta^{\beta'}} \ar[Rightarrow]{d}[swap]{\eta^{\alpha'}L_{\beta} R_\alpha  }& L_\beta R_{\alpha \beta'} L_{\beta'} \ar[Rightarrow]{d}{\eta^{\alpha'}L_\beta R_{\beta \alpha'}L_{\beta'}}\\
+                R_{\alpha'}L_{\beta \alpha'} R_\alpha \ar[Rightarrow]{r}[swap]{R_{\alpha'}L_{\beta \alpha'}R_{\alpha}\eta^{\beta'}}& R_{\alpha'} L_{\beta \alpha'} R_{\beta \alpha'} L_{\beta'}.
+            \end{tikzcd}
+        \end{center}
+\end{lemma}
+\begin{proof}
+    In a similar vein as the proof of Lemma \ref{lem:unit counit commute}, we compute
+    \begin{align*}
+        &\eta^{\alpha'}L_\beta R_\alpha R_{\beta'}L_{\beta'}\circ L_{\beta} R_\alpha  \eta^{\beta'}=(\eta^{\alpha'}\circ \altid_{LY})*\id_{L_\beta R_\alpha}*(\id_{R_{\alpha'}L_{\beta'}})\\
+        &=(\id_{R_{\alpha'}L_{\alpha'}}\circ \eta^{\alpha'})*\id_{L_\beta R_\alpha}*(\eta^{\beta'}\circ \altid_{LX})=R_{\alpha'}L_{\alpha'}L_\beta R_\alpha \eta^{\beta'}\circ \eta^{\alpha'}L_\beta R_\alpha.
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{lem:2.7.F generalization}
+    Suppose \begin{tikzcd}
+        W \ar{r}{\beta'} \ar{d}{\alpha'}& X \ar{d}{\alpha}\\
+        Y \ar{r}{\beta}& Z
+    \end{tikzcd}
+    commutes in $\fC$. As in Setting \ref{set:Adjoint functors into 2-category}, the below diagram of 2-morphisms commutes in $\fB$:
+    \begin{center}
+        \begin{tikzcd}
+            L_\beta R_\alpha \ar[Rightarrow]{r}{\eta^{\alpha'}L_\beta R_\alpha} \ar[Rightarrow]{d}[swap]{L_\beta R_\alpha \eta^{\beta'}}&R_{\alpha'} L_{\beta \alpha'} R_\alpha \ar[Rightarrow]{d}{R_{\alpha'}L_{\beta'} \epsilon^\alpha}\\
+            L_\beta R_{\alpha \beta'} L_{\beta'} \ar[Rightarrow]{r}{\epsilon^\beta R_{\alpha'} L_{\beta'}}& R_{\alpha'}L_{\beta'} .
+        \end{tikzcd}
+    \end{center}
+\end{lemma}
+\begin{proof}
+    By the above Lemmas and Corollary, we get the below commutative diagram of 2-morphisms in $\fB$:
+    \begin{center}
+        \begin{tikzcd}
+            L_\beta R_\alpha \ar[Rightarrow]{r}{\eta^{\alpha'}L_\beta R_\alpha} \ar[Rightarrow]{d}[swap]{L_\beta R_\alpha \eta^{\beta'}} & R_{\alpha'}L_{\beta \alpha'}R_{\alpha} \ar[Rightarrow]{r}{R_{\alpha'}L_{\beta'} \epsilon^\alpha} \ar[Rightarrow]{d}{R_{\alpha'}L_{\beta \alpha'}R_\alpha \eta^{\beta'}}& R_{\alpha'}L_{\beta'} \ar[Rightarrow]{d}{R_{\alpha'}L_{\beta'} \eta^{\beta'}}\\
+            
+            L_\beta R_{\alpha \beta'} L_{\beta'} \ar[Rightarrow]{d}[swap]{\epsilon^\beta R_{\alpha'}L_{\beta'}} \ar[Rightarrow]{r}{\eta^{\alpha'}L_\beta R_{\beta \alpha'} L_{\beta'}}&R_{\alpha'}L_{\beta \alpha'}R_{\beta \alpha'}L_{\beta'} \ar[Rightarrow]{d}{R_{\alpha'} L_{\beta'} \epsilon^\beta R_{\alpha'}L_{\beta'}} \ar[Rightarrow]{r}{R_{\alpha'}L_{\beta'}\epsilon^\alpha R_{\beta'}L_{\beta'}}& R_{\alpha'}L_{\beta'} R_{\beta'}L_{\beta'} \ar[Rightarrow]{d}{R_{\alpha'}\epsilon^{\beta'}L_{\beta'}} \\
+            
+            R_{\alpha'}L_{\beta'}\ar[Rightarrow]{r}[swap]{\eta^{\alpha'}R_{\alpha'}L_{\beta'}} & R_{\alpha'}L_{\alpha'} R_{\alpha'}L_{\beta'} \ar[Rightarrow]{r}[swap]{R_{\alpha'}\epsilon^{\alpha'}L_{\beta'}}&R_{\alpha'}L_{\beta'}
+        \end{tikzcd}
+    \end{center}
+    where the bottom left and top right boxes commute by Lemma \ref{lem:unit counit commute}, the bottom right box commutes by Corollary \ref{cor:swap counits}, and the top right box commutes by Lemma \ref{lem:unit counit distribute with identity in middle}. By the triangle identities, we realize the bottom row and the rightmost column are both the identity 2-morphisms by the triangle identities, which concludes the result.
+\end{proof}
+\subsubsection{F}\label{2.7.F}
+\begin{proof}
+    The result is now immediate by Lemma \ref{lem:2.7.F generalization}, since Lemmas \ref{lem:pushforward sheaf distributes} and \ref{lem:inverse image sheaf distributes} tell us that we have functors $L:\Top^{\op} \to \Cat$ and $R:\Top \to \Cat$ each assigning a topological space to the category of sheaves over it, and where $L_\pi = \pi^{-1}$ and $R_\pi = \pi_*$, which satisfy Setting \ref{set:Adjoint functors into 2-category} by Exercise \ref{2.7.B}B. To be explicit, the composition running across the bottom and left of the commutative diagram is Vakil's construction, whereas the composition running across the top and right is the dual construction mentioned in the exercise.
+\end{proof}
+\subsubsection{G}\label{2.7.G}
+\begin{proof}
+    The claim is equivalent to showing $\supp s$ contains all of its limit points, so suppose $q\in X$ is a limit point of $\supp s$, i.e. for every neighborhood $U$ of $q$, there is a point $p\in U$ such that $s_p\ne 0$. Towards a contradiction, suppose $s_q =0$. Then there is some neighborhood $U$ of $q$ such that $s\vert_U = 0$. By hypothesis, there is some $p\in U$ with $s_p\ne 0$, so in particular $s\vert_U \ne 0$. This is a contradiction .
+\end{proof}
+\subsubsection{H}\label{2.7.H}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item First, we show that if $q\notin Z$, then $(i_* \fF)_q = 1$. Because $Z$ is closed and $q\notin Z$, then $q$ is not a limit point of $Z$, hence there is some neighborhood $V$ of $q$ such that $V\cap Z = \emptyset$. Then $i_*\fF(V) = \fF(V\cap Z)=\fF(\emptyset)=1$ because $1$ is the terminal object in $\Grp$ and $\fF$ is a sheaf. Let $U\subset Y$ be a neighborhood of $q$ and let $s\in i_*\fF(U)$ be an arbitrary section. We observe $\res_{U,U\cap V}:i_* \fF(U) \to i_*\fF(U\cap V)= \fF(U\cap V \cap Z)=\fF(\emptyset)=1$ gives that $s\vert_{U\cap V}=1$, so $s_q=1$. As $s$ was an arbitrary section, we conclude $(i_* \fF)_q =1$.
+        
+        Now suppose $q\in Z$. Then the neighborhoods $U\subset Y$ of $q$ are in bijective correspondence with the neighborhoods $V\subset Z$ of $q$ given by $V\leftrightsquigarrow U\cap Z$, hence
+        \[
+        (i_* \fF)_q = \colim_{Y\supset U\ni q} i_* \fF(U) = \colim_{Z\supset V \ni q} \fF(V) =\fF_q.
+        \]
+         \item By Exercise \ref{2.4.D}, it suffices to show the natural map induces isomorphisms on the level of stalks. Fix $q\in Y$. If $q\notin Z$, then $q\notin \supp \fG$, so $\fG_q=1$, and $(i_*i^{-1} \fG)_q =1$ by (a). Then any morphism induces an isomorphism of stalks outside of $Z$.
+
+         Now suppose $q\in Z$, and let $[s,U]_q \in \fG_q$. For each open $V$ containing $U\cap Z$, let $\mu_V:\fG(U)\to i^{-1}_{\pre}\fG (U\cap Z)$ be the map sending a section to its equivalence class, and similarly define $\nu_V:\fG(U)\to i^{-1}_{\pre} \fG(V\cap Z)$ for any open $V$ containing $V\cap Z$. Then if our natural map sends $[s,U]$ to $1$, by definition of the map we have $[\mu_U(s),U\cap Z]=1$, i.e. there exists some neighborhoods $V$ of $q$ such that $\mu_U(s)\vert_V =1$, i.e. $\nu_U(s)=1$. By this definition, there exists an open $W$ containing $V\cap Z$ such that $s\vert_W=1$. This demonstrates our germ was trivial to begin with, showing injectivity.
+
+         For surjectivity, an arbitrary element of $i_* i^{-1} \fG(U)$ is a choice of compatible germs of $i^{-1}_{\pre} \fG$. Thus picking an arbitrary element of $(i_* i^{-1} \fG)_q$, we can take the compatible germ at $q$ and restrict to its open neighborhood, so an arbitrary germ can be taken to be $[\mu_U(s),U\cap Z]$, which is exactly the image of $s$ under our natural map.
+
+         Since $\fG$ is naturally isomorphic to $i_* i^{-1} \fG$, we don't lose any data by just considering $i^{-1} \fG$, because we can always push-forward this sheaf over $Z$ and recover $\fG$.
+    \end{enumerate}
+   
+\end{proof}
+\printbibliography
+\end{document}

@@ -1,0 +1,981 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{left=1.2in, right=1.2in, top=1.2in, bottom=1.2in}%change the margins here
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit,calc,}
+\usepackage[english]{babel}
+\usepackage{amsthm} %lets us use \begin{proof}
+\usepackage{amssymb} %gives us the character \varnothing
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[shortlabels]{enumitem}
+\usepackage{biblatex}
+\addbibresource{references.bib}  % The filename of your .bib file
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage[all]{xy}
+\usepackage{mathrsfs}
+\usepackage{multirow}
+\usepackage{dsfont}
+\usepackage{adjustbox}
+\usepackage{titlesec}
+
+% Custom chapter format
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Chapter \thesection}{1em}{}
+
+% Custom section format
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {Section \thesection.\arabic{subsection}}{1em}{}
+
+% Custom subsection format
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {Exercise \thesubsubsection}{0em}{}
+
+% Make subsections numbered with respect to sections
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% Make subsubsections numbered with respect to subsections
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\rddots}{\reflectbox{$\ddots$}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ctd}{\Rightarrow \Leftarrow}
+\newcommand{\actson}{\circlearrowright}
+\newcommand\mapsfrom{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\let\Section\S %Here I redefine the normal \S command to be the circle
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\HP}{\mathbb{HP}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\fA}{\mathscr{A}}
+\newcommand{\fB}{\mathscr{B}}
+\newcommand{\fC}{\mathscr{C}}
+\newcommand{\fD}{\mathscr{D}}
+\newcommand{\fE}{\mathscr{E}}
+\newcommand{\fF}{\mathscr{F}}
+\newcommand{\fG}{\mathscr{G}}
+\newcommand{\fH}{\mathscr{H}}
+\newcommand{\fI}{\mathscr{I}}
+\newcommand{\fJ}{\mathscr{J}}
+\newcommand{\fO}{\mathscr{O}}
+\newcommand{\fS}{\mathscr{S}}
+\newcommand{\fT}{\mathscr{T}}
+\newcommand{\frkA}{\mathfrak{A}}
+\newcommand{\frkS}{\mathfrak{S}}
+\newcommand{\frkm}{\mathfrak{m}}
+\newcommand{\frkn}{\mathfrak{n}}
+\newcommand{\frkp}{\mathfrak{p}}
+\newcommand{\frkq}{\mathfrak{q}}
+\newcommand{\frkl}{\mathfrak{l}}
+\newcommand{\frkN}{\mathfrak{N}}
+\newcommand{\altid}{\mathds{1}}
+\newcommand{\nsubset}{\not \subset}
+\newcommand\interior[1]{{#1}^{\circ}}
+\newcommand{\Hh}{\mathbb{H}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Ab}{\mathbf{Ab}} %Abelian Groups
+\newcommand{\Grp}{\mathbf{Grp}} %Groups
+\newcommand{\Ring}{\mathbf{Ring}} %Rings
+\newcommand{\CRing}{\mathbf{CRing}} %Commutative Rings
+\newcommand{\Rng}{\mathbf{Rng}} %Rings without identity
+\newcommand{\Set}{\mathbf{Set}} %Sets
+\newcommand{\pSet}{\mathbf{Set}_{\bullet}} %Pointed Spaces
+\newcommand{\Top}{\mathbf{Top}} %Topological Spaces
+\newcommand{\pTop}{\mathbf{Top}_{\bullet}} %Pointed Topological Spaces
+\newcommand{\Op}{\mathbf{Op}} %Open Subsets
+\newcommand{\Vect}{\mathbf{Vect}} %Vector Spaces
+\newcommand{\Man}{\mathbf{Man}} %Manifolds
+\newcommand{\Mod}{\mathbf{Mod}} %Modules
+\newcommand{\Mon}{\mathbf{Mon}} %Monoids
+\newcommand{\Cat}{\mathbf{Cat}} %Small Categories
+\newcommand{\Ssubset}{\mathbf{Subset}} %Subsets
+\newcommand{\Com}{\mathbf{Com}} %Complexes
+\DeclareMathOperator{\Haus}{\mathbf{Haus}} %Hausdorff Spaces
+\DeclareMathOperator{\Comp}{\mathbf{Comp}} %Compact Spaces
+\DeclareMathOperator{\Poset}{\mathbf{Poset}} %Partially Ordered Sets
+\DeclareMathOperator{\Graph}{\mathbf{Graph}} %Graphs (Not Graph Theory)
+\DeclareMathOperator{\Sch}{\mathbf{Sch}} %Schemes
+\DeclareMathOperator{\AffSch}{\mathbf{AffSch}} %Affine Schemes
+\DeclareMathOperator{\Grph}{\mathbf{Grph}} %Graphs in Graph Theory and Graph Homomorphisms
+\DeclareMathOperator{\Rel}{\mathbf{Rel}} %Sets and Relations
+\DeclareMathOperator{\CW}{\mathbf{CW}} %CW Complexes and Cellular Maps
+\DeclareMathOperator{\PreSh}{\mathbf{PreSh}} %Presheaves
+\DeclareMathOperator{\Sh}{\mathbf{Sh}} %Sheaves
+\DeclareMathOperator{\catD}{\mathbf{D}} %Derived Category
+\DeclareMathOperator{\TopGrp}{\mathbf{TopGrp}} %Topological Groups
+\DeclareMathOperator{\Meas}{\mathbf{Meas}} %Measurable Spaces and measurable functions
+\DeclareMathOperator{\Cob}{\mathbf{Cob}} %Cobordisms
+\DeclareMathOperator{\LieAlg}{\mathbf{LieAlg}} %Lie Algebras
+\DeclareMathOperator{\Ban}{\mathbf{Ban}} %Banach Spaces and Bounded Linear Operators
+\DeclareMathOperator{\Hilb}{\mathbf{Hilb}} %Hilbert Spaces and Bounded Linear Operators
+\DeclareMathOperator{\AlgC}{\mathbf{Alg_C}} %C-Algebras where C isn't necessarily commutative
+\DeclareMathOperator{\Rep}{\mathbf{Rep}} %Representations
+\DeclareMathOperator{\res}{\mathrm{res}}
+\DeclareMathOperator{\pre}{\mathrm{pre}}
+\DeclareMathOperator{\ad}{\mathrm{ad}}
+\DeclareMathOperator{\Ind}{\mathrm{Ind}}
+\DeclareMathOperator{\Res}{\mathrm{Res}}
+\DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\PGL}{\mathrm{PGL}}
+\DeclareMathOperator{\Aff}{\mathrm{Aff}}
+\DeclareMathOperator{\GL}{\mathrm{GL}}
+\DeclareMathOperator{\SL}{\mathrm{SL}}
+\DeclareMathOperator{\PSL}{\mathrm{PSL}}
+\DeclareMathOperator{\U}{\mathrm{U}}
+\DeclareMathOperator{\Oo}{\mathrm{O}}
+\DeclareMathOperator{\SO}{\mathrm{SO}}
+\DeclareMathOperator{\SU}{\mathrm{SU}}
+\DeclareMathOperator{\Sp}{\mathrm{Sp}}
+\DeclareMathOperator{\Gal}{\mathrm{Gal}}
+\DeclareMathOperator{\frkgl}{\mathfrak{gl}}
+\DeclareMathOperator{\frksl}{\mathfrak{sl}}
+\DeclareMathOperator{\frkso}{\mathfrak{so}}
+\DeclareMathOperator{\frksp}{\mathfrak{sp}}
+\DeclareMathOperator{\frku}{\mathfrak{u}}
+\DeclareMathOperator{\frkg}{\mathfrak{g}}
+\DeclareMathOperator{\frkh}{\mathfrak{h}}
+\DeclareMathOperator{\Stab}{\mathrm{Stab}}
+\DeclareMathOperator{\im}{\mathrm{im}}
+\DeclareMathOperator{\coim}{\mathrm{coim}}
+\DeclareMathOperator{\cok}{\mathrm{cok}}
+\DeclareMathOperator{\colim}{\mathrm{colim}}
+\DeclareMathOperator{\spn}{\mathrm{span}}
+\DeclareMathOperator{\Sym}{\mathrm{Sym}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
+\DeclareMathOperator{\Mor}{\mathrm{Mor}}
+\DeclareMathOperator{\Nat}{\mathrm{Nat}}
+\DeclareMathOperator{\Tr}{\mathrm{Tr}}
+\DeclareMathOperator{\Bd}{\mathrm{Bd}}
+\DeclareMathOperator{\Ann}{\mathrm{Ann}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\DeclareMathOperator{\Homeo}{\mathrm{Homeo}}
+\DeclareMathOperator{\Char}{\mathrm{char}}
+\DeclareMathOperator{\nullity}{\mathrm{nullity}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\Frac}{\mathrm{Frac}}
+\DeclareMathOperator{\supp}{\mathrm{supp}}
+\DeclareMathOperator{\rank}{\mathrm{rank}}
+\DeclareMathOperator{\diag}{\mathrm{diag}}
+\DeclareMathOperator{\sign}{\mathrm{sign}}
+\DeclareMathOperator{\glue}{\mathrm{glue}}
+\DeclareMathOperator{\kerpre}{\ker_{\text{pre}}}
+\DeclareMathOperator{\cokpre}{\cok_{\text{pre}}}
+\DeclareMathOperator{\impre}{\im_{\text{pre}}}
+\DeclareMathOperator{\coimpre}{\coim_{\text{pre}}}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\Spec}{\mathrm{Spec}}
+\DeclareMathOperator{\Ext}{\mathrm{Ext}}
+\DeclareMathOperator{\Tor}{\mathrm{Tor}}
+\DeclareMathOperator{\lcm}{\mathrm{lcm}}
+\newcommand{\sqdot}{\, \raisebox{0.5ex}{\scalebox{0.2}{$\blacksquare$}} \,}
+\makeatletter
+\newcommand\xtwoheadrightarrow[2][]{%
+  \ext@arrow 0579{\twoheadrightarrowfill@}{#1}{#2}}
+\newcommand\twoheadrightarrowfill@{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow}
+\makeatother
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{definition} % This style typically uses upright font, suitable for definitions, examples, etc.
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newtheorem*{lemma*}{Lemma}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage{lipsum}                     % Dummytext
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%
+\title{Solutions to ``The Rising Sea"}
+\author{Jack Westbrook}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+%Section and subsection automatically number unless you put the asterisk next to them.
+\section{}
+\subsection{}
+\subsubsection{A}\label{3.1.A}
+\begin{proof}
+    By \cite{Lee_Manifolds}, we need to show that for every $p\in X$, there are smooth charts $(U,\varphi)$ containing $p$ and $(V,\psi)$ containing $q=\pi(p)$ where $\pi(U)\subset V$ and $\psi\circ \pi \circ \varphi^{-1}:\varphi(U)\to \psi(V)$ is smooth.
+
+    Fix $p\in X$, and choose a smooth chart $(V,\psi)$ containing $q$. By assumption, $\psi \circ \pi:\pi^{-1}(V)\to \psi(V)$ is smooth, hence for every point in $\pi^{-1}(V)$ there is a smooth chart $(U,\varphi)$ containing the point such that $\psi \circ \pi \circ \varphi:\varphi(U) \to \psi(V)$ is smooth. This gives the desired result, taking the point to be $p$.
+\end{proof}
+\subsubsection{B}\label{3.1.B}
+\begin{proof}
+    Define $\pi^\#(f_q)=(f\circ \pi)_p$. To show this is well defined, if $g_q=f_q$, there is some neighborhood $W$ of $q$ with $f\vert_W = g\vert W$. Noticing $g\circ \pi = f\circ \pi$ on $\pi^{-1}(W)$, we see the map is well defined. Let $*$ be either multiplication or addition. We compute
+    \[
+    \pi^\#(f*g)_q = ((f*g)\circ \pi)_p = (f\circ \pi * g\circ \pi)_p=(f\circ \pi)_p * (g\circ \pi)_p=\pi^\#(f_q)*\pi^\#(g_q).
+    \]
+    It's clear $\pi^\#(0)=0$ and $\pi^\#(1)=1$, which proves $\pi^\#$ is a morphism of stalks.
+
+    In addition, $f_q\in \frkm_{Y,q}$ if and only if $f(q)=0$, i.e. $f\circ \pi(p)=0$, so $\pi^\#(f_q)=(f\circ \pi)_p$ is in $\frkm_{X,p}$ as well. Thus $\pi^\#$ is a local ring homomorphism as well.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{3.2.A}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Prime ideals of $k[\epsilon]/\epsilon^2$ are the same as prime ideals in $k[\epsilon]$ containing $(\epsilon^2)$. Such a prime $\frkp$ containing $\epsilon^2$ then contains $\epsilon$. Thus if $f\in \frkp$, we do the division algorithm and write $f=g\epsilon+m$ for some $m\in k$, so we see $m\in \frkp$ implies $m=0$. Then $\epsilon \mid f$, and as $f\in \frkp$ was arbitrary, we get $\frkp = (\epsilon)$. Thus $\Spec k[\epsilon]/\epsilon^2 = \{ (\epsilon)\}$.
+        \item Prime ideals of a localized ring are the same as prime ideals not intersecting the multiplicative subset by Exercise \ref{3.2.K}K. Thus the elements of $\Spec k[x]_{(x)}$ are the same as prime ideals contained in $(x)$. Because $k[x]$ is a PID, let $(f)$ be an arbitrary prime contained in $(x)$. If $f\ne 0$, then $x\mid f$ means we can write $f=g\cdot x$ for some $g\in k[x]$. As $\deg g < \deg f$, we see $g\notin (f)$, so $x\in (f)$ by assumption of being prime. Thus $(f) = (x)$, hence $\Spec k[x]_{(x)} = \{ 0, (x)\}$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{B}\label{3.2.B}
+\begin{proof}
+    Using the fact that $\C = \bar \R$, we get a tower of extensions 
+    \begin{center}
+        \begin{tikzcd}
+            \C \ar[dash]{d}\\
+            k \ar[dash]{d}{2}\\
+            \R \ar[dash, bend right = 40]{uu}[swap]{2}
+        \end{tikzcd}
+    \end{center}
+    where the numbers indicate the degree of the field extensions, and where $k=\R[x]/(x^2+ax+b)$. Because extension degrees are multiplicative, we see $[\C: k] =1$, i.e. $\C \cong k$.
+
+    An explicit isomorphism $k\to \C$ could be given by $x\mapsto -\frac{a}{2}+i\sqrt{b-\frac{a^2}{4}}$, but will not be checked in this proof.
+\end{proof}
+\subsubsection{C}\label{3.2.C}
+\begin{proof}
+    $\Q[x]$ is a PID, so primes of $\Q[x]$ are the same as irreducible polynomials over $\Q$. Because irreducible polynomials in $\Q$ are uniquely determined by their roots in $\overline{\Q}$ (an irreducible polynomial splits in $\overline \Q$), we get a bijective correspondence between orbits of Galois conjugates and prime ideals of $\Q[x]$. Thus we may view $\Spec \Q[x]$ as $\bar \Q$ modulo the orbits of the $\Gal \bar \Q/ \Q$.
+\end{proof}
+\subsubsection{D}\label{3.2.D}
+\begin{proof}
+    Suppose, aiming for a contradiction, that $f_1,\dots,f_n$ is a complete list of all of the nonzero primes in $k[x]$, i.e. irreducible polynomials since $k[x]$ is a PID. Then set $g= 1+\prod_i f_i$, and notice $g\equiv 1 \mod \frkp$ for each $\frkp\in \Spec k[x]$, so $g$ is indivisible by each $f_i$. However, we then see that $g$ cannot be written as a product of irreducibles as we have a complete list $f_1,\dots, f_n$, which is a contradiction because PID implies UFD.
+\end{proof}
+\subsubsection{E}\label{3.2.E}
+\begin{proof}
+    We claim that every $\frkp\in \Spec \C[x,y]$ is principally generated by an irreducible polynomial or of the form $(x-a, y-b)$ for some $a,b\in \C$. It's clear that if a prime ideal is principally generated, its generator must be irreducible, so we fix a nonprincipally generated prime $\frkp$ and first suppose for a contradiction that for every $f,g\in \frkp$, there is a nonconstant common factor in $\C[x,y]$. We will make some inductive constructions here. $\frkp$ must contain two elements $f_1,g_1$ such that $(f_1,g_1)$ is not principal because $\C[x,y]$ is Noetherian by the Hilbert-basis theorem. We then set $I_1 = (f_1, g_1)$ and $I_0=0$.
+
+    Now we inductively have some $I_n= (f_n, g_n)$ that is not principally generated, is contained in $\frkp$, and properly contains $I_{n-1}$. By hypothesis, we can find some nonconstant factor $h$ of $f_n$ and $g_n$, so we can write $f_n = p h $ and $g_n = q h$ for some polynomials $p, q$. Since $\frkp$ is prime, either $h\in \frkp$ or $p,q\in \frkp$. If $h\in \frkp$, we see $(h)\subsetneq \frkp$, so there exists some $h'\in \frkp \setminus (h)$. Then we set $I_{n+1}=(h,h')$, which satisfies our hypothesis. If $h\notin \frkp$, then both $p$ and $q$ are in $\frkp$. If $(p,q)=(h)$ for some $h\in \frkp$, we are able to find some $h'\in \frkp\setminus (h)$, and let $I_{n+1}=(h,h')$, which again satisfies our hypothesis. If $(p,q)$ is not principal, we set $I_{n+1}=(p,q)$. The only non-immediate condition to check is that $(f_n,g_n)\subsetneq (p,q)$. If the containment is not proper, we replace $(f_n,g_n)$ with $(p,q)$, and do the same case division. After a finite number of case divisions, the containment either becomes proper or we move into one of the other outlined cases. This is because each common factor is nonconstant, and if we always were able to write $(f_n, g_n)=(p,q)h=(p,q)$, we observe that $(p,q)$ have either smaller $x$ or $y$-degree than $f_n$ and $g_n$, so we cannot do this procedure for infinity. Then the induction hypothesis holds.
+
+    We have now constructed an infinite ascending chain of proper ideals in $\C[x,y]$, which is impossible by the Hilbert basis theorem.
+
+    Now we can find some $f,g\in \frkp$ which have no non-constant common factor in $\C[x,y]$. Considering these polynomials as elements of $\C(x)[y]$, which is a Euclidean domain, there is a greatest common factor $h'\in \C(x)[y]$ and may write $h' = a' f+b'g$ for some $a',b'\in \C(x)[y]$. Since $h'$ is defined up to unit, we may take $h'\in \C[x,y]$. We will now show that $h'\in \C[x]$. Since $\C[x,y]$ is a UFD, we write $f=\prod_{i=1}^m f_i$, $g=\prod_{i=1}^n g_i$, and $h'=\prod_{i=1}^l h_i$ where each $f_i, g_i, h_i$ is irreducible in $\C[x,y]$. We rearrange the indices to be such that $f_i= h_i$ for $1\le i \le m'$, and $g_i = h_i$ for $m'+1\le i \le n'$. It then follows that
+    \[
+    a= \frac{f_{m'+1}f_{m'+2}\dots f_{m}}{h_{m'+1}h_{m'+2}\dots h_l}
+    \]
+    and 
+    \[
+    b= \frac{g_1 g_2 \dots g_{m'} g_{n'+1} g_{n'+2} \dots g_n}{h_1 h_2 \dots h_{m'} h_{n'+1} h_{n'+2} \dots h_l}.
+    \]
+    But because the denominators of $b$ can only be in the variable $x$, we see each $h_i$ must be in the variable $x$ only. Thus $h'\in \C[x]$ as desired. Now that
+    \[
+    h'=a'f+b'g
+    \]
+    we may clear the denominators of both $a'$ and $b'$ (remember, the denominators are in $\C[x]$) to get some expression
+    \[
+    h=\alpha f +\beta g
+    \]
+    for some $\alpha, \beta \in \C[x,y]$ and $h\in \C[x]$. Thus $h \in (f,g)\subset \frkp$, and as $\C$ is algebraically closed, $h$ splits into a product of linear factors, one of which, say $x-a$, must be in $\frkp$ because $\frkp$ is prime.
+
+    An identical proof, swapping the roles of $x$ and $y$, shows that some $y-b$ is in $\frkp$ as well. However, as $(x-a,y-b)$ is maximal ($\C[x,y]/(x-a,y-b) \cong \C$ is a field), we get $\frkp = (x-a,y-b)$.
+    \vspace{0.1in}
+
+    A very short proof can also be given assuming two powerful results, being the weak Nullstellensatz and that the dimension of $k[x_1,\dots,x_n]$ is $n$ for every field $k$. If we take a nonprincipal prime ideal $\frkp\in \C[x,y]$, we can find some irreducible element $f\in \frkp$. Then we get the ascending chain
+    \[
+    0\subsetneq (f) \subsetneq \frkp.
+    \]
+    We see $\frkp$ must be maximal since $\dim \C[x,y]=2$, and by the weak Nullstellensatz, since $\C$ is algebraically closed, $\frkp=(x-a,y-b)$ for some $a,b\in \C$.
+\end{proof}
+\subsubsection{F}\label{3.2.F}
+\begin{proof}
+    Suppose Hilbert's Nullstellensatz, stating that for any field $k$, every maximal ideal of $k[x_1,\dots,x_n]$ has residue field a finite extension of $k$. To prove the weak Nullstellensatz, let $k$ be an algebraically closed field. It's clear that each ideal of the form $(x_1-a_1,x_2-a_2,\dots,x_n-a_n)$ is a maximal ideal because its residue field is isomorphic to $k$, a field. Conversely, we fix an arbitrary maximal ideal $\frkm$ of $k[x_1,\dots,x_n]$. By the Nullstellensatz, we have $k[x_1,\dots,x_n]/\frkm $ is a finite extension of $k$, and thus an algebraic extension of $k$. However, since $k$ is algebraically closed, the inclusion $k\hookrightarrow k[x_1,\dots,x_n]/\frkm$ must then be an isomorphism. Thus for each index $i$, there is some $a_i \in k$ such that $x_i\equiv a_i \mod \frkm$. Then $x_i-a_i \equiv 0 \mod \frkm$, i.e. $x_i-a_i\in \frkm$. Then $\frkm$ contains the ideal $(x_1-a_1,\dots,x_n-a_n)$, which is also a maximal ideal, hence $\frkm=(x_1-a_1,\dots,x_n-a_n)$.
+\end{proof}
+\subsubsection{G}\label{3.2.G}
+\begin{proof}
+    It's a general fact in dimension theory that if $A$ is a finitely generated $k$-algebra that is also a domain, then $\dim A = \mathrm{tr}.\deg_k(\Frac A)$. In our case, $A$ is finite dimensional over $k$ means $A$ is algebraic over $k$, thus $\dim A = 0$. Then $A$ being Noetherian and dimension $0$ is the same as $A$ being Artinian, and $A$ a domain implies that $A$ is reduced. Because reduced Artinian rings are the same thing as fields, we see $A$ is a field as well.
+\end{proof}
+\subsubsection{H}\label{3.2.H}
+\begin{proof}
+    The maximal ideal of $\Q[x,y]$ corresponding to $(\sqrt{2},\sqrt{2})$ is the ideal $(x^2-2, x-y)$ because in modding out by this ideal, we get that $x=y$ and that $x=\sqrt{2}$.
+
+    The maximal ideal corresponding to $(\sqrt{2},-\sqrt{2})$ is $(x^2-2,x+y)$ so that $x=-y$ and $x=\sqrt{2}$.
+    
+    It's easy to see both residue fields are isomorphic to $ \Q(\sqrt{2})$.
+\end{proof}
+\subsubsection{I}\label{3.2.I}
+\begin{proof}
+    With a slight generalization to the proof of Exercise \ref{3.2.E}E (replacing $\C$ by an arbitrary field $k$), we see every non-principal prime ideal $\frkp$ in $\Spec k[x,y]$ contains some irreducible $f(x)$ and $g(y)$. However, $k[x,y]/(f,g)\cong k$ shows that $(f,g)$ is maximal, and as $\frkp\supset (f,g)$, equality holds. To summarize, every non-principal $\frkp \in \Spec k[x,y]$ can be written as $(f(x),g(y))$ with $f,g$ both irreducible.
+    \begin{enumerate}[(a)]
+        \item We claim $\phi(\pi, \pi^2)=(x^2-y)$, with one containment clear. Suppose for a contradiction that  $\phi(\pi, \pi^2)$ were non-principally generated. By our lemma, we would then be able to find some $f(x)\in \phi(\pi,\pi^2)$, which implies $\pi$ is algebraic over $\Q$, impossible. Then $\phi(\pi,\pi^2)$ contains the prime $x^2-y$ and is principal, so indeed $\phi(\pi,\pi^2)=(x^2-y)$.
+        \item First, we show that $0\in \Spec \Q[x,y]$ is equal to $\phi(\pi,0)$. Similarly to (a), if there were some nontrivial $f\in \phi(\pi,0)$, then $\pi$ would be algebraic over $\Q$, contradiction, so $\phi(\pi,0)=0$.
+
+        Now we take $\frkp=(f)$ for some irreducible $f\in \Q[x,y]$. We consider $f \mod x-\pi$, i.e. substituting $\pi$ for $x$ in $f$ which gives us a polynomial in $\C[y]$. Because $\C$ is algebraically closed, there is some root $\alpha$ of this polynomial in $\C$. We then claim $\phi(\pi, \alpha)=(f)$, where it's clear by construction that $(f)\subset \phi(\pi, \alpha)$. If $\phi(\pi, \alpha)$ were non-principal, we would get some $g(x)\in \phi(\pi, \alpha)$, again contradicting that $\pi$ is transcendental over $\Q$. Thus $\phi(\pi, \alpha)$ is principal and contains the prime $(f)$, hence must equal $(f)$.
+
+        For the last case, we take $\frkp$ to be non-principal. Our lemma then tells us that $\frkp=(f(x),g(y))$ for some irreducible $f,g$. Let $\alpha\in \C$ be a root of $f(x)$ and $\beta\in \C$ be a root of $g(y)$. We then claim $\phi(\alpha,\beta)=(f,g)=\frkp$. This is easy to see as $(f,g)\subset \phi(\alpha,\beta)$, and $(f,g)$ is maximal since $\Q[x,y]/(f,g)\cong \Q(\alpha,\beta)$ is a field.
+    \end{enumerate}
+\end{proof}
+
+\subsubsection{J}\label{3.2.J}
+\begin{proof}
+    Fix $\frkp \in \Spec A/I$, and first we show $\phi^{-1}(\frkp)$ is an ideal of $A$. If $x,y\in \phi^{-1}(\frkp)$, then $\phi(x-y)=\phi(x)-\phi(y)\in \frkp$ by hypothesis, so $x-y\in \phi^{-1}(\frkp)$. In addition, if $r\in A$, we have $\phi(rx)=\phi(r)\phi(x)\in \frkp$ so $rx\in \phi^{-1}(\frkp)$.
+
+    Next, we show that $\phi^{-1}(\frkp)$ contains $I$. This is simply because preimages are inclusion preserving, and $\phi^{-1}(0)=I$.
+
+    Now we show $\phi^{-1}(\frkp)$ is prime. Suppose $xy\in \phi^{-1}(\frkp)$. Then $\phi(x)\phi(y) \in \frkp$ implies that either $\phi(x)\in \frkp$ or $\phi(y)\in \frkp$, i.e. one of $x$ or $y$ is in $\phi^{-1}(\frkp)$.
+
+    It remains to show $\phi^{-1}$ is a bijection. Suppose $\frkp, \frkq$ are two prime ideals of $A/I$ such that $\phi^{-1}(\frkp)=\phi^{-1}(\frkq)$. Fixing $x+I \in \frkp$, we have $x\in \phi^{-1}(\frkp)=\phi^{-1}(\frkq)$. Then $x+I\in \frkq$ by definition, so $\frkp\subset \frkq$. The reverse inclusion is completely analogous, so indeed $\frkp=\frkq$. For surjectivity, fix a prime ideal $\frkq\in \Spec A$ containing $I$. We claim that $\phi(\frkq)$ is prime. In general, images of ideals under ring homomorphisms are not ideals, so we have to show $\phi(\frkq)$ is an ideal of $A/I$. For $x,y\in \frkq$ (so that $x+I$ and $y+I$ are arbitrary elements of $\phi(\frkq)$), we have $x-y\in \frkq$, so $\phi(x)-\phi(y)=\phi(x-y)\in \phi(\frkq)$ as well. For $r+I\in A/I$, $(r+I)(x+I)=rx+I=\phi(rx)$ is in $\phi(\frkq)$ because $rx\in \frkq$. Thus $\phi(\frkq)$ is an ideal of $A/I$. Suppose $xy+I \in \phi(\frkq)$, so there is some element $z\in I$ such that $xy+z\in \frkq$. Because $z\in I\subset \frkq$, we also get $xy\in \frkq$. By $\frkq$ being prime, one of $x$ or $y$ is in $\frkq$, so one of $x+I$ or $y+I$ is in $\phi(\frkq)$. Now we claim $\phi^{-1}(\phi(\frkq))= \frkq$. By general set theory, $\phi^{-1}(\phi(\frkq))$ contains $\frkq$. If $x\in \phi^{-1}(\phi(\frkq))$, i.e. $x+I \in \phi(\frkq)$, again there exists some $z\in I$ such that $x+z\in \frkq$. Since $z\in \frkq$, $x\in \frkq$, which shows equality holds.
+\end{proof}
+\subsubsection{K}\label{3.2.K}
+\begin{proof}
+    As usual, the map $\phi:A\to S^{-1}A$ induces a map $\phi^{-1}:\Spec S^{-1}A \to \Spec A$ by Exercise \ref{3.2.M}M. In addition, if $\frkq \in \Spec S^{-1}A$, $\phi^{-1}(\frkq)$ cannot intersect $S$. To see this, if some $x$ were in the intersection, by definition $\phi(x)=\frac{x}{1}\in \frkq$, and as $x\in S$, we have $\frac{1}{x}\in S^{-1}A$, so $\frac{1}{x}\cdot \frac{x}{1}=1 \in \frkq$, implying $\frkq$ is not prime. By general set theory, $\phi^{-1}$ is also inclusion preserving.
+
+    Next, we will show $\phi^{-1}$ is injective by supposing $\phi^{-1}(\frkp)=\phi^{-1}(\frkq)$ for some $\frkp,\frkq \in \Spec S^{-1}A$. Fix $\frac{a}{s}\in \frkp$. Then by multiplying by $\frac{s}{1}\in S^{-1}A$, we get $\frac{a}{1}\in \frkp$ as well. Then $a\in \phi^{-1}(\frkp)=\phi^{-1}(\frkq)$, so $\frac{a}{1}\in \frkq$. Then upon multiplication by $\frac{1}{s}\in S^{-1}A$, we get $\frac{a}{s}\in \frkq$, so $\frkp\subset \frkq$. The reverse inclusion is entirely analogous, so $\frkp=\frkq$ and thus $\phi^{-1}$ is injective.
+
+    For surjectivity, fix $\frkp\in \Spec A$ with $\frkp \cap S=\emptyset$. We define $\frkq = \{ \frac{a}{s}\in S^{-1}A \mid a \in \frkp \}$. Indeed, we can make this definition, i.e. if $\frac{a}{s}=\frac{b}{t}$, then $\frac{a}{s}$ having numerator in $\frkp$ is equivalent to $\frac{b}{t}$ having numerator in $\frkp$. This is because by assumption, there is some $r\in S$ such that $r(at-bs)=0$, i.e. $art=brs$. By assuming $a\in \frkp$, the left hand side is in $\frkp$, so $brt\in \frkp$. By $\frkp$ being prime, $b\in \frkp$ or $rt\in \frkp$. But because $rt\notin \frkp$ ($S\cap \frkp=\emptyset$), by primeness $b\in \frkp$. That $b\in \frkp$ implies $a\in \frkp$ is completely analogous, so our definition makes sense. Next we will show $\frkq \in \Spec S^{-1}A$.
+
+    If $\frac{a}{s}, \frac{b}{t}\in \frkq$, then $\frac{a}{s}-\frac{b}{t}=\frac{at-bs}{st}\in \frkq$ because $at-bs\in \frkp$ by assumption that $a,b\in \frkp$. If $\frac{r}{t}\in S^{-1}A$, then $\frac{r}{t}\cdot \frac{a}{s}=\frac{ra}{st}\in \frkq$ because $ra\in \frkp$ since $a\in \frkp$. To show $\frkq$ is prime, suppose $\frac{a}{s}\cdot \frac{b}{t}\in \frkq$. Then $ab\in \frkp$ by definition, and by primeness of $\frkp$, we get $a\in \frkp$ or $b\in \frkp$, so $\frac{a}{s}\in \frkq$ or $\frac{b}{t}\in \frkq$.
+
+    Now, we claim that $\phi^{-1}(\frkq)=\frkp$, which would show $\phi^{-1}$ is surjective onto $\{\frkp\in \Spec A \mid \frkp \cap S = \emptyset\}$. It's clear $\phi^{-1}(\frkq)\subset \frkp$ by construction (an element $x\in A$ sent to $\frac{x}{1}$ in $\frkq$ implies $x\in \frkp$). The reverse inclusion is also easy (fix $x\in \frkp$, and then $\phi(x)=\frac{x}{1}\in \frkq$, i.e. $x\in \phi^{-1}(\frkq)$).
+\end{proof}
+\subsubsection{L}\label{3.2.L}
+\begin{proof}
+    To show $(\C[x,y]/(xy))_x\cong \C[x]_x$, we first notice every element of $\C[x,y]/(xy)$ has representative $\sum a_i x^i+ y \sum b_j y^j$ since a $\C$-basis for the $i$-th graded piece of $\C[x,y]/(xy)$ is just $x^i,y^i$. Then an arbitrary element of the localization by $x$ is of the form $\frac{\sum a_i x^i+ y \sum b_j y^j}{x^k}$. We define a map $\phi:(\C[x,y]/(xy))_x\to \C[x]_x$ given by $\frac{\sum a_i x^i+ y \sum b_j y^j}{x^k}\mapsto \frac{\sum a_i x^i}{x^k}$, and claim this is a ring homomorphism, where it is immediate that $\phi(0)=0$ and $\phi(1)=1$. We compute that
+    \begin{align*}
+        &\phi(\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k}+\frac{\sum_{i=0}^{m'} a_i' x^i+ y \sum_{j=0}^{n'} b_j' y^j}{x^{k'}})=\frac{\sum_{i=0}^m a_i x^i+\sum_{i=0}^{m'}a_i'x^{i+d}}{x^k}\\
+        &=\frac{\sum_{i=0}^m a_i x^i}{x^k}+\frac{\sum_{i=0}^{m'}a_i'x^{i+d}}{x^k}=\frac{\sum_{i=0}^m a_i x^i}{x^k}+\frac{\sum_{i=0}^{m'}a_i'x^{i}}{x^{k'}}\\
+        &=\phi(\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k})+\phi(\frac{\sum_{i=0}^{m'} a_i' x^i+ y \sum_{j=0}^{n'} b_j' y^j}{x^{k'}})
+    \end{align*}
+    where we have assumed without loss of generality that $k'\le k$ and where we set $d=k-k'$. In addition,
+    \begin{align*}
+        &\phi(\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k} \cdot \frac{\sum_{i=0}^{m'} a_i' x^i+ y \sum_{j=0}^{n'} b_j' y^j}{x^{k'}})=\frac{\sum_{\alpha=0}^{m+m'} (\sum_{i+j=\alpha} a_ia_j')x^\alpha}{x^{k+k'}}\\
+        &=\frac{\sum_{i=0}^m a_i x^i}{x^k} \cdot \frac{\sum_{i=0}^{m'} a_i' x^i}{x^{k'}}=\phi(\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k})\phi( \frac{\sum_{i=0}^{m'} a_i' x^i+ y \sum_{j=0}^{n'} b_j' y^j}{x^{k'}}).
+    \end{align*}
+\end{proof}
+Now suppose $\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k}$ is in the kernel of $\phi$, hence
+\[
+\frac{\sum_{i=0}^m a_i x^i+ y \sum_{j=0}^n b_j y^j}{x^k}=\frac{y \sum_{j=0}^n b_j y^j}{x^k} = \frac{xy \sum_{j=0}^n b_j y^j}{x^{k+1}}=\frac{0}{x^{k+1}}=0
+\]
+so the map is injective. It's immediate that $\phi$ is surjective, and thus $\phi$ is an isomorphism.
+\subsubsection{M}\label{3.2.M}
+\begin{proof}
+    Fix $\frkp \in \Spec A$, and first we show $\phi^{-1}(\frkp)$ is an ideal of $B$. If $x,y\in \phi^{-1}(\frkp)$, then $\phi(x-y)=\phi(x)-\phi(y)\in \frkp$ by hypothesis, so $x-y\in \phi^{-1}(\frkp)$. In addition, if $r\in A$, we have $\phi(rx)=\phi(r)\phi(x)\in \frkp$ so $rx\in \phi^{-1}(\frkp)$.
+
+    Now we show $\phi^{-1}(\frkp)$ is prime. Suppose $xy\in \phi^{-1}(\frkp)$. Then $\phi(x)\phi(y) =\phi(xy)\in \frkp$ implies that either $\phi(x)\in \frkp$ or $\phi(y)\in \frkp$, i.e. one of $x$ or $y$ is in $\phi^{-1}(\frkp)$, so $\phi^{-1}(\frkp)\in \Spec B$.
+
+    Next, we show that $\phi^{-1}$ is inclusion preserving by supposing $\frkq \subset \frkp$. Then $\phi^{-1}(\frkp)$ contains $\phi^{-1}(\frkq)$ simply because preimages are inclusion preserving by general set theory.
+\end{proof}
+\subsubsection{N}\label{3.2.N}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item By the proof of Exercise \ref{3.2.J}J.
+        \item By the proof of Exercise \ref{3.2.K}K.
+    \end{enumerate}
+\end{proof}
+\subsubsection{O}\label{3.2.O}
+\begin{proof}
+    Let $\phi:\C[y]\to \C[x]$ be given by $y\mapsto x^2$. By Exercise \ref{3.2.M}M, we get a map $\phi^{-1}:\Spec \C[x]\to \Spec \C[y]$. Our goal is to show the preimage of $(y-a)$ under $\phi^{-1}$ is the set containing $(x-\sqrt{a})$ and $(x+\sqrt{a})$. First, we will show that $\phi^{-1}(x-\sqrt a)=(y-a)$. Indeed, $y-a\in \phi^{-1}(x-\sqrt a)$ because $\phi(y-a)=x^2-a=(x-\sqrt a)(x+\sqrt a) \in (x-\sqrt a)$. Thus $\phi^{-1}(x-\sqrt a)\supset (y-a)$, but as $y-a$ is maximal, equality holds. An analogous argument shows that $\phi^{-1}(x+\sqrt a)=(y-a)$.
+
+    Now suppose $\frkp \in \Spec \C[x]$ is in the preimage of $(y-a)$ under $\phi^{-1}$, i.e. $\phi^{-1}(\frkp)=(y-a)$. By general set theory, we get
+    \[
+    \frkp \supset \phi(\phi^{-1}(\frkp)) = \phi(y-a)=(x^2-a).
+    \]
+    Then $(x-\sqrt a)(x+\sqrt a) \in \frkp$ and $\frkp$ prime implies that one of $x-\sqrt{a}$ or $x+\sqrt a$ is in $\frkp$. Because these elements generate maximal ideals, we get that either $\frkp = (x-\sqrt a)$ or $\frkp = (x+\sqrt a)$ as desired.
+\end{proof}
+\subsubsection{P}\label{3.2.P}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Suppose $\phi:B\to A$ is a ring homomorphism, and $J\subset B$ and $I\subset A$ are ideals such that $\phi(J)\subset I$. We claim that $\phi$ induces a map $\Spec A/I\to \Spec B/J$.
+
+        By Exercise \ref{3.2.M}M, it suffices to show $\phi$ induces a ring homomorphism $B/J\to A/I$ given by $x+J\mapsto \phi(x)+I$. This map is clearly additive and multiplicative because $\phi$ is, and is well defined because if we instead pick a representative $x+j$ with $j\in J$, then
+        \[
+        x+j+J\mapsto \phi(x+j)+I = \phi(x)+\phi(j)+I=\phi(x)+I
+        \]
+        since $\phi(j)\in I$ by hypothesis.
+        \item Suppose $\phi:k[y_1,\dots,y_n]\to k[x_1,\dots,x_m]$ is a morphism of $k$-algebras with $f_i\coloneqq \phi(y_i)$ for each $1\le i \le n$. We need to show $\phi^{-1}:\Spec k[x_1,\dots,x_m]\to \Spec k[y_1,\dots,y_n]$ sends $(x_1-a_1,\dots,x_m-a_m)$ to $(y_1-f_1(a_1,\dots,a_m),\dots,y_n-f_n(a_1,\dots,a_m))$. Because the latter ideal is maximal, it suffices to show $y_i-f_i(a_1,\dots,a_m)\in \phi^{-1}(x_1-a_1,\dots,x_m-a_m)$ for each $i$. This is because
+        \[
+        \phi(y_i-f_i(a_1,\dots,a_m))=f_i-f_i(a_1,\dots,a_m) \in (x_1-a_1,\dots,x_m-a_m)
+        \]
+        because $(x_1-a_1,\dots,x_m-a_m)$ is the kernel of the evaluation at the tuple $(a_1,\dots,a_m)\in k^m$, and $f_i-f_i(a_1,\dots,a_m)$ is clearly in this kernel. Note we used that $\phi$ is a morphism of $k$-algebras so that $\phi$ is $k$-linear, and in particular fixes elements of $k$ like $f_i(a_1,\dots,a_m)$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{Q}\label{3.2.Q}
+\begin{proof}
+    Notice that $\pi^{-1}(p)=\{\frkq \in \A^n_\Z \mid \frkq \cap \Z = (p)\}=\{\frkq \in \A^n_\Z \mid p\in \frkq\}$, with the last equality holding because $p\in \frkq$ implies $\frkq\cap \Z$ is an ideal containing the maximal $(p)$. By Exercise \ref{3.2.J}J, we have a bijection between $\Spec \Z[x_1,\dots,x_n]/(p)=\A^n_{\F_p}$ and $\{ \frkq \in \A^n_\Z \mid (p)\subset \frkq\}=\{ \frkq \in \A^n_\Z \mid p\in \frkq\}$, which is equal to $\pi^{-1}(p)$.
+
+    We claim $\pi^{-1}(0)$ corresponds to $\A^n_\Q$, and notice that $\pi^{-1}(0)=\{\frkq \in \A^n_\Z \mid \frkq \cap \Z = (0)\}$. We view $\Q[x_1,\dots,x_n]$ as $S^{-1}\Z[x_1,\dots,x_n]$ where $S=\Z\setminus 0$. By Exercise \ref{3.2.K}K, $\A^n_\Q = \Spec \Q[x_1,\dots,x_n]$ corresponds with $\{\frkq \in \Spec \Z[x_1,\dots,x_n]\mid \frkq \cap S = \emptyset \} = \{\frkq \in \A^n_\Z \mid \frkq \cap \Z = 0 \} = \pi^{-1}(0)$.
+\end{proof}
+\subsubsection{R}\label{3.2.R}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Suppose $I$ is an ideal of nilpotents. By Exercise \ref{3.2.J}J, $\Spec B/I \cong \{\frkp \in \Spec B\mid \frkp \supset I \}$. Let $\frkp \in \Spec B$ be arbitrary. Then for each $x\in I$, there is some $n\in \N$ with $x^n=0 \in \frkp$, hence by primeness, $x\in \frkp$. Thus $I\subset \bigcap_{\frkp \in \Spec B} \frkp$, and in particular, $\{p\in \Spec B \mid p\supset I\} = \Spec B$.
+        \item To show $\frkN(B)$ is an ideal, suppose $x^m=0=y^n$, and let $a\in B$ be arbitrary. To show $x-y\in \frkN(B)$, we compute
+        \[
+        (x-y)^{m+n}=\sum_{i=0}^{m+n} \binom{m+n}{i}(-1)^{m+n-i} x^i y^{m+n-i}
+        \]
+        and notice that if $i\geq m$, then $x^i=0$ and if $i\le m$, then $m+n-i\ge n$, so $y^{m+n-i}=0$. In other words, every term of our sum vanishes, so indeed $x-y\in \frkN(B)$. To show $ax\in \frkN(B)$, we easily see
+        \[
+        (ax)^m=a^m x^m =0.
+        \]
+    \end{enumerate}
+\end{proof}
+\subsubsection{S}\label{3.2.S}
+\begin{proof}
+    By the proof of Exercise \ref{3.2.R}R, $\frkN(A)\subset \bigcap_{\frkp\in \Spec A} \frkp$, so it remains to show the reverse inclusion by fixing $x\notin \frkN(A)$, and showing $x\notin \bigcap_{\frkp\in \Spec A} \frkp$. What we want is equivalent to showing there exists a prime not containing $x$, and to do this, it suffices to show $A_x \ne 0$, for then there is a maximal ideal of $A_x$, which corresponds to a prime ideal of $\Spec A$ not intersecting $\{1,x,x^2,\dots \}$ by Exercise \ref{3.2.K}K, i.e. a prime not containing $x$. Showing $A_x\ne 0$ is equivalent to showing $0\ne 1$ in $A_x$, so we will show the latter. Supposing for a contradiction that $0=1$, then by definition of localization, there is some $x^n$ such that $x^n(1-0)=0$, i.e. $x^n=0$. This is impossible by assumption that $x\notin \frkN(A)$.
+\end{proof}
+\subsubsection{T}\label{3.2.T}
+\begin{proof}
+    Fix $f=\sum_{i=0}^n a_i x^i \in k[x]$. Then
+    \[
+    f(x+\epsilon)=\sum_{i=0}^n a_i (x+\epsilon)^i = \sum_{i=0}^n a_i \sum_{j=0}^i \binom{i}{j}  \epsilon^j x^{i-j}.
+    \]
+    Because $\epsilon^2=0$, every $\epsilon^j=0$ for $j\ge 2$, so we have
+    \[
+    \sum_{i=0}^n a_i \sum_{j=0}^i \binom{i}{j}  \epsilon^j x^{i-j}=\sum_{i=0}^n a_i \left[ x^i + i\epsilon x^{i-1} \right]=\sum_{i=0}^n a_i x^i +\epsilon \sum_{i=1}^n a_i i x^{i-1}=f+\epsilon f'
+    \]
+    where $f'$ is the formal derivative of $f$.
+\end{proof}
+\subsection{}
+\subsection{}
+\subsubsection{A}\label{3.4.A}
+\begin{proof}
+    The x-axis is the ideal $(y,z)$, which is clearly prime. In addition, $(y,z)\supset \{xy, yz\}$ because $y$ divides each of these elements, and $y\in (y,z)$. By definition, $(y,z)\in V(xy,yz)$.
+\end{proof}
+\subsubsection{B}\label{3.4.B}
+\begin{proof}
+    Suppose $\frkp \in V(S)$, i.e. $\frkp \supset S$. Then for an arbitrary element $\sum_{i=1}^n a_i s_i$ with each $s_i\in S$ and $a_i\in A$, each $s_i \in \frkp$ by hypothesis, hence $\sum_{i=1}^n a_i s_i\in \frkp$ as well. This shows $\frkp \supset (S)$, so $\frkp \in V((S))$.
+
+    On the other hand, suppose $\frkp \in V((S))$, i.e. $\frkp \supset (S)$. Because $(S)\supset S$, we get $\frkp \supset S$, so $\frkp \in V(S)$.
+\end{proof}
+\subsubsection{C}\label{3.4.C}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item $\Spec A$ is closed because $\Spec A = V(\emptyset)$ as every prime contains $\emptyset$. Thus $\emptyset$ is open. $\emptyset$ is closed because $\emptyset = V(A)$, since every prime is proper. Thus $\Spec A$ is open.
+        \item Fix $\frkp \in \Spec A$. It's easy to show that $\frkp \supset I_i$ for each $i$ if and only if $\frkp \supset \sum_i I_i$. For the forward direction, we let $\sum_{k=0}^n x_{i_k}\in \sum_i I_i$ be an arbitrary element with $x_{i_k}\in I_{i_k}$ for each $k$. As each $x_i\in \frkp$, indeed the sum is in $\frkp$, showing $\frkp \supset \sum_i I_i$. For the reverse direction, as $\sum_i I_i\supset I_i$ for each index $i$, we see $\frkp \supset I_i$ for each $i$ as well. By definition, $\frkp\in \bigcap_i V(I_i)$ is equivalent to $\frkp\supset I_i$ for each $i$, and $\frkp \in V(\sum_i I_i)$ means $\frkp \supset \sum_i I_i$. Thus arbitrary intersections of closed sets is closed, which is equivalent to arbitrary unions of open sets being open.
+        \item To show $V(I_1)\cup V(I_2)=V(I_1I_2)$, first fix $\frkp \in V(I_1)\cup V(I_2)$. If $\frkp \in V(I_1)$, i.e. $\frkp \supset I_1$, then as $I_1\supset I_1I_2$, we get $\frkp \supset I_1I_2$, so $\frkp \in V(I_1I_2)$. The case where $\frkp \in V(I_2)$ is analogous, so $V(I_1)\cup V(I_2) \subset V(I_1I_2)$. For the reverse inclusion, suppose $\frkp \not \supset I_1$ and $\frkp \not \supset I_2$. Then we let $x\in I_1$ and $y\in I_2$ be such that $x,y\notin \frkp$. Then by primeness of $\frkp$, $xy\notin \frkp$, and as $xy\in I_1I_2$, we see $\frkp \not \supset I_1I_2$, so $\frkp \notin V(I_1I_2)$. Thus finite unions of closed sets are closed, or equivalently, finite intersections of open sets are open.
+    \end{enumerate}
+\end{proof}
+\subsubsection{D}\label{3.4.D}
+\begin{proof}
+    To show $\sqrt I$ is an ideal, fix $x,y \in \sqrt I$, and $a\in A$, and assume $x^m \in I$ and $y^n\in I$. To show $x-y\in \sqrt I$, we compute
+        \[
+        (x-y)^{m+n}=\sum_{i=0}^{m+n} \binom{m+n}{i}(-1)^{m+n-i} x^i y^{m+n-i}
+        \]
+        and notice that if $i\geq m$, then $x^i\in I$ and if $i\le m$, then $m+n-i\ge n$, so $y^{m+n-i} \in I$. In other words, every term of our sum is an element of $I$, so $(x-y)^{m+n}\in I$, proving $x-y\in \sqrt I$. To show $ax\in \sqrt I$, we easily see
+        \[
+        (ax)^m=a^m x^m \in I
+        \]
+        because $x^m\in I$.
+
+        It's clear that $I\subset \sqrt I$, so easily $V(\sqrt I)\subset V(I)$. To show the reverse inclusion, suppose $\frkp \in V(I)$, so $\frkp \supset I$. Then for any element $x\in \sqrt I$, we have $x^n \in I \subset \frkp$, which implies by primeness of $\frkp$ that $x\in \frkp$. Therefore $\frkp \supset \sqrt I$, and thus $\frkp \in V(\sqrt I)$.
+
+        Since an ideal is always contained in its radical, we have immediately that $\sqrt I \subset \sqrt{\sqrt I}.$ For the reverse inclusion, suppose $x\in \sqrt{\sqrt I}$, so there exists some $m>0$ such that $x^m \in \sqrt I$. By definition of $\sqrt I$, there exists some $n>0$ such that $(x^m)^n = x^{mn} \in I$. This implies that $x\in \sqrt{I}$, proving $\sqrt{\sqrt{I}}\subset \sqrt{I}$.
+
+        To show prime ideals are radical, it suffices to show $\sqrt{\frkp}\subset \frkp$ for $\frkp \in \Spec A$. If $x\in \sqrt{\frkp}$, then let $x^n \in \frkp$. By primeness of $\frkp$, we get $x\in \frkp$, so $\sqrt{\frkp}\subset \frkp$ as desired.
+\end{proof}
+\subsubsection{E}\label{3.4.E}
+\begin{proof}
+    For $\sqrt{\bigcap_{i=1}^n I_i} \subset  \bigcap_{i=1}^n \sqrt{I_i}$, suppose $x\in A$ is such that $x^m \in I_i$ for each $i$. Then $x \in \sqrt{I_i}$ for each $i$, proving this inclusion.
+
+    For the reverse inclusion, suppose $x\in A$ is such that for each $i$, $x\in \sqrt{I_i}$. Then for each $i$, there is some $m_i>0$ such that $x^{m_i} \in I_i$. Letting $m=\max \{m_1,m_2,\dots,m_n\}$, we then observe $x^m \in I_i$ for each $i$. Then $x\in \sqrt{\bigcap_{i=1}^n I_i}$ as desired.
+\end{proof}
+\subsubsection{F}\label{3.4.F}
+\begin{proof}
+    By Exercise \ref{3.2.S}S, we have $\frkN(A/I)=\bigcap_{\frkq \in \Spec A/I} \frkq$. We have $x+I \in \frkN(A/I)$ if and only if there is some $n>0$ with $x^n +I=I$ if and only if $x^n \in I$. Thus $x\in \sqrt I$ if and only if $x+I \in \bigcap_{\frkq \in \Spec A/I} \frkq$. By Exercise \ref{3.2.J}J, $\Spec A/I \cong \{ \frkp \in \Spec A \mid \frkp \supset I\}$. Moreover, by the proof of this result, the bijections are taking images and preimages under the quotient map. Thus $x+I \in \bigcap_{\frkq \in \Spec A/I}$ if and only if $x\in \bigcap_{\frkp \supset I \in \Spec A} \frkp$. To see this, for the forward direction, if there is some prime $\frkp \supset I$ such that $x\notin \frkp$, we then get $x+I\notin \frkp/I\in \Spec A/I$. For the reverse direction, if $x\in \frkp \supset I$, then $x+I \in \frkp/I$, and as every $\frkq \in \Spec A/I$ is realized as the quotient of a prime containing $I$, the result follows.
+\end{proof}
+\subsubsection{G}\label{3.4.G}
+\begin{proof}
+    Recall that $\A^1_k$ is just the set of irreducible polynomials of $k[x]$ (the maximal ideals), along with $0$. As Exercise \ref{3.2.D}D, points out, there are infinitely many points in $\A^1_k$. Because $V(S)=V((S))$ by Exercise \ref{3.4.B}B for an arbitrary subset $S\subset A$, an arbitrary closed set is of the form $V(I)$ for some ideal $I\subset A$.
+    We inspect an arbitrary closed set $V(I)$, where we have:
+
+    If $I=0$, $V(I)=\A^1_k$.
+
+    If $I=A$, $V(I)=\emptyset$.
+
+    If $0\subsetneq I \subsetneq A$,  $I=(f)$ for some $f\in k[x]$ since $k[x]$ is a PID, and as $f$ has finitely many irreducible factors, we see $I$ is contained in finitely many maximal ideals. Thus $V(I)=\{\frkm_1,\frkm_2,\dots,\frkm_n\}$, a finite set of maximal ideals, i.e. a finite set of points of $\A^1_k\setminus [0]$. Then we know the only possible closed sets of $\A^1_k$ are the empty set, $\A^1_k$ itself, and a finite set of points of $\A^1_k \setminus [0]$. It thus remains to show every set of the above form is closed. $\emptyset$ and $\A^1_k$ are closed by Exercise \ref{3.4.C}C, and as $\{\frkm_1,\dots,\frkm_n\}=\{\frkm_1\}\cup \dots \cup \{\frkm_n\}$ and each $\{\frkm_i\} = V(\frkm_i)$, we get from Exercise \ref{3.4.C}C that since finite unions of closed sets are closed, indeed $\{\frkm_1,\dots,\frkm_n\}$ is closed. We remark that since the only closed set that contains the generic point $[0]$ is $\A^1_k$, $[0]$ is in every nonempty open set.
+\end{proof}
+\subsubsection{H}\label{3.4.H}
+\begin{proof}
+    We take $V(I)$ to be an arbitrary closed set (allowable by Exercise \ref{3.4.C}C as $V(S)=V((S))$), hence it suffices to show $\pi^{-1}(V(I))=\{\frkp \in \Spec A \mid \pi(\frkp)\supset I\}$ is closed. We claim $V(\phi(I))= \pi^{-1}(V(I))$, which would conclude our proof, and remark that $\phi(I)$ may not be an ideal, so we just consider $\phi(I)$ as a set. If $\frkp \in \Spec A$ is such that $\phi^{-1}(\frkp)=\pi(\frkp)\supset I$, by general set theory we get $\frkp \supset \phi(\phi^{-1}(\frkp))\supset \phi(I)$, thus showing $\frkp \in V(\phi(I))$. On the other hand, if $\frkp \supset \phi(I)$, then $\phi^{-1}(\frkp)\supset \phi^{-1}(\phi(I))\supset I$, so $\frkp \in \pi^{-1}(V(I))$.
+
+    Then $\Spec:\Ring \to \Top$ assigns rings to topological spaces and ring homomorphisms to continuous maps in a contravariant fashion. It's clear that the induced map on spectrum of the identity is again the identity, and if $C\xrightarrow{\psi} B \xrightarrow{\phi} A$, then we get $\Spec A \xrightarrow{\pi} \Spec B \xrightarrow{\tau} \Spec C$ and also a map $\sigma:\Spec A \to \Spec C$ induced by $\phi \circ \psi$. Moreover, for $\frkp \in \Spec A$, $\tau \circ \pi(\frkp)=\tau(\phi^{-1}(\frkp))=\psi^{-1}(\phi^{-1}(\frkp))$, and $\sigma(\frkp)=(\phi \circ \psi)^{-1}(\frkp)=\psi^{-1}(\phi^{-1}(\frkp))$ so $\sigma = \tau \circ \pi$, thus showing $\Spec$ is functorial.
+\end{proof}
+\subsubsection{I}\label{3.4.I}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item By Exercise \ref{3.2.N}N, $\Spec B/I$ is in bijection with $\{ \frkp \in \Spec B \mid \frkp \supset I\}$. By definition, the latter subset is $V(I)$, which is closed in $\Spec B$.
+        
+        We take $S=\{1,f,f^2,\dots\}$, and in addition, by Exercise \ref{3.2.N}N, $\Spec S^{-1} B$ is in bijection with $\{ \frkp \in \Spec B \mid \frkp \cap S = \emptyset \} =\{ \frkp \in \Spec B \mid f\notin \frkp \}$, where $\frkp \cap S = \emptyset$ if $f \notin \frkp$ by primeness of $\frkp$ ($f^n \in \frkp$ implies $f\in \frkp$). To show the latter set is open, we will show its complement $\{\frkp \in \Spec B \mid f \in \frkp \}$ is closed. The subset is $V(\{f\})$, hence closed.
+
+        To show for arbitrary $S$, $\Spec S^{-1}B$ need not be open nor closed in $\Spec B$, we take $B=\Z$ and $S=\Z\setminus \{0\}$ so $S^{-1}B=\Q$. We notice $\Spec \Q = \{ 0\}$ since $\Q$ is a field, so we must show $\{0\}\subset \Spec \Z$ is neither open nor closed. As is mentioned on page 116 in Vakil, the open sets of $\Spec \Z$ are the empty set, and $\Spec \Z$ minus a finite number of ``ordinary" ($(p)$ where $p$ is prime) primes. Indeed $\{0\}$ is not of the form above (since $\Spec \Z$ has infinitely many ``ordinary" primes), so $\{0\}$ is not open. Equivalent to the statement in Vakil is that the closed sets of $\Spec \Z$ are $\Spec \Z$ itself, and a finite number of ``ordinary" primes. Also $\{0\}$ is not of this form, so $\{0\}$ is not closed.
+        \item We first consider $\Spec B/I$, and want to show $\Spec B/I$ is homeomorphic to $\{ \frkp \in \Spec B \mid \frkp \supset I\}$ as a subspace of $\Spec B$. By Exercise \ref{3.2.N}N, if we let $\phi:B\twoheadrightarrow B/I$ be the quotient, taking $\phi$ and $\phi^{-1}$ give an inclusion-preserving bijection. Thus we need to show each map is continuous. That $\phi^{-1}:\Spec B/I \to \Spec B$ is continuous is by Exercise \ref{3.4.H}H. Then it remains to show $\phi:\{ \frkp \in \Spec B \mid \frkp \supset I\}\to \Spec B/I$ is continuous. By Exercise \ref{3.4.B}B, it suffices to show $\phi^{-1}(V(J))$ is closed for an ideal $J$ of $B/I$. By definition, $\phi^{-1}(V(J))=\{\frkp \in \Spec B \mid \phi(\frkp)\supset J\}$. In addition, $\phi(\frkp)\supset J$ if and only if $\frkp \supset \phi^{-1}(J)$ because by the proof of Exercise \ref{3.2.J}J, we have $\phi^{-1}(\phi(\frkp))=\frkp$ and we can similarly show $\phi(\phi^{-1}(J))=J$ ($x+I\in J$ implies $x\in \phi^{-1}(J)$ so $x+I \in \phi(\phi^{-1}(J))$, and it's always true that $\phi(\phi^{-1}(J))\subset J$). Thus $\phi^{-1}(V(J))=\{\frkp \in \Spec B \mid \frkp \supset \phi^{-1}(J) \text{ and } \frkp \supset I\}=V(\phi^{-1}(J))\cap \{ \frkp \in \Spec B \mid \frkp \supset I\}$ is closed.
+
+        Now we consider $\Spec S^{-1} B$, and want to show $\Spec S^{-1}B$ is homeomorphic to $\{\frkp \in \Spec B \mid \frkp \cap S = \emptyset\}$ as a subspace of $\Spec B$. By Exercise \ref{3.2.N}N, $\phi:B\to S^{-1}B$ induces a bijection between $\Spec S^{-1}B$ and $\{\frkp \in \Spec B \mid \frkp \cap S = \emptyset\}$, and is continuous by Exercise \ref{3.4.H}H. Then it remains to show the inverse map $\phi:\{\frkp \in \Spec B \mid \frkp \cap S = \emptyset\} \to \Spec S^{-1}B$ sending such a $\frkp$ to $\phi(\frkp)$ is continuous. By Exercise \ref{3.4.B}B, it suffices to show $\phi^{-1}(V(J))=\{ \frkp \in \Spec B \mid \phi(\frkp) \supset J \text{ and } \frkp \cap S = \emptyset\}$ is closed for an arbitrary ideal $J$ of $S^{-1}B$. We claim $\{ \frac{b}{s} \mid b \in \frkp \} = \phi(\frkp)\supset J$ (the first equality by the proof of Exercise \ref{3.2.K}K) if and only if $\frkp \supset \phi^{-1}(J)$, assuming $\frkp \cap S = \emptyset$. By the proof of Exercise \ref{3.2.K}K, we have $\phi^{-1}(\phi(\frkp))=\frkp$, so the forward direction is immediate, and if $\frkp$ contains $\phi^{-1}(J)$, if we fix $\frac{b}{s}\in J$, we get $b\in \frkp$, so indeed $\frac{b}{s}\in \{ \frac{b}{s} \mid b \in \frkp \} = \phi(\frkp)$. Thus $\{ \frkp \in \Spec B \mid \phi(\frkp) \supset J \text{ and } \frkp \cap S = \emptyset\}=\{\frkp \in \Spec B \mid \frkp \supset \phi^{-1}(J) \text{ and } \frkp \cap S = \emptyset\} =V(\phi^{-1}(J)) \cap \{\frkp \in \Spec B \mid  \frkp \cap S = \emptyset\}$ is closed.
+    \end{enumerate}
+\end{proof}
+\subsubsection{J}\label{3.4.J}
+\begin{proof}
+    $f$ vanishes on $V(I)$ by definition if and only if $f\equiv 0 \mod \frkp$ for every $\frkp \in \Spec B$ containing $I$, i.e. $f\in \frkp $ for every $\frkp \in \Spec B$ containing $I$, i.e. $f\in \bigcap_{\frkp \supset I \in \Spec B} \frkp = \sqrt I$ by Exercise \ref{3.4.F}F.
+\end{proof}
+\subsubsection{K}\label{3.4.K}
+\begin{proof}
+    Exercise \ref{3.2.A}A tells us that $\Spec k[x]_{(x)} = \{ 0, (x)\}$: let's classify the closed subsets of $\Spec k[x]_{(x)}$. Let $V((f))$ be an arbitrary closed subset by Exercise \ref{3.4.B}B. If $f=0$, then $V(0)=\Spec k[x]_{(x)}$. If $f\in (x)\setminus 0$ , then $V(f)=\{(x)\}$, and if $f\notin (x)$, $(f)= k[x]_{(x)}$, hence $V((f))=\emptyset$. Then the only possible closed subsets are $\emptyset, \{(x)\}$, and $\Spec k[x]_{(x)}.$ Indeed, each of these are realized as the vanishing set of $1$, $x$, and $0$ respectively, so these are the three closed subsets.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{3.5.A}
+\begin{proof}
+    That the distinguished open sets form a base for the Zariski topology is equivalent to showing that every closed set can be written as an intersection of complements of distinguished open sets. Let $V(S)$ be an arbitrary closed set. Then
+    \[
+    V(S)=\{\frkp \in \Spec A \mid \frkp \supset S\} = \bigcap_{f\in S} \{\frkp \in \Spec A \mid \frkp \ni f\}=\bigcap_{f\in S} \Spec A \setminus D(f).
+    \]
+\end{proof}
+\subsubsection{B}\label{3.5.B}
+\begin{proof}
+    For $\bigcup_{i\in J} D(f_i) = \Spec A$ implies $(\{f_i\}_{i \in J})=A$, suppose $\bigcup_{i\in J} D(f_i)= \Spec A$. Then for each $\frkp \in \Spec A$, there is some $i\in J$ such that $\frkp \in D(f_i) = \{ \frkq \in \Spec A \mid f_i \notin \frkq\}$, i.e. $f_i \notin \frkp$ for some $i\in J$. Then if $(\{f_i\}_{i \in J})$ was proper, we would have $(\{f_i\}_{i \in J})\subset \frkm$ for some maximal $\frkm \in \Spec A$, which contradicts our assumption that there is some $f_i \notin \frkm$ because each $f_i \in (\{f_i\}_{i \in J})\subset \frkm$. Then indeed $(\{f_i\}_{i \in J})= A$.
+
+    Conversely, suppose $\bigcup_{i\in J} D(f_i) \ne \Spec A$, so there is some $\frkp \in \Spec A$ such that $\frkp \notin D(f_i)$ for each $i$, or equivalently $f_i \in \frkp$ for each $i$. Then $A\supsetneq \frkp \supset (\{f_i\}_{i\in J})$, implying $(\{f_i\}_{i\in J}) \ne A$.
+
+    That $(\{f_i\}_{i \in J})=A$ is equivalent to the existence of some $a_i$ ($i\in J$), all but finitely many $0$, such that $\sum_{i\in J} a_i f_i = 1$ is by definition of $(\{f_i\}_{i \in J})$.
+\end{proof}
+\subsubsection{C}\label{3.5.C}
+\begin{proof}
+    Suppose $\Spec A = \bigcup_{j\in J} D(f_j)$. Equivalently by Exercise \ref{3.5.B}B, there are some $a_j$ ($j\in J$), all but finitely many $0$, such that $\sum_{j\in J} a_j f_j = 1$. By reordering $J$, suppose $f_1,\dots,f_n$ are such that $\sum_{j=1}^n a_j f_j=1$. Then no proper ideal can contain every $f_j$ for $j=1,\dots, n$, and for arbitrary $\frkp \in \Spec A$ (being proper), we see there must be some $j=1,\dots, n$ such that $f_j\notin \frkp$, i.e. $\frkp \in D(f_j)$. Since $\frkp \in \Spec A$ was arbitrary, we get $\Spec A = \bigcup_{j=1}^n D(f_j)$. 
+\end{proof}
+\subsubsection{D}\label{3.5.D}
+\begin{proof}
+    $\frkp \in D(f)\cap D(g)$ if and only if $f\notin \frkp$ and $g\notin \frkp$, if and only if $fg\notin \frkp$ by primeness, if and only if $\frkp \in D(fg)$.
+\end{proof}
+\subsubsection{E}\label{3.5.E}
+\begin{proof}
+    For $D(f)\subset D(g)$ equivalent to $f^n \in (g)$ for some $n\ge 1$ is the same as the statement ``For every $\frkp \in \Spec A$, $f\notin \frkp$ implies $g\notin \frkp$ if and only if $f\in \sqrt{(g)}$". For every $\frkp \in \Spec A$, $f\notin \frkp$ implies $g\notin \frkp$ is equivalent to the statement ``For every $\frkp \in \Spec A$, $g\in \frkp$ implies $f\in \frkp$." By Exercise \ref{3.4.F}F, $\sqrt {(g)} = \bigcap_{\frkp \ni g} \frkp$, hence $f\in \sqrt{(g)}$ if and only if $f$ is in every prime containing $g$ if and only if for every $\frkp \in \Spec A$, $g\in \frkp $ implies $f\in \frkp$.
+
+     $g$ is invertible in $A_f$ if and only if there is some $a\in A$ and $n\ge 0$ such that $1 = \frac{ag}{f^n}$ if and only if there is some $m\ge 0$ such that $f^m(f^n-ag)=0$ if and only if there is some $n\ge 0$ and $a\in A$ with $f^n = ag$ if and only if there is some $n\ge 0$ with $f^n \in (g)$. If $f^0=1 \in (g)$, then $(g)=A$ implies that also $f^1 \in (g)$. Thus there is some $n\ge 0$ with $f^n\in (g)$ if and only if there is some $n\ge 1$ with $f^n \in (g)$.
+\end{proof}
+\subsubsection{F}\label{3.5.F}
+\begin{proof}
+    Notice $D(0)=\emptyset$ since every prime contains $0$. Then $D(f)=\emptyset$ if and only if $D(f)\subset D(0)$ if and only if $f\in \sqrt{0}=\frkN(A)$ by Exercise \ref{3.5.E}E.
+\end{proof}
+\subsubsection{G}\label{3.5.G}
+\begin{proof}
+    Suppose $B \subset A$. We want to show that the induced map $\pi:\Spec A \to \Spec B$ has dense image. By Exercise \ref{3.5.A}A, the distinguished open sets form a base for the Zariski topology, so our claim is equivalent to showing that for every $\frkp \in \Spec B$ and every $f\in B$ such that $\frkp \in D(f)$, $D(f)\cap \pi(\Spec A) \ne \emptyset$. Suppose this is false, so there is some $\frkp \in \Spec B$ and some $f\notin \frkp$ such that for every $\frkq \in \Spec A$, $\frkq \cap B$ contains $f$, i.e. $f\in \bigcap_{\frkq \in \Spec A} \frkq \cap B = B\cap \frkN(A)$ by Exercise \ref{3.2.S}S. But then $f^n=0 \in \frkp$ for some $n>0$ implies by primeness of $\frkp$ that $f\in \frkp$, a contradiction.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{3.6.A}
+\begin{proof}
+    Let $A=A_1\times \dots \times A_n$, and let $p_i:A\twoheadrightarrow A_i$ be the projection. Then for each $i$, we get maps $\phi_i:\Spec A_i \to \Spec A$. By Exercise \ref{3.4.I}I, we have that each $\phi_i$ is a homeomorphism onto the subspace $V( \ker p_i) = \{\frkq \in \Spec A \mid \frkq \supset \prod_{j\ne i} A_j \}=\{\frkq \in \Spec A \mid \frkq \supset \{f_j, j\ne i\} \}$ where $f_j=(\delta_{ij})_{i=1}^n$ and $\delta$ is the Kronecker delta. We claim that $\frkq \in \Spec A$ contains each $f_j$ for $j\ne i$ if and only if $f_i \notin \frkq$. For the forward direction, if a $\frkq$ containing each $f_j$ for $j\ne i$ in addition contained $f_i$, then $\frkq \ni f_1+\dots+f_n =1$, contradicting that $\frkq$ is proper. For the backwards direction, we suppose $\frkq \in \Spec A$ does not contain $f_i$. Then for any $j\ne i$, we have $\frkq \ni 0 = f_i f_j$ implies by primeness that $f_j \in \frkq$. Then we have homeomorphisms $\phi_i:\Spec A_i\to D(f_i)$ as required.
+
+    We now want to show $\Spec A = \coprod_{i=1}^n D(f_i)$. Because the distinguished open sets are open, all that remains is for $i\ne j$, $D(f_i)\cap D(f_j)=\emptyset$ and that $\Spec A = \bigcup_{i=1}^n D(f_i)$. By Exercise \ref{3.5.D}D, we have $D(f_i)\cap D(f_j)=D(f_if_j)=D(0)=\emptyset$. Suppose for a contradiction that some $\frkq \in \Spec A$ contains each $f_i$. Then $\frkq \ni f_1+\dots+f_n = 1$, a contradiction to the assumption that $\frkq$ is proper. Thus $\frkq \in D(f_i)$ for some $i$.
+\end{proof}
+\subsubsection{B}\label{3.6.B}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Let $U\subset X$ be nonempty and open. If $U$ is not dense in $X$, then there is some $p\in X$ and neighborhood $V$ of $p$ such that $V\cap U= \emptyset$. Then $X$ is reducible.
+        \item We first claim that for any open $U\subset X$, $U\cap \bar Z \ne \emptyset$ if and only if $U\cap Z \ne \emptyset$. Let $Z'$ be the set of limit points of $Z$ in $X$, i.e. the set of all points $x\in X$ such that every neighborhood $U$ of $x$ intersects $Z$ at some point other than itself. Because $\bar Z = Z\cup Z'$, so $Z\subset \bar Z$, the backward direction is immediate. For the forward direction, suppose $x\in U\cap \bar Z$. If $x\in Z$, the claim follows. If $x\in Z'$, then as $U$ is a neighborhood of $x$, there is some $y\in U\cap Z$, proving the forwards direction.
+
+        By definition of the subspace topology, $Z$ is irreducible if and only if for every open $U,V\subset X$ with $U\cap Z\ne \emptyset$ and $V\cap Z \ne \emptyset$, $(U\cap V)\cap Z =(U\cap Z) \cap (V\cap Z)  \ne \emptyset$. Similarly, $\bar Z$ is irreducible if and only if for every open $U,V\subset X$ with $U\cap \bar Z\ne \emptyset$ and $V\cap \bar Z \ne \emptyset$, $(U\cap V)\cap \bar Z =(U\cap \bar Z) \cap (V\cap \bar Z)  \ne \emptyset$. The result now follows easily from our claim.
+    \end{enumerate}
+\end{proof}
+\subsubsection{C}\label{3.6.C}
+\begin{proof}
+    Suppose $\Spec A = V(I)\sqcup V(J)$ and $A$ is a domain, i.e. $0\in \Spec A$. If $0\in V(I)$, then $0\supset I$ implies $I=0$ implies $V(I)=\Spec A$. Similarly if $0\in V(J)$ then $V(J)=\Spec A$. Thus $\Spec A$ cannot be written as the disjoint union of two proper closed subsets.
+\end{proof}
+\subsubsection{D}\label{3.6.D}
+\begin{proof}
+    Suppose $X$ is not connected, so $X=U\sqcup V$ with $U,V$ open an nonempty. Then $U\cap V=\emptyset$ by assumption, so $X$ is not irreducible as two nonempty open subsets do not intersect.
+\end{proof}
+\subsubsection{E}\label{3.6.E}
+\begin{proof}
+    Let $A=\C[x,y]/(y^2-x^2)$. By Exercise \ref{3.2.E}E, we have $\Spec \C[x,y]$ consists of principally generated ideals and the ideals of the form $(x-a,y-b)$. In addition, by Exercise \ref{3.2.I}I, we have $\Spec A \cong V(y^2-x^2)=V(y-x)\cup V(y+x)$ as a subspace of $\Spec \C[x,y]$, with the equality by Exercise \ref{3.4.C}C. Thus $\Spec A = \{(y-x),(y+x), (x-a,y-a), (x-a, y+a)\}$ where $a\in \C$ ranges over all possible values.
+    
+    To show $\Spec A$ is connected, suppose $\Spec A = V(I)\cup V(J)$ and $V(J)$ and $V(J)$ are proper subsets of $\Spec A$. Notice that if $(y+x)$ and $(y-x)$ are both in $V(I)$, then $V(I)=\Spec A$ contrary to assumption, so by symmetry we assume $(y+x)\notin V(I)$, so $(y-x)\in V(I)$ and $(y+x)\in V(J)$. But $(x,y)= (y+x) + (y-x)\supset I+J$ means $(x,y)\in V(I+J) = V(I)\cap V(J)$ by Exercise \ref{3.4.C}C. We have shown $\Spec A$ cannot be written as the disjoint union of two proper closed subsets, i.e. $\Spec A$ is connected.
+
+    To show $\Spec A$ is reducible, we will give two nonempty open sets with empty intersection. Let $f=y-x$ and $g=y+x$, so $(y+x)\in D(f)$ and $(y-x)\in D(g)$. But $\emptyset = D(0)=D(y^2-x^2)=D(fg)=D(f)\cap D(g)$ by Exercise \ref{3.5.D}D.
+\end{proof}
+\subsubsection{F}\label{3.6.F}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item We show $I=(wz-xy,wy-x^2, xz-y^2)$ is prime by showing $K[w,x,y,z]/I\cong K[a^3, a^2b, ab^2, b^3]$, a subring of the integral domain $K[a,b]$. We have a map $\phi:K[w,x,y,z]\twoheadrightarrow K[a^3, a^2b, ab^2, b^3]$ taking the tuple $(w,x,y,z)$ to the tuple $(a^3, a^2b, ab^2, b^3)$. Indeed each generator of $I$ is in the kernel of $\phi$, and if we can show $\ker \phi=I$, we are done. We have $f\equiv g \mod I$ where $g$ has monomials indivisible by any of $wz, wy,$ and $xz$ (a vector space basis for $K[w,x,y,z]/I$ consists of monomials indivisible by those three). A monomial $w^i x^j y^k z^l$ is indivisible by each of $wz, wy, xz$ if and only if its not the case that $i\ge 1$ and $k\ge 1$ or $j\ge 1$ and $l\ge 1$ or $i\ge 1$ and $l\ge 1$ if and only if $i=0$ and $j=0$ or $i=0$ and $l=0$ or $k=0$ and $l=0$, i.e. the set of monomials of the form $y^kz^l$ or $x^jy^k$ or $w^ix^j$. Then $g$ is a $K$-linear combination of $\{y^kz^l, x^jy^k, w^ix^j \mid i,j,k,l\in \N\}$. We will now show that $\phi$ is injective on these monomials, thus implying $g=0$ and then that $f\in I$. We compute that $\phi(y^k z^l)=a^k b^{2k+3l}$, $\phi(x^j y^k)= a^{2j+k}b^{j+2k}$, and $\phi(w^i x^j)=a^{3i+2j}b^j$. 
+        
+        It's clear $\phi(y^k z^l)=\phi(y^{k'} z^{l'})$ implies $k=k'$ and $l=l'$, and similarly $\phi(w^i x^j)=\phi(w^{i'} x^{j'})$ implies $i=i'$ and $j=j'$.
+
+        \vspace{0.1in}
+        $a^{2j+k} b^{j+2k}=a^{2j'+k'} b^{j'+2k'}$ if and only if $2j+k=2j'+k'$ and $j+2k=j'+2k'$. These equations imply $j'=j+2k-2k'$ which implies $2j+k=2j+4k-4k'+k'$, which is true if and only if $k=k'$. Now that $k=k'$, we see $j=j'$ as well.
+
+        \vspace{0.1in}
+        $a^k b^{2k+3l}= a^{2j'+k'} b^{j'+2k'}$ if and only if $k=2j'+k'$ and $2k+3l=j'+2k'$. These equations imply that $4j'+2k'+3l=j'+2k'$, or equivalently $3(j'+l)=0$, thus $j'=l=0$ and $k=k'$.
+        
+        \vspace{0.1in}
+        $a^k b^{2k+3l}=a^{3i'+2j'} b^{j'}$ if and only if $k=3i'+2j'$ and $2k+3l=j'$. These equations imply that $6i'+4j'+3l=j'$ or equivalently $2i'+j'+l=0$, hence $i'=j'=l=0$ and thus $k=0$ as well.
+
+        \vspace{0.1in}
+        Lastly, $a^{2j+k}b^{j+2k}=a^{3i'+2j'} b^{j'}$ if and only if $2j+k=3i'+2j'$ and $j+2k=j'$. These equations imply that $2j+k=3i'+2j+4k$, or equivalently $3(i'+k)=0$ so $i'=k=0$. Thus $j=j'$ as well.
+
+        \vspace{0.1in}
+        We have now shown that if the images under $\phi$ of the monomials $g$ is written in are linearly dependent, they must have had $0$ coefficients to begin with. But they all must cancel by hypothesis that $g\in \ker \phi$, so $g=0$ as desired.
+        \item The matrix 
+        \[
+        \begin{pmatrix}
+            x_0 & \dots & x_{n-1}\\
+            x_1 & \dots & x_{n}
+        \end{pmatrix}
+        \]
+        has rank at most one if and only if any two columns are scalar multiples of each other, which is true if and only if the determinant of $\begin{pmatrix}
+            x_i & x_{j}\\
+            x_{i+1} & x_{j+1}
+        \end{pmatrix}$
+        is zero for every $0\le i<j \le n-1$, i.e. $h_{ij} \coloneqq x_i x_{j+1}- x_j x_{i+1}=0$. We claim the ideal $I$ generated by all $h_{ij}$'s is prime. We will show that $K[x_0,\dots, x_n]/I$ injects into a subring of a domain, thus implying the source is a domain as desired. We define a morphism of $K$-algebras $\phi:K[x_0,\dots,x_{n}]\to K[a,b]$ defined by $x_i \mapsto a^{n-i} b^{i}$ for each $0\le i\le n$. Indeed, each $h_{ij}\in \ker \phi$ because \begin{align*}
+            &\phi(h_{ij})=\phi(x_i) \phi(x_{j+1}) - \phi(x_j) \phi(x_{i+1}) = a^{n-i} b^i a^{n-j-1} b^{j+1} - a^{n-j} b^j a^{n-i-1} b^{i+1}\\
+            &=a^{2n-i-j-1} b^{i+j+1}- a^{2n-i-j-1} b^{i+j+1}=0.
+        \end{align*}
+        We now claim that $\ker \phi \subset I$, which would then prove $I$ is prime. Fix $f\in \ker \phi$, and so there exists some $g$ such that $f\equiv g \mod I$ and that each monomial in $g$ is indivisible by each $x_ix_{j+1}$ for $0\le i,j\le n-1$. This is allowed because $K[x_0,\dots, x_n]/I$ is spanned as a $K$-vector space by the monomials indivisible by each $x_ix_{j+1}$. Our goal is now to show that $g=0$, using the fact that $g\in \ker \phi$ since $I\subset \ker \phi$ and $f\in \ker \phi$. Notice that a monomial $x_0^{k_0} \dots x_n ^{k_n}$ is indivisible by $x_i x_{j+1}$ for each $0\le i < j \le n-1$ only if it's not true that there are such indices $i,j$ with $k_i \ge 1$ and $k_{j+1}\ge 1$, or equivalently for every $0\le i<j\le n-1$, $k_i = 0$ or $k_{j+1}=0$. Then for every index $0\le i \le n-1$ if $k_i\ne 0$, we observe that every $k_j=0$ for $j\ge i+2$. Similarly, for every index $1\le i \le n$, if $k_i \ne 0$ then $k_j = 0$ for every $j\le i-2$. Therefore $g$ is a $K$-linear combination of monomials of the form $x_{i-1}^ \alpha x_i ^\beta x_{i+1}^\gamma$. Moreover, it cannot be that $\alpha, \gamma \ge 1$ otherwise the monomial is divisible by $x_{i-1} x_{i+1}$. Thus $g$ is a $K$-linear combination of monomials of the form $x_i^j x_{i+1}^k$ with $0\le i \le n-1$ and $j,k \in \N$. We will now show that $\phi$ preserves linear independence of this set, which would then imply $g=0$ as $g\in \ker \phi$. Because $\phi$ takes monomials to monomials (which are always linearly independent), it suffices to show $\phi$ is injective on the monomials $g$ is in. We will achieve this by looking at two cases, one where the index $i$ is the same, and one where it is different.
+
+        \vspace{0.1in}
+        Suppose \[
+        a^{(n-i)(j+k)-k}b^{i(j+k)+k}=\phi(x_i^j x_{i+1}^k)= \phi(x_i^{j'} x_{i+1}^{k'}) = a^{(n-i)(j'+k')-k'}b^{i(j'+k')+k'},
+        \]
+        or equivalently $(n-i)(j+k)-k = (n-i)(j'+k')-k'$ and $i(j+k)+k = i(j'+k')+k'$. Then $k'=i(j+k-j'-k')+k$, so $(n-i)(j+k)-k=(n-i)(j'+k')-(j+k-j'-k')-k$, or equivalently $n(j+k)=n(j'+k')$ so $j+k=j'+k'$. Substituting back, we see $k=k'$, which then implies $j=j'$.
+
+        \vspace{0.1in}
+        Suppose \[
+        a^{(n-i)(j+k)-k}b^{i(j+k)+k}=\phi(x_i^j x_{i+1}^k)= \phi(x_{i'}^{j'} x_{i'+1}^{k'}) = a^{(n-i')(j'+k')-k'}b^{i'(j'+k')+k'},
+        \]
+        or equivalently $(n-i)(j+k)-k = (n-i')(j'+k')-k'$ and $i(j+k)+k = i'(j'+k')+k'$ with $i'>i$. Then $k'=i(j+k)-i'(j'+k')+k$, so $(n-i)(j+k)-k=(n-i')(j'+k')-i(j+k)+i'(j'+k')-k$, or equivalently $$n(j+k)=n(j'+k').$$ This implies $j+k=j'+k'$, so substituting back, we see $$k=(i'-i)(j+k)+k'.$$ As $i'-i\ge 1$ and $j+k\ge k$, we see $(i'-i)(j+k)\ge k$ with equality if and only if $i'-i=1$ and $j=0$. As $k'\ge 0$, we get $i'=i+1$ and $j=k'=0$. Then our original monomials are $x_{i+1}^k$ and $x_{i+1}^{j'}$. By our previous work, we get $k=j'$ as desired.
+
+        \vspace{0.1in}
+        As mentioned before, this shows $g=0$ so $f\in I$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{G}\label{3.6.G}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Suppose $\{U_i\}_{i\in I}$ is an open cover of $\Spec A$. By Exercise \ref{3.5.A}A, for each $i\in I$, we may write $U_i = \bigcup_{j\in J_i} D(f_{ij})$. Then as $\{D(f_{ij})\}_{i\in I, j\in J_i}$ is an open cover of $\Spec A$ by distinguished open sets, by Exercise \ref{3.5.C}C, there is a finite subset $I'\subset I$ such that for each $i\in I'$, there is a finite subset $J'_i \subset J_i$, such that $\{ D(f_{ij})\}_{i\in I', j\in J'_i}$ is an open cover of $\Spec A$. We claim that $\{U_i\}_{i\in I'}$ covers $\Spec A$. \iffalse For any $i\in I'$, we have
+        \[
+        U_i = U_i \cap \Spec A = \bigcup_{j\in J_i} D(f_{ij}) \cap \bigcup_{k\in I'} \bigcup_{j\in J'_k} D(f_{kj}).
+        \]
+        Thus
+        \[
+        \bigcup_{i\in I'} \bigcup_{j\in J_i} D(f_{ij}) \cap \bigcup_{k\in I'} \bigcup_{l\in J_{k}'} D(f_{kl}).
+        \]
+        \fi
+        If we fix $x\in \Spec A$, then $x\in D(f_{ij})$ for some $i\in I'$ and $j\in J'_i \subset J_i$. As $ \bigcup_{j\in J_i} D(f_{ij})=U_i$, we get $x\in U_i$, and thus indeed $\{U_i\}_{i\in I'}$ covers $\Spec A$.
+        \item Let $A=k[x_1,x_2,\dots]$ for a field $k$, and let $\frkm=(x_1,x_2,\dots)$ be the irrelevant ideal. We also let $\frkp_n=(x_1,x_2,\dots, x_n)$ for each positive integer $n$. We claim the $\Spec A \setminus V(\frkp_n)$'s cover $\Spec A \setminus V(\frkm)$, all of which are open, i.e. $\Spec A \setminus \bigcap_{n=1}^\infty V(\frkp_n)=\bigcup_{n=1}^\infty \Spec A \setminus V(\frkp_n) = \Spec A \setminus V(\frkm)$, which is equivalent to the claim that $\bigcap_{n=1}^\infty V(\frkp_n)=V(\frkm)$. This is simply because $\frkm= \bigcup_{n=1}^\infty \frkp_n$.
+
+        However, we will also show that if $J\subset \N$ is a finite subset, then $\bigcup_{j\in J} \Spec A \setminus V(\frkp_j) = \Spec A \setminus \bigcap_{j\in J} V(\frkp_j) \ne \Spec A \setminus V(\frkm)$, or equivalently $\bigcap_{j\in J} V(\frkp_j) \ne V(\frkm)$. Notice that for each $i>j$, $V(\frkp_i)\subset V(\frkp_j)$ because $\frkp_i\supset \frkp_j$. Therefore if $m=\max J$, we get $\bigcap_{j\in J} V(\frkp_j)=V(\frkp_m)$. However, $\frkp_m\in V(\frkp_m)$ and $\frkp_m \subsetneq \frkm$ implies $\frkp_m \notin V(\frkm)$. Therefore $\Spec A \setminus V(\frkm)$ has an open cover not admitting a finite subcover.
+    \end{enumerate}
+\end{proof}
+\subsubsection{H}\label{3.6.H}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item Suppose $X=\bigcup_{i=1}^n X_i$, where each $X_i$ is quasicompact, and we have an open cover $\{U_i\}_{i\in I} U_i$. Then for each $j=1,\dots, n$,
+        \[
+        X_j= X\cap X_j = \bigcup_{i\in I} X_i \cap X_j,
+        \]
+        so there is a finite $I_j\subset I$ such that $X_j=\bigcup_{i\in I_j} U_i \cap X_i$. To show the set of all $U_i$'s for $i \in \bigcup_{j=1}^n I_j$ covers $X$ (and the number of such $i$'s are finite because each $I_j$ is also finite), if we pick any $x\in X$, then $x\in X_j$ for some $j=1,\dots,n$, and then $x\in U_i\cap X_j$ for some $i\in I_j$.
+        \item If $Z\subset X$ is closed and $X$ is quasicompact, then let $\{Z\cap U_i\}_{i\in I}$ be an open cover of $Z$ (with the subspace topology). Then $\{U_i\}_{i\in I} \cup \{X\setminus Z\}$ is an open cover of $X$, so there is some finite $J\subset I$ such that $\{U_j\}_{j\in J} \cup \{X\setminus Z\}$ covers $X$. Then $\{U_j\}_{j\in J}$ covers $Z$, hence $\{Z\cap U_j\}_{j\in J}$ is a finite subcover of $Z$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{I}\label{3.6.I}
+\begin{proof}
+    On one hand, suppose $\frkp\in \Spec A$ is a closed point, so there is an ideal $I$ such that $\{\frkp\} = V(I)$. Because there is a maximal ideal $\frkm$ containing $I$, we see $\frkm\in V(I)$, and thus $\frkp=\frkm$ so $\frkp$ is maximal.
+
+    Conversely, if $\frkm\in \Spec A$ is maximal, then $\{\frkm\}=V(\frkm)$ because no prime can contain $\frkm$ other than itself.
+\end{proof}
+\subsubsection{J}\label{3.6.J}
+\begin{proof}
+    \begin{enumerate}[(a)]
+        \item As suggested, we will show that for any $f\in A\setminus \frkN(A)$, $D(f)$ contains a maximal ideal. We notice that $A_f$ is a finitely generated $k$-algebra as well by the map $k[x_1,\dots,x_{n+1}]\twoheadrightarrow A_f$ sending $x_i$ to $\phi(x_i)$ (where $\phi:k[x_1,\dots,x_n]\twoheadrightarrow A$ by hypothesis) for each $1\le i \le n$, and $x_{n+1}\mapsto \frac{1}{f}$. In addition, $A_f\ne 0$ else $0=1$ in $A_f$, which would imply that $f^m=0$, or equivalently $f\in \frkN(A)=\bigcap_{\frkp \in \Spec A} \frkp$ by Exercise \ref{3.2.S}S, i.e. $D(f)=\emptyset$. Then there exists a maximal $\frkm \in \Spec A_f \cong D(f)$ by Exercise \ref{3.2.N}N. We will show that $\frkm \cap A \in D(f)$ is maximal, which would prove the desired result.
+        
+        Notice that if $A\hookrightarrow B \hookrightarrow C$ is a chain of subrings and $A\hookrightarrow C$ is a module-finite extension, then $B\hookrightarrow C$ is also a module-finite extension. Then as we have the chain of inclusions $k\hookrightarrow A/(\frkm \cap A) \hookrightarrow A_f/\frkm$ and $A_f/\frkm$ is a finite field extension of $k$ by the Nullstellensatz, it follows that $A_f/\frkm$ is a finite $A/(\frkm\cap A)$-module, or equivalently $A/(\frkm \cap A) \hookrightarrow A_f/\frkm$ is an integral extension. By Theorem 5.7 of \cite{Atiyah-Macdonald}, stating that if $A\hookrightarrow B$ is an integral extension of rings, then $A$ is a field if and only if $B$ is. We then get that $A/(\frkm \cap A)$ is a field, i.e. $\frkm \cap A$ is maximal as needed.
+        \item We will show the $k$-algebra $k[x]_{(x)}$ does not have its closed points dense. By Exercise \ref{3.4.K}K, we have $\Spec k[x]_{(x)}=\{0, (x)\}$. Then $D(x)=\{0\}$, and $0$ is not a closed point by Exercise \ref{3.6.I}I since $0$ is not maximal. Then $0\in \Spec k[x]_{(x)}$ has a neighborhood $D(x)$ with no closed point.
+    \end{enumerate}
+\end{proof}
+\subsubsection{K}\label{3.6.K}
+\begin{proof}
+    If $f \ne g$ in $A$, then $f-g\ne 0$, and as $\frkN(A)=0$, we have $D(f-g)\ne \emptyset$ (a distinguished open subset is empty if and only if the element is nilpotent by Exercise \ref{3.2.S}S). By Exercise \ref{3.6.J}J(a), there is a maximal ideal $\frkm \in D(f-g)$. Then $f-g\not \equiv 0 \mod \frkm$, so $f\not \equiv g \mod \frkm$, so $f$ and $g$ differ at a closed point. Note there was no need for the algebraically closed assumption.
+\end{proof}
+\subsubsection{L}\label{3.6.L}
+\begin{proof}
+    For one direction, assuming $\frkq$ is a specialization of $\frkp$ if and only if $\frkq \in \bigcap_{V(I) \ni \frkp} V(I)=\overline{\{\frkp\}}$, then $\frkq \in V(\frkp)$, i.e. $\frkq \supset \frkp$.
+
+    Conversely if $\frkq \supset \frkp$, then for any $V(I)$ containing $\frkp$, we would then see $\frkq \supset \frkp \supset I$, hence $\frkq \in V(I)$ as well. Then $\frkq \in \bigcap_{V(I) \ni \frkp} V(I) = \overline{\{\frkp\}}$.
+
+    Then $\frkq \in V(\frkp)$ if and only if $\frkq \supset \frkp$ if and only if $\frkq \in \overline{\{\frkp\}}$, hence $V(\frkp)=\overline{\{\frkp\}}$.
+    
+\end{proof}
+\subsubsection{M}\label{3.6.M}
+\begin{proof}
+    By Exercise \ref{3.6.L}L, it suffices to show $(y-x^2)$ is prime. But $\C[x,y]/(y-x^2)\cong \C[x]$ is a domain is equivalent to $(y-x^2)$ being prime.
+\end{proof}
+\subsubsection{N}\label{3.6.N}
+\begin{proof}
+    Letting $q\in K$ be arbitrary, we have $K=\overline{\{p\}}=\{p\} \cup \{p\}'$ where here $\{p\}'$ denotes the set of limit points of $\{p\}$, i.e. the set of all elements of $X\setminus \{p\}$ whose neighborhoods all contain $p$. Then either $q=p$ or every neighborhood of $q$ contains $p$, and in either event the claim holds.
+
+    Now for any $q\in X\setminus K$, as $K$ is closed, $X\setminus K$ is a neighborhood of $q$ not containing $p$.
+\end{proof}
+\subsubsection{O}\label{3.6.O}
+\begin{proof}
+    Fix $p\in X$, and let $I$ be the set of irreducible subsets of $X$ containing $p$, partially ordered by inclusion. If $Z_1\subset Z_2 \subset \dots$ is a chain in $I$, there is an upper bound in $I$, namely $Z=\bigcup_i Z_i$. This is irreducible because if we have some closed $U,V\subset X$ where $U\cap Z\subsetneq Z$ and $V\cap Z\subsetneq Z$, then for large indices $i$, $U\cap Z_i \subsetneq Z_i$ and $V\cap Z_i \subsetneq Z_i$ because $U\cap Z = U\cap \bigcup_i Z_i = \bigcup_i U\cap Z_i$ (the same is true replacing $U$ by $V$). 
+    
+    Then we cannot write $Z=(U\cap Z) \cup (V\cap Z)$, else we would get
+    \[
+    Z_i=Z_i \cap Z = Z_i \cap ((U\cup V)\cap Z)=(U\cap Z_i)\cup (V\cap Z_i)
+    \]
+    for all $i$, a contradiction to the irreducibility of $Z_i$ for large $i$.
+
+    Then Zorn's Lemma gives an irreducible set $Z$ containing $p$, maximal in $I$. Then if $Z'\supset Z$ and $Z'$ is irreducible, then $p\in Z\subset Z'$ implies $Z'\in I$ so by maximality $Z'=Z$. Thus $Z$ is a maximal irreducible subset that also contains $p$, i.e. an irreducible component containing $p$.
+\end{proof}
+\subsubsection{P}\label{3.6.P}
+\begin{proof}
+    By the Hilbert Basis theorem 3.6.17, $\C[x,y]$ is a Noetherian ring. Then by Exercise \ref{3.6.T}T
+    we get that $\A^2_\C$ is a Noetherian topological space.
+
+    However, $\C^2$ with the classical topology is not Noetherian because for each $n\in \N$, $S_n=\{ (z,0)\in \C^2\mid z\in \N_{\ge n}\}$ is closed since for any $(z_1,z_2)\in \C^2\setminus S_n$, if $z_2\ne 0$ we take $B_{|z_2|}(z_1,z_2)$ which does not even intersect $\C\times \{0\}$, and if $z_2=0$, then $z_1\notin \N_{\ge n}$, in which case we may find the integer $m$ closest to $z_1$, and then $B_{|z_1-m|}(z_1,0)$ does not even intersect $\Z \times \{0\}$. Then we have $$S_1\supsetneq S_2\supsetneq S_3 \supsetneq \dots,$$showing $\C^2$ is not Noetherian.
+\end{proof}
+\subsubsection{Q}\label{3.6.Q}
+\begin{proof}
+    \begin{enumerate}[(i)]
+        \item To show that every connected component of a topological space $X$ is the union of irreducible components of $X$, we first recall Remark 3.6.13, which says that connected components are closed. Thus closed subsets of a connected component $C$ of $X$ are just closed subsets of $X$ contained in $C$. Now by Exercise \ref{3.6.O}O, we can write $C=\bigcup_i Z_i$ where each $Z_i \subset C$ is an irreducible component of $C$. We will now show that each $Z_i$ is actually an irreducible component of $X$. 
+        
+        For any fixed index $i$, suppose $Z_i = U \cup V$ where $U$ and $V$ are closed subsets of $X$. It follows that $U$ and $V$ are closed subsets of $C$, and thus by irreduciblility of $Z_i$ in $C$, we get $U=Z_i$ or $V=Z_i$, so $Z_i$ is an irreducible closed subset of $X$. Now suppose we have some irreducible component $Z$ of $X$ containing $Z_i$. Supposing for a contradiction that $Z_i\subsetneq Z$, then we see $Z\nsubset C$, else we would contradict maximality of $Z_i$ in $C$. Then $Z\cup C$ must be disconnected because $C$ is a connected component, so $Z\cup C = (U \cap (Z\cup C)) \sqcup (V \cap (Z\cup C))$ for some open $U,V$ in $X$ with $U\cap (Z\cup C) \ne \emptyset$ and $V\cap (Z\cup C) \ne \emptyset$. In other words, $Z\cup C\subset U\cup V$ and $U\cap V \subset X\setminus (Z\cup C)$. In particular, $Z\subset U\cup V$ and $U\cap V \subset X\setminus Z$. Hence $U\cap Z \ne \emptyset$ because otherwise we would have $Z\cup C = (U\cap C)\sqcup (V\cap(Z\cup C))$, so by intersecting each side with $C$, we have $C=(U\cap C) \sqcup (V\cap C)$ and $U\cap C\ne \emptyset$ implies that $V\cap C = \emptyset$ by connectedness of $C$. However, having $U$ and $V$ cover $Z\cup C$ and being disjoint on $Z\cup C$ is impossible because $\emptyset \ne Z_i \subset Z\cap C$, and so for an element $x\in Z_i$, we get $x\in U$ or $x\in V$, but then as $x\in Z\cap C$, we get $U\cap Z \ne \emptyset$ or $V\cap C \ne \emptyset$, a contradiction. Similarly, it must be that $V\cap Z \ne \emptyset$. But then we have $Z=(U\cap Z)\sqcup (V\cap Z)$ with each side nonempty, which contradicts Exercise \ref{3.6.D}D.
+
+        We have now proven that $Z_i=Z$, so $Z_i$ is indeed an irreducible component of $X$, which gives the result since the index $i$ was arbitrary.
+
+        \item Now suppose $U$ is simultaneously closed and open in $X$. For each $p\in X$, there is a connected component $Z_p$ of $X$ containing $p$. Then $U\subset \bigcup_{p\in U} Z_p$. For fixed $p\in U$, $Z_p\cap U$ is an open subset of $Z_p$. In addition, $Z_p \cap (X\setminus U)$ is an open subset of $Z_p$ (because $p \notin X\setminus U$ but $p\in Z_p$). But now we see that
+        \[
+        (Z_p \cap U) \cup (Z_p \cap (X\setminus U)) = Z_p
+        \]
+        and
+        \[
+        (Z_p \cap U) \cap (Z_p \cap (X\setminus U)) = \emptyset,
+        \]
+        so as 
+        \[
+        Z_p = (Z_p \cap U) \sqcup (Z_p \cap X\setminus U),
+        \]
+        either $Z_p \cap U = \emptyset$ or $Z_p \cap X\setminus U= \emptyset$ by connectedness of $Z_p$. But $p\in Z_p\cap U$ implies that the latter intersection is empty, or equivalently $Z_p\subset U$. As $p\in U$ was arbitrary, we get $U=\bigcup_{p\in U} Z_p$.
+        \item Now suppose $X$ is a Noetherian topological space. Each connected component of $X$ can be written uniquely as a finite union of irreducible subsets of $X$ contained in the connected component by Proposition 3.6.15 and (i), and as $X$ has only finitely many irreducible components by the same proposition, it follows that $X$ only has finitely many connected components because distinct connected components are disjoint. Then $X=\coprod_{i=1}^n Z_i$ where each $Z_i$ is a connected component of $X$ (and hence closed). Thus any union of connected components is both open and closed (a finite union of closed subsets whose complement is also a finite union of closed subsets).
+    \end{enumerate}
+\end{proof}
+\subsubsection{R}\label{3.6.R}
+\begin{proof}
+    Immediate by Exercise \ref{3.6.S}S.
+\end{proof}
+\subsubsection{S}\label{3.6.S}
+\begin{proof}
+    First suppose the ascending chain condition fails, so there is an infinite ascending chain $I_1 \subsetneq I_2 \subsetneq \dots$ of ideals in $A$. Then $I=\bigcup_{n=1}^\infty I_n$ cannot be finitely generated; otherwise $I = (f_1, \dots, f_k)$ for some $f_1,\dots, f_k\in A$. Moreover, there exists some $m\in \N$ such that each $f_j \in I_m$ because each $f_i$ is in $I=\bigcup_{n=1}^\infty I_n$. Then for each $n\ge m$, we have $$I_n\supset I_m \supset (f_1,\dots,f_k)=\bigcup_{l=1}^\infty I_l \supset I_n$$ so $I_n=I_m$, and thus the chain becomes stationary past $m$. This is a contradiction, so $I$ is not finitely generated.
+
+    
+
+    Conversely, if there is an ideal $I$ of $A$ that is not finitely generated, we inductively define $f_1=0$, and for $n\in \N$, letting $I_n=(f_1,\dots, f_n)$, pick $f_{n+1} \in I\setminus I_n$ (such an element must always exist otherwise we get a finite generating set for $I$, which is impossible by assumption). Then we have constructed an infinite ascending chain $$I_1 \subsetneq I_2 \subsetneq \dots,$$ demonstrating the ascending chain condition on ideals fails.
+\end{proof}
+\subsubsection{T}\label{3.6.T}
+\begin{proof}
+    By Exercise \ref{3.4.B}B, we may take
+    \[
+    V(I_1)\supset V(I_2)\supset \dots
+    \]
+    to be an arbitrary descending chain of closed subsets in $\Spec A$ where each $I_n$ is an ideal of $A$. For arbitrary ideal $I,J$ of $A$, Exercise \ref{3.4.F}F tells us that $\sqrt{I}=\bigcap_{\frkp \supset I} \frkp$, so we see $V(I)\subset V(J)$ if and only if $\sqrt{I}\supset \sqrt{J}$. The forward direction is clear since the set of primes being intersected for $\sqrt{I}$ is contained in the set of primes being intersected for $\sqrt{J}$. For the backward direction, assume we have some $\frkp\in V(I)$ and that $\sqrt{I}\supset \sqrt{J}$. Then
+    \[
+    \frkp \supset \sqrt{I}\supset \sqrt{J} \supset J
+    \]
+    so $\frkp \in V(J)$ as well. Then we have an infinite ascending chain 
+    \[
+    \sqrt{I_1}\subset \sqrt{I_2}\subset \dots
+    \]
+    of ideals in $A$, which by hypothesis stabilizes at some $m\in \N$. Then for every $k\ge m$, $\sqrt{I_m}=\sqrt{I_k}$ implies that $V(I_m)=V(I_k)$, so the chain of closed sets stabilizes at $m$.
+
+    For a ring $A$ with $\Spec A$ not a Noetherian space, we let $A=k[x_1,x_2,\dots]$ for $k$ a field. Then $\Spec A$ contains the descending chain
+    \[
+    V(x_1)\supsetneq V(x_1,x_2)\supsetneq V(x_1,x_2,x_3)\supsetneq \dots
+    \]
+    where $V(x_1,\dots,x_n)\supsetneq V(x_1,\dots, x_{n+1})$ because both $(x_1,\dots, x_n)$ and $(x_1,\dots, x_{n+1})$ are prime (and hence primary), we see $(x_1,\dots, x_n)\subsetneq  (x_1, \dots, x_{n+1})$ implies $V(x_1, \dots, x_n) \supsetneq V(x_1, \dots, x_{n+1})$.
+\end{proof}
+\subsubsection{U}\label{3.6.U}
+\begin{proof}
+    Suppose $X$ is a topological space and $A\subset X$ is any subspace. We will show that if $A$ is not Noetherian, then neither is $X$. By assumption, there exists an infinite descending chain $A \cap Z_1 \supsetneq A\cap Z_2 \supsetneq \dots$ where each $Z_i$ is closed in $X$. %Then for each $n\in \N$, $A\cap Z_n \supsetneq A\cap Z_{n+1}$ implies there exists some $x\in X$ such that for every $i$
+    Then for each $n\in \N$,
+    \[
+    \bigcap_{i=1}^{n+1} Z_i\subsetneq \bigcap_{i=1}^n Z_i,
+    \]
+    where containment is clear, and the containment must be proper else we would see that
+    \[
+    A\cap Z_{n+1}= \bigcap_{i=1}^{n+1} A \cap Z_i = A \cap \bigcap_{i=1}^{n+1} Z_i = A \cap \bigcap_{i=1}^n Z_i = \bigcap_{i=1}^n A\cap Z_i = A\cap Z_n,
+    \]
+    contradicting our assumptions. Then we have an infinite descending chain
+    \[
+    Z_1 \supsetneq Z_1 \cap Z_2 \supsetneq Z_1 \cap Z_2 \cap Z_3 \supsetneq \dots
+    \]
+    of closed sets in $X$.
+\end{proof}
+\subsubsection{V}\label{3.6.V}
+\begin{proof}
+    The equivalence of the ascending chain condition on submodules and every submodule being finitely generated is a direct generalization of Exercise \ref{3.6.S}S by replacing ``ideal" by ``submodule" and the elements $f_i \in A$ instead by elements in the $A$-module $M$.
+\end{proof}
+\subsubsection{W}\label{3.6.W}
+\begin{proof}
+    Suppose 
+    \[
+    0\to M' \to M \to M'' \to 0
+    \]
+    is an exact sequence of $A$-modules (and we will take $M'\subset M$ and $M''=M/M'$ by the first isomorphism theorem). Given an ascending chain of submodules $M_1\subset M_2 \subset \dots$ of $M$, we get two more chains
+    \[
+    M_1\cap M' \subset M_2 \cap M' \subset \dots
+    \]
+    and
+    \[
+    M_1+M' \subset M_2+M'\subset \dots
+    \]
+    of submodules of $M'$ and $M''$ respectively. Then assuming $M'$ and $M''$ are both Noetherian $A$-modules, there is some $m\in \N$ such that both chains have stabilized at $m$. In addition, we have a short exact sequence in $\Com_A:$
+    \begin{center}
+        \begin{tikzcd}
+            & \vdots\ar{d}& \vdots \ar{d}& \vdots \ar{d} &  \\
+            0 \ar{r}& M_i \cap M' \ar{r} \ar[d]& M_i \ar{r}\ar[d]& M_i+M' \ar{r}\ar[d]&0\\
+            0 \ar{r} & M_{i+1} \cap M' \ar[d]\ar{r}& M_{i+1} \ar{r}\ar[d]& M_{i+1}+M' \ar{r}\ar[d]&0\\
+             &\vdots&\vdots&\vdots&
+        \end{tikzcd}
+    \end{center}
+    where commutativity of the left square is because each map is simply an inclusion, and each path of the right square sends an element $m\in M_i$ to $m+M'$. Then for $n \ge m$, the below diagram commutes and is exact on the horizontals:
+    \begin{center}
+        \begin{tikzcd}
+            0 \ar{r}& M_m \cap M' \ar{r} \ar[d, "\id"]& M_m \ar{r}\ar[d]& M_m+M' \ar{r}\ar[d, "\id"]&0\\
+            0 \ar{r} & M_{n} \cap M'\ar{r}& M_{n} \ar{r}& M_{n}+M' \ar{r}&0.
+        \end{tikzcd}
+    \end{center}
+    By the five lemma, we see that $M_m\to M_n$ is also an isomorphism, and being an inclusion, it is the identity. Thus the original chain $M_1\subset M_2 \subset \dots $ stabilizes at $m$.
+
+    Conversely, since submodules of $M'$ are submodules of $M$ and submodules of $M''$ correspond to submodules of $M$ containing $M'$ by the lattice isomorphism theorem, it's clear that if $M$ is Noetherian than so too are $M'$ and $M''$.
+\end{proof}
+\subsubsection{X}\label{3.6.X}
+\begin{proof}
+    We will show that if $M$ and $N$ are Noetherian $A$-modules, than $M\oplus N$ is also a Noetherian $A$-module. We get a short exact sequence
+    \[
+    0\to M\oplus 0\to M\oplus N \to 0\oplus N \to 0,
+    \]
+    and immediately notice that $M\oplus 0$ and $0\oplus N$ are both Noetherian, being isomorphic to $M$ and $N$ respectively. Then by Exercise \ref{3.6.W}W, we get that $M\oplus N$ is also Noetherian.
+
+    By induction, any finite direct sum of Noetherian modules is Noetherian, and because a ring $A$ is a Noetherian $A$-module if and only if $A$ is a Noetherian ring, we immediately get that $A^{\oplus n}$ is Noetherian.
+\end{proof}
+\subsubsection{Y}\label{3.6.Y}
+\begin{proof}
+    Suppose $A$ is a Noetherian ring and $M$ is finitely generated by $f_1,\dots, f_n$ as an $A$-module. Given an ascending chain $M_1\subset M_2 \subset \dots$ of submodules of $M$, for each index $k$ we let $I_k = \{a_1\oplus \dots \oplus a_n \in A^{\oplus n} \mid a_1f_1 + \dots + a_n f_n \in M_k \}$. Each $I_k$ is a submodule of $A^{\oplus n}$, and we also notice that for any $m\ge k$, $I_m \supset I_k$. Thus the ascending chain of ideals
+    \[
+    I_1 \subset I_2 \subset \dots
+    \]
+    stabilizes at some $m\in \N$ because $A^{\oplus n}$ is a Noetherian $A$-module by Exercise \ref{3.6.X}X. Thus for indices $k\ge m$, we take $\sum_{i=1}^n a_i f_i \in M_k$ to be an arbitrary element because every element of $M$ (and thus any of the $M_i$'s) can be written as an $A$-linear combination of the $f_i$'s. Then $a_1\oplus \dots \oplus a_n \in I_k = I_m$, so by definition of $I_m$ we get $\sum_{i=1}^n a_i f_i \in M_m$ as well, thus showing $M_k= M_m$ so the chain has stabilized at $m$.
+\end{proof}
+\subsection{}
+\subsubsection{A}\label{3.7.A}
+\begin{proof}
+    We claim $I(S)=(y)\cap (x,y-1)=(xy, y^2-y)$. It's clear that $\supset$ holds, so our job is to show $\subset$. Thinking of elements of $k[x,y]$ as elements of $k[x] [y]$, we take an arbitrary element
+    \[
+    \sum_{i=0}^m P_i(x)y^i +(y-1) \sum_{j=0}^n Q_j(x) y^j = \sum_{i=0}^m \left(P_i y^i \right) + Q_n y^{n+1}+ \sum_{j=0}^{n-1} \left( (Q_j - Q_{j+1})y^{j+1} \right) - Q_0
+    \]
+    of $(x,y-1)$ (so each $P_i$ is divisible by $x$), and furthermore assume that this element is divisible by $y$, i.e. that $P_0=Q_0$ so there are no monomials appearing without $y$. As $x\mid P_0$, we see $x\mid Q_0$ as well. We may now rewrite our element as
+    \[
+    \sum_{i=1}^m (P_i y^i) +Q_n y^{n+1}+\sum_{j=0}^{n-1}(Q_j-Q_{j+1})y^{j+1}=\sum_{i=1}^m (P_i y^i) +Q_n y^{n+1}+\sum_{j=1}^{n-1}\left((Q_j-Q_{j+1})y^{j+1}\right)-Q_1y+Q_0y.
+    \]
+    We notice that $xy \mid \sum_{i=1}^m P_i y^i$, and $xy\mid Q_0 y$ as well. Lastly,
+    \[
+    Q_n y^{n+1}+\sum_{j=1}^{n-1}\left((Q_j-Q_{j+1})y^{j+1}\right)-Q_1y =(y^2-y) \sum_{j=0}^{n-1} Q_{j+1} y^j,
+    \]
+    showing our arbitrary element is in $(xy, y^2-y)$.
+\end{proof}
+\subsubsection{B}\label{3.7.B}
+\begin{proof}
+    We claim $I(S)=(x,y)\cap (x,z)\cap (y,z) = (xy, xz, yz)$, where $\supset$ is clear. We take
+    \[
+    \sum_{l=0}^n \sum_{i+j+k=l} a_{ijk} x^i y^j z^k
+    \]
+    to be an element of $(x,y)\cap (x,z)\cap (y,z)$. It must then be that
+    \[
+    \sum_{i=0}^n a_{i00} x^i =0
+    \]
+    i.e. each $a_{i00} = 0$ by considering our element mod $(y,z)$. Similarly each $a_{0j0}=0$ and each $a_{00k}=0$ by considering our element mod $(x,z)$ and $(x,y)$ respectively. For each $0\le l \le n$, let $\varphi_l$ denote the set of all nonnegative integers $i,j,k$ with $i+j+k=l$, not $j=k=0$ and not $i=k=0$ and not $i=j=0$. Then we can rewrite our element as
+    \[
+    \sum_{l=0}^n \sum_{\varphi_l} a_{ijk} x^i y^j z^k.
+    \]
+    For any $l$ and any $i,j,k\in \varphi_l$, we notice that if $i\ne 0$, then also $j\ne 0$ or $k\ne 0$, so $x^i y^j z^k$ is divisible by either $xy$ or $xz$. If $i=0$, then $j\ne 0$ and $k\ne 0$, so $yz \mid x^iy^jz^k$. Then as each term of our element is in the ideal $(xy, xz, yz)$, our entire element is in the ideal.
+\end{proof}
+\subsubsection{C}\label{3.7.C}
+\begin{proof}
+    For a subset $S\subset \Spec A$, we want to show $V(I(S))=\bar S = S\cup S'=\bigcap_{V(I)\supset S} V(I)$, where $S'$ is the set of limit points of $S$ in $\Spec A$. If $\frkp\notin V(I(S))$, i.e. $\frkp \not \supset \bigcap_{\frkq \in S} \frkq$, then clearly $\frkp \notin S$, and there exists some $f\in \bigcap_{\frkq \in S} \frkq \setminus \frkp$. We then see $D(f)$ does not intersect $S$, but simultaneously $\frkp \in D(f)$, so $\frkp$ is not a limit point for $S$ either. Thus $\frkp \notin \bar S$.
+
+    Conversely, if $\frkp \notin \bar S$, then there is some $V(I) \supset S$ with $\frkp \notin V(I)$. Then for each $\frkq \in S$, we have $\frkq \supset I$ implies that $I(S) \supset I$ as well. Because $V(\cdot)$ is inclusion reversing, we then have
+    \[
+    V(I(S))\subset V(I),
+    \]
+    and as $\frkp \notin V(I)$, we get $\frkp \notin V(I(S))$.
+\end{proof}
+\subsubsection{D}\label{3.7.D}
+\begin{proof}
+    Exercise \ref{3.4.J}J tells us that $f\in \sqrt{J}$ if and only if $f\in \bigcap_{\frkp \supset J} \frkp$, or equivalently $f\in I(V(J))$.
+\end{proof}
+\subsubsection{E}\label{3.7.E}
+\begin{proof}
+    Notice that $J=(x^2+y^2-1,y-1)=(x^2, y-1)$ since $y^2-1=(y+1)(y-1)$. Thus $x\notin J$ (else $J$ would be the maximal ideal $(x,y-1)$, but $k[x,y]/(x^2,y-1) \cong k[x]/(x^2)$ is not even a domain), but $x\in I(V(J))$ because $I(V(J))=\sqrt{J}$ by Exercise \ref{3.7.D}D, and $x^2 \in J$ means $x\in \sqrt{J}$.
+\end{proof}
+\subsubsection{F}\label{3.7.F}
+\begin{proof}
+    Exercises \ref{3.7.C}C and \ref{3.7.D}D tell us that $V(I(S))=\bar S$ and $I(V(J))=\sqrt{J}$, we know prime ideals are radical, and Theorem 3.7.1 tells us that $V(\cdot)$ and $I(\cdot)$ are inclusion reversing bijections between closed subsets of $\Spec A$ and radical ideals of $A$. Thus it suffices to show that $V(\cdot)$ takes prime ideals of $A$ to irreducible closed subsets of $\Spec A$, and that $I(\cdot)$ takes irreducible closed subsets of $\Spec A$ to prime ideals of $A$.
+
+    Let $S\subset \Spec A$ be any subspace. If $I(S)$ is not prime, there are primes $\frkp, \frkq \in S$ and some $f\notin \frkp$ and $g\notin \frkq$ with $fg\in I(S)$. But then we have nonempty open subsets $D(f)\cap S$ and $D(g)\cap S$ with $D(f)\cap D(g) \cap S=D(fg)\cap S=\emptyset$ (the second equality is by Exercise \ref{3.5.D}D). Having two nonempty open subsets that do not intersect means $S$ is reducible by 3.6.4. Thus $I(\cdot)$ takes irreducible closed subsets of $\Spec A$ to prime ideals.
+
+    Now suppose $V(J)$ is reducible, so there exist $f,g\in A$ with $D(f)\cap V(J)$ and $D(g)\cap V(J)$ both nonempty, and $D(fg)\cap V(J)=\emptyset$. The last condition is equivalent to the statement that $fg\in \sqrt{J}$ by Exercise \ref{3.4.F}F. Then $J$ cannot be prime, else $J=\sqrt{J}$, and then $fg\in J$ means $f\in J$ or $g\in J$ by primeness, which contradicts that $D(f)\cap V(J)$ and $D(g)\cap V(J)$ are nonempty. Thus $V(\cdot)$ takes prime ideals to irreducible sets, and it's clear $V(\cdot)$ takes prime ideals to closed subsets.
+
+    Because prime ideals are by definition the points of $\Spec A$, we get a bijection between points of $\Spec A$ and irreducible closed subsets of $\Spec A$. For any point $\frkp \in \Spec A$, we have $I(\{\frkp \})= \frkp$, and thus $V(\frkp)=\overline{\{\frkp\}}$ is the described bijection.
+
+    
+\end{proof}
+\subsubsection{G}\label{3.7.G}
+\begin{proof}
+    Given an irreducible component $S\subset \Spec A$, then $I(S)$ must be a minimal prime. To see this, if $\frkq \subset I(S)$ ($\frkq \in \Spec A$), then $S=\bar S = V(I(S))\subset V(\frkq)$ by Exercise \ref{3.7.C}C, and $V(\frkq)$ is an irreducible closed subset by Exercise \ref{3.7.F}F. Then by maximality of $S$ amongst the irreducible subsets, we see that $S=V(\frkq)$. By applying the inverse $I(\cdot)$ to both sides, we get $I(S)=\frkq$, so indeed $I(S)$ is a minimal prime.
+
+    Conversely if $\frkq \in \Spec A$ is a minimal prime, then $V(\frkp)$ is an irreducible closed subset. To see this, if $S$ is an irreducible subset of $\Spec A$ containing $V(\frkp)$, then $\bar S$ is also irreducible by Exercise \ref{3.6.B}B, and then by the bijection described in Exercise \ref{3.7.F}F, we get
+    \[
+    I(\bar S) \subset I(S)  \subset I(V(\frkp))=\frkp
+    \]
+    implies by minimality of $\frkp$ that $I(\bar S)=\frkp$. Then applying the inverse $V(\cdot)$, we get $\bar S = V(\frkp)$, so
+    \[
+    V(\frkp)\subset S \subset \bar S = V(\frkp)
+    \]
+    shows $V(\frkp)=S$, so indeed $V(\frkp)$ is maximal amongst irreducible subsets, and is thus an irreducible component.
+\end{proof}
+\subsubsection{H}\label{3.7.H}
+\begin{proof}
+    By Exercise \ref{3.7.G}G, we equivalently need to show that the minimal primes of $A=k[x_1,\dots,x_n]/(f)$ are the irreducible factors of $f$. Letting $f_1,\dots, f_m$ be the distinct irreducible factors of $f$. In a UFD (such as $k[x_1,\dots,x_n]$, irreducible elements are the same thing as prime elements. Because $\Spec A/f \cong V(f) \subset \A^n_k$, any prime $\frkp \in \Spec A/f$ must contain at least one $f_i$ (because $f=\prod_i f_i\in \frkp$, and $\frkp$ is prime). Now if we have some $\frkp \in V(f)$ contained in some $(f_i)$, i.e. we have the chain $(f)\subset \frkp \subset (f_i)$ in $k[x_1,\dots, x_n]$. If $f_i \notin \frkp$, then $f_j\in \frkp$ for some $j \ne i$, so then we get the chain
+    \[
+    (f)\subset (f_j) \subset \frkp \subset (f_i)
+    \]
+    thus implying $f_i \mid f_j$, contradicting that $f_i$ and $f_j$ are distinct irreducible factors. Thus indeed $f_i \in \frkp$, so $\frkp =(f_i)$, proving each $(f_i)$ is a minimal prime.
+
+    An if $\frkp \in V(f)$ is a minimal prime, as we noticed earlier, there is some $f_i \in \frkp$, so $(f_i)\subset \frkp$ implies by minimality that $\frkp = (f_i)$.
+
+    Thus we have show the minimal primes of $A/f$ are exactly the irreducible factors of $f$, and remark that the only important feature of $k[x_1,\dots, x_n]$ is that it is a UFD.
+\end{proof}
+\subsubsection{I}\label{3.7.I}
+\begin{proof}
+    By the proof of Exercise \ref{3.7.H}H, the minimal primes of $k[x,y]/(xy)$ are the irreducible factors of $xy$, being $(x)$ and $(y)$.
+\end{proof}
+\printbibliography
+\end{document}
